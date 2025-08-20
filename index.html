@@ -308,6 +308,7 @@
   <div id="page-loader">
   <div id="loader-spinner"></div>
 </div>
+<!-- Navbar -->
 <nav class="navbar">
   <div class="nav-left">
     <a class="navbar-title">
@@ -317,30 +318,41 @@
   </div>
 
   <div class="nav-center">
+    <!-- Desktop Navigation Links -->
     <ul class="nav-links">
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle">Learn More <i class="bi bi-caret-down-fill"></i></a>
-        <ul class="dropdown-menu">
-          <li><a href="https://drive.google.com/file/d/1q4TPlEfB4oy-gtVEzhPevPQcetjvKkId/view?usp=drive_link" target="_blank">Finances in Zambia</a></li>
-          <li><a href="https://www.geeksforgeeks.org/data-science-for-beginners/" target="_blank">Data Science</a></li>
+        <a href="#" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+          Learn More <i class="bi bi-caret-down-fill dropdown-icon"></i>
+        </a>
+        <ul class="dropdown-menu" aria-label="submenu">
+          <li><a href="https://drive.google.com/file/d/1q4TPlEfB4oy-gtVEzhPevPQcetjvKkId/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Finances in Zambia</a></li>
+          <li><a href="https://www.geeksforgeeks.org/data-science-for-beginners/" target="_blank" rel="noopener noreferrer">Data Science</a></li>
         </ul>
       </li>
       <li><a href="index.html" class="active"><i class="bi bi-house-door"></i> Home</a></li>
       <li><a href="#about"><i class="bi bi-person-circle"></i> About</a></li>
-      <li><a href="#Contact"><i class="bi bi-telephone-forward"></i> Contact</a></li>
+      <li><a href="#contact"><i class="bi bi-telephone-forward"></i> Contact</a></li>
     </ul>
-
-    <!-- Mobile hamburger icon -->
+    <!-- Hamburger menu icon for mobile -->
     <i class="mobile-menu-open bi bi-list" aria-label="Open menu" role="button" tabindex="0"></i>
   </div>
 
   <div class="nav-right">
-    <div class="social-icons-navbar">
-      <a href="https://facebook.com" target="_blank"><i class="bi bi-facebook"></i></a>
-      <a href="https://twitter.com" target="_blank"><i class="bi bi-twitter-x"></i></a>
-      <a href="https://linkedin.com" target="_blank"><i class="bi bi-linkedin"></i></a>
-      <a href="https://www.instagram.com/billiat.kachembo" target="_blank"><i class="bi bi-instagram"></i></a>
-      <a href="mailto:billiatkachembo1@gmail.com"><i class="bi bi-envelope"></i></a>
+    <div class="nav-social-search">
+      <div class="social-icons-navbar">
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+        <a href="https://www.instagram.com/billiat.kachembo" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+        <a href="mailto:billiatkachembo1@gmail.com" aria-label="Email"><i class="bi bi-envelope"></i></a>
+      </div>
+      <form class="nav-search" action="/search" method="GET" role="search">
+        <input type="text" name="q" placeholder="Search..." aria-label="Search" />
+        <button type="submit">Search</button>
+      </form>
+      <button id="theme-toggle" aria-label="Toggle theme" type="button">
+        <i id="theme-icon" class="bi bi-moon"></i>
+      </button>
     </div>
   </div>
 </nav>
@@ -349,16 +361,11 @@
 <div class="mobile-menu">
   <i class="mobile-menu-close bi bi-x-lg" aria-label="Close menu" role="button" tabindex="0"></i>
   <ul class="mobile-menu-links">
-    <li><a href="index.html"><i class="bi bi-house-door"></i> Home</a></li>
+    <li><a href="index.html" class="active"><i class="bi bi-house-door"></i> Home</a></li>
     <li><a href="#about"><i class="bi bi-person-circle"></i> About</a></li>
-    <li><a href="#Contact"><i class="bi bi-telephone-forward"></i> Contact</a></li>
-    <li class="mobile-dropdown">
-      <a href="#" class="dropdown-toggle">Learn More <i class="bi bi-caret-down-fill"></i></a>
-      <ul class="mobile-dropdown-menu">
-        <li><a href="https://drive.google.com/file/d/1q4TPlEfB4oy-gtVEzhPevPQcetjvKkId/view?usp=drive_link" target="_blank">Finances in Zambia</a></li>
-        <li><a href="https://www.geeksforgeeks.org/data-science-for-beginners/" target="_blank">Data Science</a></li>
-      </ul>
-    </li>
+    <li><a href="#contact"><i class="bi bi-telephone-forward"></i> Contact</a></li>
+    <li><a href="https://drive.google.com/file/d/..." target="_blank" rel="noopener noreferrer">Finances in Zambia</a></li>
+    <li><a href="https://www.geeksforgeeks.org/data-science-for-beginners/" target="_blank" rel="noopener noreferrer">Data Science</a></li>
   </ul>
   <div class="social-icons-navbar">
     <a href="https://facebook.com" target="_blank"><i class="bi bi-facebook"></i></a>
@@ -368,101 +375,104 @@
     <a href="mailto:billiatkachembo1@gmail.com"><i class="bi bi-envelope"></i></a>
   </div>
 </div>
+
+<!-- Overlay -->
 <div class="mobile-menu-overlay"></div>
 
 <style>
-/* Hide desktop nav on mobile */
-@media (max-width: 768px) {
-  .nav-links { display: none; }
-  .mobile-menu-open { display: block; font-size: 1.8rem; cursor: pointer; }
-}
+/* Navbar Desktop & Mobile */
+.nav-links { display: flex; list-style: none; gap: 1rem; }
+.nav-links li { position: relative; }
+.dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background: #fff; padding: 0.5rem 0; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+.dropdown:hover .dropdown-menu { display: block; }
+.nav-links a { text-decoration: none; color: #333; padding: 0.5rem 1rem; display: inline-block; }
+.nav-links a.active { color: #06c1db; }
 
-/* Hide mobile menu on desktop */
-@media (min-width: 769px) {
-  .mobile-menu, .mobile-menu-open, .mobile-menu-overlay { display: none; }
-}
-
-/* Mobile Menu */
+/* Mobile Menu Drawer */
 .mobile-menu {
   position: fixed;
-  top: 0; right: -80%; /* hidden offscreen */
-  width: 80%; /* right-side drawer */
-  max-width: 400px; 
+  top: 0;
+  right: -100%;
+  width: clamp(250px, 80%, 350px);
   height: 100%;
-  background: #fff;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow: -4px 0 12px rgba(0,0,0,0.2);
   padding: 1.5rem;
   transition: right 0.3s ease;
   z-index: 999;
   overflow-y: auto;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  -webkit-overflow-scrolling: touch;
 }
 .mobile-menu.active { right: 0; }
 
-/* Close button */
-.mobile-menu-close { font-size: 1.5rem; cursor: pointer; display: block; margin-bottom: 1rem; }
-
-/* Mobile Links */
-.mobile-menu-links { list-style: none; padding: 0; margin: 0; }
-.mobile-menu-links li { margin-bottom: 1rem; }
-.mobile-menu-links a { text-decoration: none; color: #333; font-weight: 500; display: flex; align-items: center; gap: 0.5rem; }
-.mobile-menu-links a:hover { color: #06c1db; }
-
-/* Mobile Dropdown */
-.mobile-dropdown-menu { display: none; list-style: none; padding-left: 1rem; margin-top: 0.5rem; }
-.mobile-dropdown-menu.active { display: block; }
-
 /* Overlay */
 .mobile-menu-overlay {
-  position: fixed; top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.4);
-  opacity: 0; visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  visibility: hidden;
   transition: opacity 0.3s ease;
   z-index: 998;
 }
 .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+
+/* Mobile Links */
+.mobile-menu-links { list-style: none; padding: 0; margin: 0; }
+.mobile-menu-links li { margin-bottom: 1rem; }
+.mobile-menu-links a { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #333; font-weight: 500; }
+.mobile-menu-links a:hover { color: #06c1db; }
+
+/* Social Icons */
+.social-icons-navbar { display: flex; gap: 1rem; margin-top: 2rem; }
+
+/* Hamburger Button */
+.mobile-menu-open { display: none; cursor: pointer; font-size: 1.6rem; }
+
+/* Hide desktop links on mobile */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .mobile-menu-open { display: block; }
+}
+@media (min-width: 769px) {
+  .mobile-menu, .mobile-menu-overlay { display: none; }
+}
 </style>
 
 <script>
-const menu = document.querySelector('.mobile-menu');
-const openBtn = document.querySelector('.mobile-menu-open');
-const closeBtn = document.querySelector('.mobile-menu-close');
+const mobileMenu = document.querySelector('.mobile-menu');
+const menuOpenBtn = document.querySelector('.mobile-menu-open');
+const menuCloseBtn = document.querySelector('.mobile-menu-close');
 const overlay = document.querySelector('.mobile-menu-overlay');
-const dropdowns = document.querySelectorAll('.mobile-dropdown .dropdown-toggle');
+const mobileLinks = document.querySelectorAll('.mobile-menu-links a');
 
-openBtn.addEventListener('click', () => {
-  menu.classList.add('active');
+menuOpenBtn.addEventListener('click', () => {
+  mobileMenu.classList.add('active');
   overlay.classList.add('active');
 });
 
-closeBtn.addEventListener('click', () => {
-  menu.classList.remove('active');
+menuCloseBtn.addEventListener('click', () => {
+  mobileMenu.classList.remove('active');
   overlay.classList.remove('active');
 });
 
 overlay.addEventListener('click', () => {
-  menu.classList.remove('active');
+  mobileMenu.classList.remove('active');
   overlay.classList.remove('active');
 });
 
-document.querySelectorAll('.mobile-menu a').forEach(link => {
+mobileLinks.forEach(link => {
   link.addEventListener('click', () => {
-    menu.classList.remove('active');
+    mobileMenu.classList.remove('active');
     overlay.classList.remove('active');
   });
 });
-
-dropdowns.forEach(toggle => {
-  toggle.addEventListener('click', e => {
-    e.preventDefault();
-    toggle.nextElementSibling.classList.toggle('active');
-  });
-});
 </script>
-
-
 
 
   <section id="home" class="hero-section">

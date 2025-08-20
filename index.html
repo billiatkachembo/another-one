@@ -317,6 +317,8 @@
         <span style="color: #21683e; margin-left: 0.5rem; font-family: 'Times New Roman', Times, serif; font-size: 1.6rem;">My Portfolio</span>
       </a>
     </div>
+    <!-- Mobile Menu Toggle Button -->
+<i class="bi bi-list mobile-menu-toggle" aria-label="Open menu" role="button" tabindex="0"></i>
 
     <div class="nav-center">
       <!-- Desktop Navigation Links -->
@@ -860,9 +862,17 @@ nav.addEventListener('wheel', (e) => {
 
     // --- Mobile Navigation Toggle ---
     // Added specific mobile menu logic
-    const mobileToggle = document.querySelector(".mobile-nav-toggle");
-    const mobileMenu = document.querySelector(".mobile-menu");
-    const mobileMenuClose = document.querySelector(".mobile-menu-close");
+   const mobileMenu = document.querySelector('.mobile-menu');
+  const openBtn = document.querySelector('.mobile-menu-toggle');
+  const closeBtn = document.querySelector('.mobile-menu-close');
+
+  openBtn.addEventListener('click', () => {
+    mobileMenu.classList.add('active');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    mobileMenu.classList.remove('active');
+  });
 
     
     

@@ -318,8 +318,6 @@
       </a>
     </div>
     <!-- Mobile Menu Toggle Button -->
-<i class="bi bi-list mobile-menu-toggle" aria-label="Open menu" role="button" tabindex="0"></i>
-
     <div class="nav-center">
       <!-- Desktop Navigation Links -->
       <ul class="nav-links">
@@ -364,28 +362,27 @@
     </div>
   </nav>
 
-  <!-- Mobile Navigation Menu (Hidden by default) -->
-  <div class="mobile-menu">
-    <i class="mobile-menu-close bi bi-x-lg" aria-label="Close menu" role="button" tabindex="0"></i>
-    <ul class="mobile-menu-links">
-      <li><a href="index.html" class="active"><i class="bi bi-house-door"></i> Home</a></li>
-      <li><a href="#about"><i class="bi bi-person-circle"></i> About</a></li>
-      <li><a href="#contact"><i class="bi bi-telephone-forward"></i> Contact</a></li>
-      <li>
-        <a href="https://drive.google.com/file/d/1q4TPlEfB4oy-gtVEzhPevPQcetjvKkId/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Finances in Zambia</a>
-      </li>
-      <li>
-        <a href="https://www.geeksforgeeks.org/data-science-for-beginners/" target="_blank" rel="noopener noreferrer">Data Science</a>
-      </li>
-    </ul>
-    <div class="social-icons-navbar">
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-          <a href="https://www.instagram.com/billiat.kachembo" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-          <a href="mailto:billiatkachembo1@gmail.com" aria-label="Email"><i class="bi bi-envelope"></i></a>
-        </div>
+ <i class="mobile-menu-open bi bi-list" aria-label="Open menu" role="button" tabindex="0"></i>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu">
+  <i class="mobile-menu-close bi bi-x-lg" aria-label="Close menu" role="button" tabindex="0"></i>
+  <ul class="mobile-menu-links">
+    <li><a href="index.html" class="active"><i class="bi bi-house-door"></i> Home</a></li>
+    <li><a href="#about"><i class="bi bi-person-circle"></i> About</a></li>
+    <li><a href="#contact"><i class="bi bi-telephone-forward"></i> Contact</a></li>
+    <li><a href="https://drive.google.com/file/d/..." target="_blank" rel="noopener noreferrer">Finances in Zambia</a></li>
+    <li><a href="https://www.geeksforgeeks.org/data-science-for-beginners/" target="_blank" rel="noopener noreferrer">Data Science</a></li>
+  </ul>
+  <div class="social-icons-navbar">
+    <a href="https://facebook.com" target="_blank"><i class="bi bi-facebook"></i></a>
+    <a href="https://twitter.com" target="_blank"><i class="bi bi-twitter-x"></i></a>
+    <a href="https://linkedin.com" target="_blank"><i class="bi bi-linkedin"></i></a>
+    <a href="https://www.instagram.com/billiat.kachembo" target="_blank"><i class="bi bi-instagram"></i></a>
+    <a href="mailto:billiatkachembo1@gmail.com"><i class="bi bi-envelope"></i></a>
   </div>
+</div>
+
 
   <section id="home" class="hero-section">
     <div class="hero-blob hero-blob-1"></div>
@@ -861,23 +858,44 @@ nav.addEventListener('wheel', (e) => {
     }
 
     // --- Mobile Navigation Toggle ---
-    // Added specific mobile menu logic
-   const mobileMenu = document.querySelector('.mobile-menu');
-  const openBtn = document.querySelector('.mobile-menu-toggle');
-  const closeBtn = document.querySelector('.mobile-menu-close');
+const mobileMenu = document.querySelector('.mobile-menu');
+const menuOpenBtn = document.querySelector('.mobile-menu-open');
+const menuCloseBtn = document.querySelector('.mobile-menu-close');
+const overlay = document.querySelector('.mobile-menu-overlay');
 
-  openBtn.addEventListener('click', () => {
-    mobileMenu.classList.add('active');
+function openMenu() {
+  mobileMenu.classList.add('active');
+  overlay.classList.add('active');
+}
+
+function closeMenu() {
+  mobileMenu.classList.remove('active');
+  overlay.classList.remove('active');
+}
+
+menuOpenBtn.addEventListener('click', openMenu);
+menuCloseBtn.addEventListener('click', closeMenu);
+overlay.addEventListener('click', closeMenu);
+  // Close menu with X button
+  menuClose.addEventListener("click", () => {
+    mobileMenu.classList.remove("active");
   });
 
-  closeBtn.addEventListener('click', () => {
-    mobileMenu.classList.remove('active');
+  // Close menu when any link is clicked
+  mobileLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      mobileMenu.classList.remove("active");
+    });
   });
 
-    
-    
-    if (mobileToggle && mobileMenu && mobileMenuClose) {
-        mobileToggle.addEventListener("click", () => {
+  // Close menu when clicking outside
+  document.addEventListener("click", (event) => {
+    if (!mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+      mobileMenu.classList.remove("active");
+    }
+  });
+    if (menuToggle && mobileMenu && menuClose) {
+        menuToggle.addEventListener("click", () => {
             mobileMenu.classList.add("active");
         });
 
@@ -1079,5 +1097,8 @@ document.querySelector(".map-toggle").addEventListener("click", function() {
 AOS.init();
 lucide.createIcons();
 </script>
+<!-- Overlay for mobile menu -->
+<div class="mobile-menu-overlay"></div>
+
 </body>
 </html>

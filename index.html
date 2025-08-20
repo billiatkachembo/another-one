@@ -318,29 +318,26 @@
 
   <div class="nav-center">
     <ul class="nav-links">
+      <li><a href="index.html" class="active"><i class="bi bi-house-door"></i> Home</a></li>
+      <li><a href="#about"><i class="bi bi-person-circle"></i> About</a></li>
+      <li><a href="#contact"><i class="bi bi-telephone-forward"></i> Contact</a></li>
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle">
-          Learn More <i class="bi bi-caret-down-fill"></i>
-        </a>
+        <a href="#">Learn More <i class="bi bi-caret-down-fill"></i></a>
         <ul class="dropdown-menu">
           <li><a href="https://drive.google.com/file/d/...">Finances in Zambia</a></li>
           <li><a href="https://www.geeksforgeeks.org/data-science-for-beginners/">Data Science</a></li>
         </ul>
       </li>
-      <li><a href="index.html" class="active"><i class="bi bi-house-door"></i> Home</a></li>
-      <li><a href="#about"><i class="bi bi-person-circle"></i> About</a></li>
-      <li><a href="#contact"><i class="bi bi-telephone-forward"></i> Contact</a></li>
     </ul>
-    <!-- Hamburger -->
-    <i class="mobile-menu-open bi bi-list" aria-label="Open menu"></i>
+    <i class="mobile-menu-open bi bi-list"></i>
   </div>
 
   <div class="nav-right">
     <div class="social-icons-navbar">
-      <a href="https://facebook.com" target="_blank"><i class="bi bi-facebook"></i></a>
-      <a href="https://twitter.com" target="_blank"><i class="bi bi-twitter-x"></i></a>
-      <a href="https://linkedin.com" target="_blank"><i class="bi bi-linkedin"></i></a>
-      <a href="https://www.instagram.com/billiat.kachembo" target="_blank"><i class="bi bi-instagram"></i></a>
+      <a href="https://facebook.com"><i class="bi bi-facebook"></i></a>
+      <a href="https://twitter.com"><i class="bi bi-twitter-x"></i></a>
+      <a href="https://linkedin.com"><i class="bi bi-linkedin"></i></a>
+      <a href="https://www.instagram.com/billiat.kachembo"><i class="bi bi-instagram"></i></a>
       <a href="mailto:billiatkachembo1@gmail.com"><i class="bi bi-envelope"></i></a>
     </div>
   </div>
@@ -367,12 +364,12 @@
 <div class="mobile-menu-overlay"></div>
 
 <style>
-/* Navbar Desktop */
+/* General Navbar */
 .navbar { display:flex; justify-content:space-between; align-items:center; padding:0.5rem 1rem; background:#fff; position:relative; z-index:1000; }
 .nav-links { display:flex; list-style:none; gap:1rem; }
 .nav-links a { text-decoration:none; color:#333; }
 .nav-links a.active { color:#06c1db; }
-.dropdown-menu { display:none; position:absolute; background:#fff; box-shadow:0 4px 8px rgba(0,0,0,0.1); margin-top:0.5rem; list-style:none; padding:0.5rem 0; }
+.dropdown-menu { display:none; position:absolute; background:#fff; list-style:none; padding:0.5rem 0; margin-top:0.5rem; box-shadow:0 4px 8px rgba(0,0,0,0.1);}
 .dropdown:hover .dropdown-menu { display:block; }
 .dropdown-menu li a { display:block; padding:0.25rem 1rem; color:#333; }
 

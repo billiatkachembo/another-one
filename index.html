@@ -691,6 +691,8 @@ nav.addEventListener('wheel', (e) => {
     </div>
   </section>
 
+  
+
   <section id="features" class="section-card section-tab-content">
     <h2>Mindset and Methods</h2>
     <div class="grid4">
@@ -882,6 +884,62 @@ nav.addEventListener('wheel', (e) => {
     </iframe>
   </div>
 </section>
+<style>
+/* Keep existing styles untouched, only adding mobile responsiveness */
+@media (max-width: 768px) {
+  #sub-menu-navigation .sub-menu-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, auto);
+    gap: 12px;
+    text-align: center;
+  }
+
+  /* Nav links: no boxes, centered */
+  #sub-menu-navigation .sub-menu-tab {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--foreground);
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 8px 0;
+    text-align: center;
+  }
+
+  /* Utility grids */
+  .grid4 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .activity-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-phones {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+</style>
+
 
   </section>
 

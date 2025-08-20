@@ -1592,6 +1592,30 @@ body {
     display: block;
   }
 }
+/* Mobile responsiveness with 2x3 grid */
+@media (max-width: 768px) {
+  .grid4,
+  #sub-menu-navigation .sub-menu-tabs,
+  .activity-grid,
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, auto);
+    gap: 12px;
+  }
+
+  #sub-menu-navigation .sub-menu-tab,
+  .activity-grid > div,
+  .benefits-grid > div {
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+    transition: all 0.3s ease;
+  }
+}
 
 /* Smooth transitions */
 .navbar, 

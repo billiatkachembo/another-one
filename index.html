@@ -329,7 +329,7 @@
         </ul>
       </li>
     </ul>
-    <i class="mobile-menu-open bi bi-list"></i>
+    <i class="mobile-menu-toggle bi bi-list"></i>
   </div>
 
   <div class="nav-right">
@@ -343,7 +343,6 @@
   </div>
 </nav>
 
-<!-- Mobile Menu & Overlay -->
 <div class="mobile-menu">
   <i class="mobile-menu-close bi bi-x-lg"></i>
   <ul class="mobile-menu-links">
@@ -390,10 +389,10 @@
 .mobile-menu-overlay.active { opacity:1; visibility:visible; }
 
 /* Hamburger Button */
-.mobile-menu-open { display:none; font-size:1.6rem; cursor:pointer; }
+.mobile-menu-toggle { display:none; font-size:1.6rem; cursor:pointer; }
 @media (max-width:768px){
   .nav-links { display:none; }
-  .mobile-menu-open { display:block; }
+  .mobile-menu-toggle { display:block; }
 }
 @media (min-width:769px){
   .mobile-menu, .mobile-menu-overlay { display:none; }
@@ -401,18 +400,32 @@
 </style>
 
 <script>
+// Use the new class name consistently
 const menu = document.querySelector('.mobile-menu');
-const openBtn = document.querySelector('.mobile-menu-open');
+const openBtn = document.querySelector('.mobile-menu-toggle');
 const closeBtn = document.querySelector('.mobile-menu-close');
 const overlay = document.querySelector('.mobile-menu-overlay');
 const links = document.querySelectorAll('.mobile-menu-links a');
 
-openBtn.addEventListener('click', () => { menu.classList.add('active'); overlay.classList.add('active'); });
-closeBtn.addEventListener('click', () => { menu.classList.remove('active'); overlay.classList.remove('active'); });
-overlay.addEventListener('click', () => { menu.classList.remove('active'); overlay.classList.remove('active'); });
-links.forEach(link => { link.addEventListener('click', () => { menu.classList.remove('active'); overlay.classList.remove('active'); }); });
+openBtn.addEventListener('click', () => { 
+  menu.classList.add('active'); 
+  overlay.classList.add('active'); 
+});
+closeBtn.addEventListener('click', () => { 
+  menu.classList.remove('active'); 
+  overlay.classList.remove('active'); 
+});
+overlay.addEventListener('click', () => { 
+  menu.classList.remove('active'); 
+  overlay.classList.remove('active'); 
+});
+links.forEach(link => { 
+  link.addEventListener('click', () => { 
+    menu.classList.remove('active'); 
+    overlay.classList.remove('active'); 
+  }); 
+});
 </script>
-
 
   <section id="home" class="hero-section">
     <div class="hero-blob hero-blob-1"></div>

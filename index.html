@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#06c1db">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>Billiat Kachembo</title>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>
+    (function() {
+      emailjs.init("L3v8qdf378wbAscEb");
+    })();
+  </script>
+  <link rel="icon" type="image/x-icon" href="favicon.png" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <style>
+    /* ------------------------------------------- */
+    /* Mobile Responsiveness - Core CSS Enhancements */
+    /* ------------------------------------------- */
+    
+    /* Global Mobile Optimizations */
+    :root {
+        --text-color-light: #343a40;
+        --heading-color-light: #212529;
+        --body-bg-light: #f8f9fa;
+        --card-bg-light: #ffffff;
+        --border-color-light: #e9ecef;
+        --green-color: #21683e;
+        --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.1);
+        --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .dark {
+        --text-color-dark: #e9ecef;
+        --heading-color-dark: #f8f9fa;
+        --body-bg-dark: #1f2a37;
+        --card-bg-dark: #2c3a4a;
+        --border-color-dark: #495057;
+    }
+
+    body {
+        color: var(--text-color-light);
+        background-color: var(--body-bg-light);
+        transition: color 0.3s ease, background-color 0.3s ease;
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .dark body {
+        color: var(--text-color-dark);
+        background-color: var(--body-bg-dark);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--heading-color-light);
+    }
+    .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+        color: var(--heading-color-dark);
+    }
+
+    .glass-card, .section-card, .newsletter-card {
+        background-color: var(--card-bg-light);
+        border: 1px solid var(--border-color-light);
+    }
+    .dark .glass-card, .dark .section-card, .dark .newsletter-card {
+        background-color: var(--card-bg-dark);
+        border: 1px solid var(--border-color-dark);
+    }
+
+    /* Sub-menu and hidden section styles */
+    .hidden-section {
+        display: none !important;
+    }
+
+    /* --- Centered Sub-menu Tabs with Animated Glowing Switch & Bounce --- */
+    .sub-menu-tabs {
+      position: relative;
+      display: flex;    
+      justify-content: center;    
+      align-items: center;         
+      gap: 12px;                  
+      padding: 10px 12px;        
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 50px;
+      box-shadow: var(--shadow-small);
+      overflow: hidden;
+      margin: 2rem auto;        
+      transition: background-color 0.3s ease;
+      max-width: 95%;              /* keeps tabs inside small screens */
+    }
+
+    .sub-menu-tab {
+      z-index: 1;
+      padding: 10px 24px;
+      border-radius: 50px;
+      text-decoration: none;
+      color: var(--text-color-light);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.3s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sub-menu-tab {
+      z-index: 1;
+      padding: 10px 22px;
+      border-radius: 50px;
+      text-decoration: none;
+      color: var(--text-color-light);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.3s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .dark .sub-menu-tab {
+      color: var(--text-color-dark);
+    }
+
+    .sub-menu-tab.active,
+    .sub-menu-tab:hover {
+      color: #fff;
+      transform: scale(1.08); /* Slight scale on active/hover */
+    }
+
+    /* Glowing moving switch background */
+    .tabs-switch-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(135deg, #205f4a, #177047);
+      border-radius: 50px;
+      box-shadow: 0 0 15px rgba(33, 104, 62, 0.6);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s ease-in-out, transform 0.35s ease-out;
+      z-index: 0;
+      animation: glowPulse 2s infinite alternate;
+    }
+
+    /* Smooth glowing pulse */
+    @keyframes glowPulse {
+      0% {
+        box-shadow: 0 0 12px rgba(33, 104, 62, 0.4), 0 0 20px rgba(33, 104, 62, 0.2);
+      }
+      100% {
+        box-shadow: 0 0 20px rgba(33, 104, 62, 0.7), 0 0 28px rgba(33, 104, 62, 0.3);
+      }
+    }
+
+    /* Optional bounce effect for active tab */
+    .sub-menu-tab.bounce {
+      animation: tabBounce 0.3s ease-out;
+    }
+
+    @keyframes tabBounce {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1.08); }
+    }
+
+    /* Responsive adjustments for sub-menu tabs */
+    @media (max-width: 768px) {
+      .sub-menu-tabs {
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 4px;
+      }
+      .sub-menu-tab {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+      }
+    }
+
+    /* Specific styling for phone numbers to ensure visibility */
+    .footer-phones a {
+        color: var(--text-color-light);
+    }
+    .dark .footer-phones a {
+        color: var(--text-color-dark);
+    }
+
+    /* Additional general styles for the page layout */
+    .navbar, .hero-section, .about-section, .skills-section, .section-card, .footer {
+        padding: 2rem;
+    }
+    .about-grid, .info-grid, .grid3, .grid4, .activity-grid, .benefits-grid {
+        display: grid;
+        gap: 1.5rem;
+    }
+    .about-grid { grid-template-columns: 1fr; }
+    .info-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+    .grid3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .grid4 { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+    @media (min-width: 768px) {
+        .about-grid { grid-template-columns: 1fr 2fr; }
+    }
+
+    /* --- New Mobile-Specific Navbar Styles --- */
+    .nav-center, .nav-social-search {
+        transition: transform 0.3s ease;
+    }
+
+    /* Hide desktop nav on mobile */
+    @media (max-width: 991px) {
+        .nav-center .nav-links {
+            display: none;
+        }
+        .nav-center .mobile-nav-toggle {
+            display: block; /* Show hamburger icon */
+        }
+        .nav-right .nav-social-search {
+            display: none;
+        }
+    }
+
+    /* Style for the mobile menu */
+    .mobile-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--body-bg-light);
+        z-index: 1000;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease-in-out;
+        transform: translateY(-100%);
+    }
+    .dark .mobile-menu {
+        background-color: var(--body-bg-dark);
+    }
+    .mobile-menu.active {
+        display: flex;
+        transform: translateY(0);
+    }
+    .mobile-menu-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+    .mobile-menu-links {
+        list-style: none;
+        padding: 0;
+        text-align: center;
+    }
+    .mobile-menu-links li {
+        margin: 1.5rem 0;
+    }
+    .mobile-menu-links a {
+        font-size: 1.5rem;
+        text-decoration: none;
+        color: var(--heading-color-light);
+        transition: color 0.3s;
+    }
+    .dark .mobile-menu-links a {
+        color: var(--heading-color-dark);
+    }
+    .mobile-menu-links a:hover {
+        color: var(--green-color);
+    }
+    .mobile-menu .social-icons-navbar {
+        margin-top: 2rem;
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    /* Adjusted general padding for mobile devices */
+    @media (max-width: 576px) {
+        .navbar, .hero-section, .about-section, .skills-section, .section-card, .footer {
+            padding: 1rem;
+        }
+        .hero-title {
+            font-size: 2.5rem;
+        }
+        .hero-subtitle {
+            font-size: 1rem;
+        }
+        .hero-icons {
+            flex-direction: column;
+            align-items: center;
+        }
+        .about-grid {
+            grid-template-columns: 1fr;
+        }
+        .info-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+  </style>
+  
+</head>
+<body>
+  <div id="page-loader">
+  <div id="loader-spinner"></div>
+</div>
+  <nav class="navbar">
+    
+    <div class="nav-left">
+      
+      <a class="navbar-title">
+        <i class="bi bi-journal-code" style="color: #21683e; font-size: 1.6rem;"></i>
+        <span style="color: #21683e; margin-left: 0.5rem; font-family: 'Times New Roman', Times, serif; font-size: 1.6rem;">My Portfolio</span>
+      </a>
+    </div>
+
+    <div class="nav-center">
+      <!-- Desktop Navigation Links -->
+      <ul class="nav-links">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+            Learn More <i class="bi bi-caret-down-fill dropdown-icon"></i>
+          </a>
+          <ul class="dropdown-menu" aria-label="submenu">
+            <li><a href="https://drive.google.com/file/d/1q4TPlEfB4oy-gtVEzhPevPQcetjvKkId/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Finances in Zambia</a></li>
+            <li><a href="https://www.geeksforgeeks.org/data-science-for-beginners/" target="_blank" rel="noopener noreferrer">Data Science</a></li>
+          </ul>
+        </li>
+        
+        <li><a href="index.html" class="active"><i class="bi bi-house-door"></i> Home</a></li>
+        <li><a href="#about"><i class="bi bi-person-circle"></i> About</a></li>
+        <li><a href="#Contact"><i class="bi bi-telephone-forward"></i> Contact</a></li>
+      </ul>
+      <!-- Hamburger menu icon for mobile -->
+      <i class="mobile-nav-toggle bi bi-list" aria-label="Toggle navigation menu" role="button" tabindex="0"></i>
+    </div>
+
+    <div class="nav-right">
+      <div class="nav-social-search">
+        <div class="social-icons-navbar">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          <a href="https://www.instagram.com/billiat.kachembo" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="mailto:billiatkachembo1@gmail.com" aria-label="Email"><i class="bi bi-envelope"></i></a>
+        </div>
+        <form class="nav-search" action="/search" method="GET" role="search">
+          <input type="text" name="q" placeholder="Search..." aria-label="Search" />
+          <button type="submit">Search</button>
+        </form>
+        <button id="theme-toggle" aria-label="Toggle theme" type="button">
+          <i id="theme-icon" class="bi bi-moon"></i>
+        </button>
+        </div>
+
+    </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Navigation Menu (Hidden by default) -->
+  <div class="mobile-menu">
+    <i class="mobile-menu-close bi bi-x-lg" aria-label="Close menu" role="button" tabindex="0"></i>
+    <ul class="mobile-menu-links">
+      <li><a href="index.html" class="active"><i class="bi bi-house-door"></i> Home</a></li>
+      <li><a href="#about"><i class="bi bi-person-circle"></i> About</a></li>
+      <li><a href="#contact"><i class="bi bi-telephone-forward"></i> Contact</a></li>
+      <li>
+        <a href="https://drive.google.com/file/d/1q4TPlEfB4oy-gtVEzhPevPQcetjvKkId/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Finances in Zambia</a>
+      </li>
+      <li>
+        <a href="https://www.geeksforgeeks.org/data-science-for-beginners/" target="_blank" rel="noopener noreferrer">Data Science</a>
+      </li>
+    </ul>
+    <div class="social-icons-navbar">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          <a href="https://www.instagram.com/billiat.kachembo" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="mailto:billiatkachembo1@gmail.com" aria-label="Email"><i class="bi bi-envelope"></i></a>
+        </div>
+  </div>
+
+  <section id="home" class="hero-section">
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
+    <div class="hero-blob hero-blob-3"></div>
+    <div class="hero-blob hero-blob-4"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <h2 class="hero-greeting">👋 Hi there, I'm</h2>
+        <h1 class="hero-title">
+          <span class="gradient-text">
+            <span id="title-text"></span>
+            <span id="title-cursor" class="typewriter-cursor"></span>
+          </span>
+        </h1>
+        <p class="hero-subtitle">
+          <span id="subtitle-text"></span>
+          <span id="subtitle-cursor" class="typewriter-cursor"></span>
+        </p>
+        <div class="hero-icons">
+          <div class="hero-icon-item icon-hover">
+            <div class="hero-icon-circle"><i data-lucide="bar-chart-3"></i></div>
+            <span>Data-Driven Insights</span>
+          </div>
+          <div class="hero-icon-item icon-hover">
+            <div class="hero-icon-circle"><i data-lucide="gem"></i></div>
+            <span>Value Creation</span>
+          </div>
+          <div class="hero-icon-item icon-hover">
+            <div class="hero-icon-circle"><i data-lucide="archive"></i></div>
+            <span>Organized Systems</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="#about" class="scroll-down">
+      <button class="scroll-btn"><i data-lucide="chevron-down"></i></button>
+    </a>
+  </section>
+
+  <section id="about" class="about-section glass-card">
+    <h2 class="gradient-text">Author</h2>
+    <p class="lead">I'm a Data Scientist with a passion for exploring data and uncovering insights.</p>
+    <div class="about-grid">
+      <div class="about-photo">
+        <div class="photo-frame"><img src="trainer-3.jpg" alt="Billiat Kachembo" /></div>
+        <p class="caption">Data Scientist</p>
+      </div>
+      <div class="info-grid">
+        <div class="info-card skill-card">
+          <div class="info-content"><i data-lucide="user" class="info-icon text-green-500"></i>
+            <div><h4>Bio:</h4><p>Curious, analytical, and always learning</p></div>
+          </div>
+        </div>
+        <div class="info-card skill-card">
+          <div class="info-content"><i data-lucide="globe" class="info-icon text-blue-500"></i>
+            <div><h4>Languages:</h4><p>English, Bemba, Nyanja</p></div>
+          </div>
+        </div>
+        <div class="info-card skill-card">
+          <div class="info-content"><i data-lucide="map-pin" class="info-icon text-red-500"></i>
+            <div><h4>Location:</h4><p>Chinsali, Zambia</p></div>
+          </div>
+        </div>
+        <div class="info-card skill-card">
+          <div class="info-content"><i data-lucide="graduation-cap" class="info-icon text-yellow-500"></i>
+            <div><h4>Education:</h4><p>BSc in Data Science</p></div>
+          </div>
+        </div>
+        <div class="info-card skill-card">
+          <div class="info-content"><i data-lucide="lightbulb" class="info-icon text-purple-500"></i>
+            <div><h4>Hobbies:</h4><p>Reading, Music, Hiking</p></div>
+          </div>
+        </div>
+        <div class="info-card skill-card">
+          <div class="info-content"><i data-lucide="code" class="info-icon text-gray-500"></i>
+            <div><h4>Skills:</h4><p>Data Analysis, Data Viz, AI</p></div>
+          </div>
+        </div>
+        <div class="info-card skill-card">
+          <div class="info-content"><i data-lucide="message-square" class="info-icon text-green-600"></i>
+            <div><h4>Languages Used:</h4><p>Python, C++, Java, C#, R</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="section-card grid3">
+    <div class="skill-card"><div class="icon-circle">📊</div><h4>Data Analysis</h4><p>Exploring patterns and insights in complex datasets</p></div>
+    <div class="skill-card"><div class="icon-circle">🤖</div><h4>Machine Learning</h4><p>Building predictive models and AI solutions</p></div>
+    <div class="skill-card"><div class="icon-circle">💡</div><h4>Innovation</h4><p>Creating solutions that make sense</p></div>
+  </section>
+
+
+<section class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos-delay="300">
+  <div class="icon-box d-flex flex-column justify-content-center align-items-start">
+
+    <!-- Arrow toggle -->
+    <button id="toggleVideoBtn" class="btn btn-light align-self-end mb-2">
+      ➤
+    </button>
+
+    <!-- Video container -->
+    <div id="videoContainer" style="display: none; width: 100%;" class="text-center">
+      <video id="techVideo" width="70%" class="video-course rounded" autoplay loop muted playsinline>
+        <source src="Black%20and%20Blue%20Futuristic%20Technology%20Video.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <strong class="mt-3 text-center">Future Technology</strong>
+    <p class="text-center">Immersive glimpse into the innovations shaping tomorrow's world.</p>
+  </div>
+</section>
+
+<script>
+
+const nav = document.querySelector('.nav-links');
+
+nav.addEventListener('wheel', (e) => {
+  e.preventDefault();          // prevent vertical scroll
+  nav.scrollLeft += e.deltaY;  // scroll horizontally with wheel
+});
+
+
+
+  const toggleBtn = document.getElementById("toggleVideoBtn");
+  const videoContainer = document.getElementById("videoContainer");
+  const video = document.getElementById("techVideo");
+
+  toggleBtn.addEventListener("click", function () {
+    if (videoContainer.style.display === "none") {
+      videoContainer.style.display = "block";
+      video.play();
+      toggleBtn.innerHTML = "⬅"; // change arrow when open
+    } else {
+      video.pause();
+      videoContainer.style.display = "none";
+      toggleBtn.innerHTML = "➤"; // change arrow when closed
+    }
+  });
+</script>
+
+
+
+  <section id="sub-menu-navigation" class="section-card">
+    <div class="sub-menu-tabs">
+      <div class="tabs-switch-bg"></div>
+     <a href="#education" class="sub-menu-tab" data-target="education">
+  <i class="bi bi-mortarboard" style="color:#1fa67a;"></i> Education
+</a>
+<a href="#certifications" class="sub-menu-tab" data-target="certifications">
+  <i class="bi bi-award" style="color:#f59e0b;"></i> Certifications
+</a>
+<a href="#newsletter" class="sub-menu-tab" data-target="newsletter">
+  <i class="bi bi-envelope" style="color:#3b82f6;"></i> Newsletter
+</a>
+<a href="#contact" class="sub-menu-tab" data-target="contact">
+  <i class="bi bi-telephone-forward" style="color:#ef4444;"></i> Contact
+</a>
+<a href="#features" class="sub-menu-tab active" data-target="features">
+  <i class="bi bi-lightbulb" style="color:#facc15;"></i> Mindset and Methods
+</a>
+<a href="#activity" class="sub-menu-tab" data-target="activity">
+  <i class="bi bi-graph-up" style="color:#10b981;"></i> Activity
+</a>
+
+      
+    </div>
+  </section>
+
+  <section id="features" class="section-card section-tab-content">
+    <h2>Mindset and Methods</h2>
+    <div class="grid4">
+      <div class="feature-box">
+        <i class="bi bi-eye icon-colored" style="color: #ffbb2c;"></i>
+        <h4>Insight</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-infinity icon-colored" style="color: #45ab6f;"></i>
+        <h4>Endless Potential</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-mortarboard icon-colored" style="color: #e80368;"></i>
+        <h4>Knowledge</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-nut icon-colored" style="color: #e361ff;"></i>
+        <h4>Structure</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-shuffle icon-colored" style="color: #47aeff;"></i>
+        <h4>Adaptability</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-star icon-colored" style="color: #ffa76e;"></i>
+        <h4>Excellence</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-x-diamond icon-colored" style="color: #11dbcf;"></i>
+        <h4>Innovation</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-camera-video icon-colored" style="color: #4233ff;"></i>
+        <h4>Presentation</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-command icon-colored" style="color: #b2904f;"></i>
+        <h4>Control</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-palette icon-colored" style="color: #00bcd4;"></i>
+        <h4>Design</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-activity icon-colored" style="color: #ff5828;"></i>
+        <h4>Dedication</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-brightness-high icon-colored" style="color: #29cc61;"></i>
+        <h4>Inspiration</h4>
+      </div>
+      <div class="feature-box"><i class="bi bi-lightning-fill" style="color: #ffeb3b;"></i><span>Energy</span></div>
+      <div class="feature-box"><i class="bi bi-fire" style="color: #f44336;"></i><span>Passion</span></div>
+      <div class="feature-box"><i class="bi bi-scissors" style="color: #ffa000;"></i><span>Balance</span></div>
+      <div class="feature-box"><i class="bi bi-question-circle" style="color: #607d8b;"></i><span>Curiosity</span></div>
+    </div>
+  </section>
+  
+  <section id="activity" class="activity section section-tab-content hidden-section">
+    <div class="container">
+      <div class="activity-grid">
+        <div class="activity-card" data-aos="fade-up" data-category="workshop">
+          <div class="activity-img">
+            <img src="events-item-1.jpg" alt="Introduction to Data Science" />
+            <span class="tag">Workshop</span>
+          </div>
+          <div class="activity-body">
+            <i class="bi bi-bar-chart-fill activity-icon"></i>
+            <h5 class="activity-title"><a href="#">Introduction to Data Science</a></h5>
+            <p class="fst-italic">Sunday, July 20th at 7:00 pm</p>
+            <p class="activity-text">Join me for an introductory session on data science, where we'll explore the basics, tools, and opportunities in the field.</p>
+          </div>
+        </div>
+        <div class="activity-card" data-aos="fade-up" data-category="webinar">
+          <div class="activity-img">
+            <img src="events-item-2.jpg" alt="Python for Beginners" />
+            <span class="tag">Webinar</span>
+          </div>
+          <div class="activity-body">
+            <i class="bi bi-code-slash activity-icon"></i>
+            <h5 class="activity-title"><a href="#">Python for Beginners</a></h5>
+            <p class="fst-italic">Saturday, August 10th at 3:00 pm</p>
+            <p class="activity-text">A hands-on workshop for those new to programming. Learn the basics of Python and how it is used in data analysis and automation.</p>
+          </div>
+        </div>
+        <div class="activity-card" data-aos="fade-up" data-category="workshop">
+          <div class="activity-img">
+            <img src="1353386.png" alt="Building Web Interfaces" />
+            <span class="tag">Workshop</span>
+          </div>
+          <div class="activity-body">
+            <i class="bi bi-window-stack activity-icon"></i>
+            <h5 class="activity-title"><a href="#">Building Web Interfaces</a></h5>
+            <p class="fst-italic">Friday, August 30th at 5:00 pm</p>
+            <p class="activity-text">Learn how to create beautiful and responsive web interfaces using HTML, CSS, and JavaScript in this interactive session.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="newsletter" class="section-card newsletter-section section-tab-content hidden-section">
+    <h2>Newsletter</h2>
+    <div class="newsletter-text">
+      <p>Subscribe to my newsletter for updates on my latest projects and insights in data science.</p>
+      <p>Stay informed about my work and receive valuable content directly in your inbox.</p>
+      <p class="font-medium">Join my community of data enthusiasts and let's explore the world of data science together!</p>
+    </div>
+    <div class="newsletter-card">
+      <form id="newsletter-form" class="newsletter-form">
+        <input type="email" name="user_email" placeholder="Your email address" required class="newsletter-input" />
+        <button type="submit" class="newsletter-button">Sign Up</button>
+      </form>
+      <p id="newsletter-msg" class="newsletter-note"></p>
+      <p class="newsletter-note">By subscribing, you agree to receive emails from me. You can unsubscribe at any time.</p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-box">
+        <i class="bi bi-envelope-paper-fill" style="color: #9b59b6; font-size: 2rem;"></i>
+        <h4>Regular Updates</h4>
+        <p>Get notified about new projects and insights</p>
+      </div>
+      <div class="benefit-box">
+        <i class="bi bi-bar-chart-line-fill" style="color: #007bff; font-size: 2rem;"></i>
+        <h4>Data Analysis & Visualization</h4>
+      </div>
+      <div class="benefit-box">
+        <i class="bi bi-cpu-fill" style="color: #28a745; font-size: 2rem;"></i>
+        <h4>Machine Learning & AI</h4>
+      </div>
+      <div class="benefit-box">
+        <i class="bi bi-graph-up" style="color: #007bff; font-size: 2rem;"></i>
+        <h4>Statistical Modeling</h4>
+      </div>
+      <div class="benefit-box">
+        <i class="bi bi-lightbulb-fill" style="color: #28a745; font-size: 2rem;"></i>
+        <h4>Data-Driven Insights</h4>
+      </div>
+      <div class="benefit-box">
+        <div class="icon-circle bg-light-accent">📊</div>
+        <h4>Data Science Tips</h4>
+        <p>Learn from real-world data science experiences</p>
+      </div>
+      <div class="benefit-box">
+        <div class="icon-circle bg-light-purple">🎯</div>
+        <h4>Exclusive Content</h4>
+        <p>Access to resources and insights</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section-card section-tab-content hidden-section">
+    <h2>Contact Me</h2>
+    <form id="contact-form" class="contact-form">
+      <label>Name<input name="from_name" type="text" placeholder="Enter your full name" required /></label>
+      <label>Email<input name="reply_to" type="email" placeholder="your.email@example.com" required /></label>
+      <label>Message<textarea name="message" rows="5" placeholder="Type your message here..." required></textarea></label>
+      <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+    <p id="contact-msg" class="newsletter-note"></p>
+    <div class="footer-content">
+      <h3>Address</h3>
+      <div class="footer-address">
+        <i data-lucide="map-pin"></i>
+        <span>Lusaka, Zambia</span>
+      </div>
+      <p>You can also reach me by phone:</p>
+      <div class="footer-phones">
+        <a href="tel:+260777771921"><i data-lucide="phone"></i> +260777771921</a>
+        <span class="separator">|</span>
+        <a href="tel:+260965169247"><i data-lucide="phone"></i> +260965169247</a>
+      </div>
+    </div>
+  </section>
+  <section id="education" class="section-card section-tab-content hidden-section">
+  <h2>Education</h2>
+  <p>I am currently pursuing a BSc in Data Science at Kapasa Makasa University.</p>
+
+  <div class="map-toggle">
+    <small>Tap to see map</small>
+    <span class="arrow">&#x25BC;</span> <!-- Down arrow -->
+  </div>
+  <div class="visit-map-wrapper hidden">
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m21!1m12!1m3!1d1003976.1127326398!2d32.1292393681145!3d-10.59623444019156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m6!3e6!4m0!4m3!3m2!1d-10.605165999999999!2d32.221727!5e0!3m2!1sen!2szm!4v1753871654429!5m2!1sen!2szm"
+      width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
+
+  </section>
+
+  <section id="certifications" class="section-card section-tab-content hidden-section">
+    <h2>Certifications</h2>
+    <ul>
+      <li>**Certification Name:** IBM Data Science Professional Certificate</li>
+      <li>**Platform:** Coursera</li>
+      <li>**Completion Date:** August 2024</li>
+      <li>**Skills Gained:** Python, SQL, Data Visualization, Machine Learning, Statistical Analysis</li>
+    </ul>
+    <ul>
+      <li>**Certification Name:** Google Data Analytics Professional Certificate</li>
+      <li>**Platform:** Coursera</li>
+      <li>**Completion Date:** July 2024</li>
+      <li>**Skills Gained:** R, Tableau, Spreadsheets, Data Cleaning, Data Analysis</li>
+    </ul>
+  </section>
+
+  <footer class="footer">
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
+    <div class="hero-blob hero-blob-3"></div>
+    <div class="hero-blob hero-blob-4"></div>
+    <div class="footer-container">
+      <div class="footer-content">
+        <h2>Contacts</h2>
+        <div class="footer-socials">
+          
+  <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+    <i class="bi bi-facebook" style="color:#1877F2;"></i>
+  </a>
+  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+    <i class="bi bi-twitter-x" style="color:#1DA1F2;"></i>
+  </a>
+  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+    <i class="bi bi-linkedin" style="color:#0077B5;"></i>
+  </a>
+  <a href="https://www.instagram.com/billiat.kachembo" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+    <i class="bi bi-instagram" style="color:#C13584;"></i>
+  </a>
+  <a href="mailto:billiatkachembo1@gmail.com" aria-label="Email">
+    <i class="bi bi-envelope" style="color:#EA4335;"></i>
+
+  </a>
+  <a href="#" class="green" aria-label="Share"><i data-lucide="share"></i></a>
+</div>
+     
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 -- Billiat Kachembo -- @Visionary -- All rights reserved</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="scroll-top" aria-label="Back to top">
+    <i data-lucide="arrow-up"></i>
+  </button>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Page Loader Logic ---
+    const loader = document.getElementById('page-loader');
+    if (loader) {
+      setTimeout(() => {
+        loader.classList.add('fade-out');
+        loader.addEventListener('transitionend', () => loader.remove(), { once: true });
+      }, 2700);
+    }
+
+    // --- Theme Toggle Logic ---
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+
+    const updateIcon = () => {
+      if (!themeIcon) return;
+      if (document.body.classList.contains('dark')) {
+        themeIcon.classList.remove('bi-moon');
+        themeIcon.classList.add('bi-sun');
+      } else {
+        themeIcon.classList.remove('bi-sun');
+        themeIcon.classList.add('bi-moon');
+      }
+    };
+
+
+    const updateThemeFromSystem = () => {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+      } else {
+        document.body.classList.remove('dark');
+      }
+      updateIcon();
+    };
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.body.classList.add(savedTheme);
+    } else {
+      updateThemeFromSystem();
+    }
+    updateIcon();
+
+    if (themeToggleBtn && themeIcon) {
+      themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+        localStorage.setItem('theme', currentTheme);
+        updateIcon();
+      });
+    }
+
+    // --- Mobile Navigation Toggle ---
+    // Added specific mobile menu logic
+    const mobileToggle = document.querySelector(".mobile-nav-toggle");
+    const mobileMenu = document.querySelector(".mobile-menu");
+    const mobileMenuClose = document.querySelector(".mobile-menu-close");
+
+    
+    
+    if (mobileToggle && mobileMenu && mobileMenuClose) {
+        mobileToggle.addEventListener("click", () => {
+            mobileMenu.classList.add("active");
+        });
+
+        mobileMenuClose.addEventListener("click", () => {
+            mobileMenu.classList.remove("active");
+        });
+        
+        mobileMenu.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                mobileMenu.classList.remove("active");
+            });
+        });
+    }
+
+    // --- Form Submission (EmailJS) ---
+    const newsletterForm = document.getElementById("newsletter-form");
+    const newsletterMsg = document.getElementById("newsletter-msg");
+    if (newsletterForm && newsletterMsg) {
+      newsletterForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        newsletterMsg.textContent = "";
+        const email = newsletterForm.user_email.value.trim();
+        if (!email) {
+          newsletterMsg.textContent = "Please enter a valid email.";
+          return;
+        }
+        try {
+          await emailjs.send("service_bfi98ia", "template_3y5ud5f", { user_email: email });
+          newsletterMsg.textContent = "Thank you for subscribing!";
+          newsletterForm.reset();
+        } catch (error) {
+          newsletterMsg.textContent = "Oops! Something went wrong. Please try again later.";
+          console.error("EmailJS error:", error);
+        }
+      });
+    }
+
+    const contactForm = document.getElementById("contact-form");
+    const contactMsg = document.getElementById("contact-msg");
+    if (contactForm && contactMsg) {
+      contactForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        contactMsg.textContent = "";
+        const formData = {
+          from_name: contactForm.from_name.value.trim(),
+          reply_to: contactForm.reply_to.value.trim(),
+          message: contactForm.message.value.trim()
+        };
+        if (!formData.from_name || !formData.reply_to || !formData.message) {
+          contactMsg.textContent = "Please fill out all fields.";
+          return;
+        }
+        try {
+          await emailjs.send("service_bfi98ia", "template_hxw2jnn", formData);
+          contactMsg.textContent = "Message sent successfully!";
+          contactForm.reset();
+        } catch (error) {
+          contactMsg.textContent = "Failed to send message. Please try again later.";
+          console.error("EmailJS contact form error:", error);
+        }
+      });
+    }
+    // --- Typewriter Effect ---
+    const title = "BILLIAT";
+    const subtitle = "A data scientist who is passionate about anything making sense 😎";
+    const titleEl = document.getElementById("title-text");
+    const subtitleEl = document.getElementById("subtitle-text");
+
+    if (titleEl && subtitleEl) {
+      const typingSpeed = 150;
+      const erasingSpeed = 100;
+      const newSentenceDelay = 1000;
+
+      let isErasing = false;
+      let titleIndex = 0;
+      let subtitleIndex = 0;
+
+      function typeWriter() {
+        if (isErasing) {
+          if (titleEl.textContent.length > 0) {
+            titleEl.textContent = title.substring(0, titleIndex - 1);
+            titleIndex--;
+            setTimeout(typeWriter, erasingSpeed);
+          } else if (subtitleEl.textContent.length > 0) {
+            subtitleEl.textContent = subtitle.substring(0, subtitleIndex - 1);
+            subtitleIndex--;
+            setTimeout(typeWriter, erasingSpeed);
+          } else {
+            isErasing = false;
+            titleIndex = 0;
+            subtitleIndex = 0;
+            setTimeout(typeWriter, newSentenceDelay);
+          }
+        } else {
+          if (titleIndex < title.length) {
+            titleEl.textContent += title.charAt(titleIndex);
+            titleIndex++;
+            setTimeout(typeWriter, typingSpeed);
+          } else if (subtitleIndex < subtitle.length) {
+            subtitleEl.textContent += subtitle.charAt(subtitleIndex);
+            subtitleIndex++;
+            setTimeout(typeWriter, typingSpeed);
+          } else {
+            isErasing = true;
+            setTimeout(typeWriter, newSentenceDelay * 2);
+          }
+        }
+      }
+      typeWriter();
+    }
+  });
+  document.addEventListener('DOMContentLoaded', () => {
+  // --- Sub-menu Navigation with Switch Effect ---
+  const tabs = document.querySelectorAll('.sub-menu-tab');
+  const switchBg = document.querySelector('.tabs-switch-bg');
+
+  function updateSwitchPosition(activeTab) {
+    if (!switchBg || !activeTab || !activeTab.parentElement) return;
+    const parentRect = activeTab.parentElement.getBoundingClientRect();
+    const tabRect = activeTab.getBoundingClientRect();
+
+    const left = tabRect.left - parentRect.left;
+    const width = tabRect.width;
+
+    switchBg.style.transform = `translateX(${left}px)`;
+    switchBg.style.width = `${width}px`;
+  }
+  function showSection(targetId) {
+    if (!targetId) return;
+    const sections = document.querySelectorAll('.section-tab-content');
+    sections.forEach(section => {
+      if (!section.id) return;
+      section.classList.toggle('hidden-section', section.id !== targetId);
+    });
+  }
+  // Initialize the tabs on page load
+  const savedTab = localStorage.getItem("activeTab");
+  let initialActiveTab = savedTab 
+    ? document.querySelector(`.sub-menu-tab[data-target="${savedTab}"]`) 
+    : document.querySelector('.sub-menu-tab.active');
+
+  if (!initialActiveTab) {
+    initialActiveTab = document.querySelector('.sub-menu-tab[data-target="features"]');
+  }
+  if (initialActiveTab) {
+    const targetId = initialActiveTab.getAttribute('data-target');
+    showSection(targetId);
+    tabs.forEach(t => t.classList.remove('active'));
+    initialActiveTab.classList.add('active');
+    updateSwitchPosition(initialActiveTab);
+  }
+  // Add click listener to each tab
+  tabs.forEach(tab => {
+    tab.addEventListener('click', event => {
+      event.preventDefault();
+      if (!event.currentTarget) return;
+      tabs.forEach(t => t.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      const targetId = event.currentTarget.getAttribute('data-target');
+      showSection(targetId);
+      updateSwitchPosition(event.currentTarget);
+      localStorage.setItem("activeTab", targetId);
+    });
+  });
+  window.addEventListener('resize', () => {
+    const activeTab = document.querySelector('.sub-menu-tab.active');
+    updateSwitchPosition(activeTab);
+  });
+
+  // --- Initialize Third-Party Libraries Safely ---
+  if (window.lucide && typeof lucide.createIcons === 'function') lucide.createIcons();
+  if (window.AOS && typeof AOS.init === 'function') AOS.init();
+
+  tabs.forEach(tab => {
+  tab.addEventListener('click', (event) => {
+    event.preventDefault();
+    tabs.forEach(t => t.classList.remove('active', 'bounce'));
+    
+    const clickedTab = event.currentTarget;
+    clickedTab.classList.add('active', 'bounce');
+    
+    updateSwitchPosition(clickedTab);
+    showSection(clickedTab.getAttribute('data-target'));
+    localStorage.setItem("activeTab", clickedTab.getAttribute('data-target'));
+  });
+});
+//Mapp
+document.querySelector(".map-toggle").addEventListener("click", function() {
+  const mapWrapper = document.querySelector(".visit-map-wrapper");
+  mapWrapper.classList.toggle("hidden");
+
+  // Toggle arrow direction
+  const arrow = this.querySelector(".arrow");
+  arrow.innerHTML = mapWrapper.classList.contains("hidden") ? "&#x25BC;" : "&#x25B2;";
+});
+
+
+});
+AOS.init();
+lucide.createIcons();
+</script>
+</body>
+</html>

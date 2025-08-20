@@ -803,6 +803,7 @@ nav.addEventListener('wheel', (e) => {
       <label>Message<textarea name="message" rows="5" placeholder="Type your message here..." required></textarea></label>
       <button type="submit" class="btn btn-primary">Send Message</button>
     </form>
+    
     <p id="contact-msg" class="newsletter-note"></p>
     <div class="footer-content">
       <h3>Address</h3>
@@ -947,54 +948,66 @@ nav.addEventListener('wheel', (e) => {
       });
     }
 
-    // --- Form Submission (EmailJS) ---
-    const newsletterForm = document.getElementById("newsletter-form");
-    const newsletterMsg = document.getElementById("newsletter-msg");
-    if (newsletterForm && newsletterMsg) {
-      newsletterForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        newsletterMsg.textContent = "";
-        const email = newsletterForm.user_email.value.trim();
-        if (!email) {
-          newsletterMsg.textContent = "Please enter a valid email.";
-          return;
-        }
-        try {
-          await emailjs.send("service_bfi98ia", "template_3y5ud5f", { user_email: email });
-          newsletterMsg.textContent = "Thank you for subscribing!";
-          newsletterForm.reset();
-        } catch (error) {
-          newsletterMsg.textContent = "Oops! Something went wrong. Please try again later.";
-          console.error("EmailJS error:", error);
-        }
-      });
+   // --- Newsletter Form Submission (EmailJS) ---
+const newsletterForm = document.getElementById("newsletter-form");
+const newsletterMsg = document.getElementById("newsletter-msg");
+
+if (newsletterForm && newsletterMsg) {
+  newsletterForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    newsletterMsg.textContent = ""; // Reset message
+    const email = newsletterForm.user_email.value.trim();
+
+    // Basic email validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailPattern.test(email)) {
+      newsletterMsg.textContent = "Please enter a valid email address.";
+      return;
     }
 
-    const contactForm = document.getElementById("contact-form");
-    const contactMsg = document.getElementById("contact-msg");
-    if (contactForm && contactMsg) {
-      contactForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        contactMsg.textContent = "";
-        const formData = {
-          from_name: contactForm.from_name.value.trim(),
-          reply_to: contactForm.reply_to.value.trim(),
-          message: contactForm.message.value.trim()
-        };
-        if (!formData.from_name || !formData.reply_to || !formData.message) {
-          contactMsg.textContent = "Please fill out all fields.";
-          return;
-        }
-        try {
-          await emailjs.send("service_bfi98ia", "template_hxw2jnn", formData);
-          contactMsg.textContent = "Message sent successfully!";
-          contactForm.reset();
-        } catch (error) {
-          contactMsg.textContent = "Failed to send message. Please try again later.";
-          console.error("EmailJS contact form error:", error);
-        }
-      });
+    try {
+      await emailjs.send("service_bfi98ia", "template_3y5ud5f", { user_email: email });
+      newsletterMsg.textContent = "✅ Thank you for subscribing!";
+      newsletterMsg.style.color = "green"; // Success color
+      newsletterForm.reset();
+    } catch (error) {
+      newsletterMsg.textContent = "❌ Oops! Something went wrong. Please try again later.";
+      newsletterMsg.style.color = "red"; // Error color
+      console.error("EmailJS newsletter error:", error);
     }
+  });
+}
+   const contactForm = document.getElementById("contact-form");
+const contactMsg = document.getElementById("contact-msg");
+
+if (contactForm && contactMsg) {
+  contactForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    contactMsg.textContent = "";
+
+    // Place the corrected formData object here
+    const formData = {
+      name: contactForm.from_name.value.trim(),
+      email: contactForm.reply_to.value.trim(),
+      message: contactForm.message.value.trim()
+    };
+
+    if (!formData.name || !formData.email || !formData.message) {
+      contactMsg.textContent = "Please fill out all fields.";
+      return;
+    }
+
+    try {
+      await emailjs.send("service_bfi98ia", "template_hxw2jnn", formData);
+      contactMsg.textContent = "Message sent successfully!";
+      contactForm.reset();
+    } catch (error) {
+      contactMsg.textContent = "Failed to send message. Please try again later.";
+      console.error("EmailJS contact form error:", error);
+    }
+  });
+}
     // --- Typewriter Effect ---
     const title = "BILLIAT";
     const subtitle = "A data scientist who is passionate about anything making sense 😎";

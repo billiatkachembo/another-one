@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Base styles for the search results page */
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        #searchResults p {
+            margin-bottom: 1rem;
+        }
+        #searchResults a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        #searchResults a:hover {
+            text-decoration: underline;
+        }
+        mark {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <form class="nav-search" action="search.html" method="GET" role="search">
+            <input type="text" name="q" placeholder="Search..." aria-label="Search" />
+            <button type="submit">Search</button>
+        </form>
+    </nav>
+
+    <main>
+        <h1>Search Results</h1>
+        <div id="searchResults">
+            <p>Loading results...</p>
+        </div>
+    </main>
+
+    <script>
+        // Get query from URL ?q=
+        function getQuery() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get("q") ? params.get("q").toLowerCase() : "";
+        }
+
+        // Fetch and grab all visible text from sections
+        async function getSiteContent() {
+            try {
+                const response = await fetch("index.html"); // Fetch the main portfolio page
+                const text = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, "text/html");
+
+                const sections = doc.querySelectorAll("section");
+                const contentArray = [];
+
+                sections.forEach(sec => {
+                    const title = sec.querySelector("h2") ? sec.querySelector("h2").innerText : sec.id;
+                    let content = sec.innerText || "";
+                    content = content.replace(/\s+/g, " ").trim();
+
+                    if (content.length > 0) {
+                        contentArray.push({ title, text: content, url: `index.html#${sec.id}` });
+                    }
+                });
+                return contentArray;
+            } catch (error) {
+                console.error("Failed to fetch site content:", error);
+                return [];
+            }
+        }
+
+        // Search content array for matches
+        function searchContent(query, contentArray) {
+            if (!query) return [];
+            return contentArray
+                .map(item => {
+                    const idx = item.text.toLowerCase().indexOf(query);
+                    if (idx !== -1) {
+                        const start = Math.max(0, idx - 30);
+                        const end = Math.min(item.text.length, idx + 70);
+                        const snippet = (start > 0 ? "..." : "") + item.text.substring(start, end) + (end < item.text.length ? "..." : "");
+                        return { title: item.title, snippet, url: item.url };
+                    }
+                    return null;
+                })
+                .filter(Boolean);
+        }
+
+        // Highlight searched term
+        function highlightTerm(text, term) {
+            const regex = new RegExp(`(${term})`, "gi");
+            return text.replace(regex, "<mark>$1</mark>");
+        }
+
+        // Display results on page
+        function showResults(results, query) {
+            const container = document.getElementById("searchResults");
+            container.innerHTML = ""; // clear "Loading results..."
+            
+            if (results.length === 0) {
+                container.innerHTML = `<p>No results found for "${query}".</p>`;
+                return;
+            }
+
+            results.forEach(res => {
+                const div = document.createElement("div");
+                div.style.marginBottom = "12px";
+                div.innerHTML = `<a href="${res.url}" style="font-weight:bold;">${res.title}</a><p>${highlightTerm(res.snippet, query)}</p>`;
+                container.appendChild(div);
+            });
+        }
+
+        // Run search
+        document.addEventListener("DOMContentLoaded", async () => {
+            const query = getQuery();
+            if (!query) {
+                document.getElementById("searchResults").innerHTML = `<p>Please enter a search query.</p>`;
+                return;
+            }
+
+            const contentArray = await getSiteContent();
+            const results = searchContent(query, contentArray);
+            showResults(results, query);
+        });
+    </script>
+</body>
+</html>

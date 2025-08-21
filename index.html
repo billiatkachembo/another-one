@@ -888,7 +888,7 @@ if (newsletterForm && newsletterMsg) {
     }
   });
 }
-   const contactForm = document.getElementById("contact-form");
+const contactForm = document.getElementById("contact-form");
 const contactMsg = document.getElementById("contact-msg");
 
 if (contactForm && contactMsg) {
@@ -896,19 +896,22 @@ if (contactForm && contactMsg) {
     e.preventDefault();
     contactMsg.textContent = "";
 
-    // Place the corrected formData object here
+    // Correctly define formData using the actual variable names from your HTML form.
+    // The "name" and "email" properties here should match the "name" attributes
+    // of your form inputs.
     const formData = {
-      name: contactForm.from_name.value.trim(),
-      email: contactForm.reply_to.value.trim(),
-      message: contactForm.message.value.trim()
+      from_name: contactForm.querySelector('[name="from_name"]').value.trim(),
+      reply_to: contactForm.querySelector('[name="reply_to"]').value.trim(),
+      message: contactForm.querySelector('[name="message"]').value.trim()
     };
 
-    if (!formData.name || !formData.email || !formData.message) {
+    if (!formData.from_name || !formData.reply_to || !formData.message) {
       contactMsg.textContent = "Please fill out all fields.";
       return;
     }
 
     try {
+      // Send the data to EmailJS using your service and template IDs.
       await emailjs.send("service_bfi98ia", "template_hxw2jnn", formData);
       contactMsg.textContent = "Message sent successfully!";
       contactForm.reset();
@@ -918,6 +921,7 @@ if (contactForm && contactMsg) {
     }
   });
 }
+
     // --- Typewriter Effect ---
     const title = "BILLIAT";
     const subtitle = "A data scientist who is passionate about anything making sense 😎";

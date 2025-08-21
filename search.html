@@ -25,14 +25,71 @@
         mark {
             background-color: yellow;
         }
+        /* Mobile Search Container */
+.mobile-search-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Back button */
+.back-btn {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+  color: #333;
+}
+
+.back-btn:hover {
+  color: #06c1db;
+}
+
+/* Mobile Search Form */
+.mobile-nav-search {
+  display: flex;
+  flex: 1;
+  gap: 0.5rem;
+}
+
+.mobile-nav-search input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.mobile-nav-search button {
+  padding: 0.5rem 0.8rem;
+  border: none;
+  border-radius: 6px;
+  background: #06c1db;
+  color: white;
+  cursor: pointer;
+}
+
+.mobile-nav-search button:hover {
+  background: #0499ac;
+}
+
     </style>
 </head>
 <body>
     <nav>
-        <form class="nav-search" action="search.html" method="GET" role="search">
-            <input type="text" name="q" placeholder="Search..." aria-label="Search" />
-            <button type="submit">Search</button>
-        </form>
+        <!-- Mobile Search Bar with Back Arrow -->
+<div class="mobile-search-container" id="mobile-search">
+  <button type="button" class="back-btn" id="close-search">←</button>
+  <form class="mobile-nav-search" action="search.html" method="GET" role="search">
+    <input type="text" name="q" placeholder="Search..." aria-label="Search" />
+    <button type="submit">Search</button>
+  </form>
+</div>
+
     </nav>
 
     <main>
@@ -128,7 +185,16 @@
             const contentArray = await getSiteContent();
             const results = searchContent(query, contentArray);
             showResults(results, query);
-        });
+            const mobileSearch = document.getElementById("mobile-search");
+            const closeSearch = document.getElementById("close-search");
+
+            closeSearch.addEventListener("click", () => {
+            window.location.href = "index.html"; // redirect to home
+});
+
+
+
+});
     </script>
 </body>
 </html>

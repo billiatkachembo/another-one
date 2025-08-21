@@ -363,11 +363,15 @@
     <li><a href="https://drive.google.com/file/d/...">Finances in Zambia</a></li>
     <li><a href="https://www.geeksforgeeks.org/data-science-for-beginners/">Data Science</a></li>
   </ul>
+ <!-- Mobile Search Bar with Back Arrow -->
+<div class="mobile-search-container" id="mobile-search">
+  <form class="mobile-nav-search" action="search.html" method="GET" role="search">
+    <input type="text" name="q" placeholder="Search..." aria-label="Search" />
+    <button type="submit">Search</button>
+  </form>
+</div>
 
-  <form class="nav-search" action="search.html" method="GET" role="search">
-  <input type="text" name="q" placeholder="Search..." aria-label="Search" />
-  <button type="submit">Search</button>
-  
+
   <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme" type="button">
   <i id="theme-icon" class="bi bi-moon"></i>
 </button>
@@ -461,6 +465,7 @@ a { text-decoration: none; color: inherit; }
 @media (min-width:769px){
   .mobile-menu, .mobile-menu-overlay { display:none; }
 }
+
 </style>
 
 <script>
@@ -940,6 +945,24 @@ nav.addEventListener('wheel', (e) => {
     gap: 6px;
   }
 }
+/* Mobile view adjustments */
+@media (max-width: 768px) {
+  .nav-search {
+    grid-column: 1 / -1; /* full width in grid */
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+
+  .nav-search input {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .nav-search button {
+    font-size: 1rem;
+  }
+}
+
 </style>
 
 

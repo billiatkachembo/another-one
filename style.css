@@ -959,31 +959,51 @@ body.dark .footer svg {
   color: #45ab6f;
 }
 
-
 /* Back to Top Button */
-.scroll-top {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  width: 3rem;
-  height: 3rem;
-  background-color: var(--primary);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  box-shadow: 0 4px 12px hsl(142 50% 35% / 0.3);
-  cursor: pointer;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px hsl(142 50% 35% / 0.3);
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease-in-out;
+            /* Initially hidden */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
 
-.scroll-top:hover {
-  background-color: var(--primary-light);
-}
+        .scroll-top:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
 
+        /* Class to show the button */
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* For small screens */
+        @media (max-width: 768px) {
+            .scroll-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+        }
 /* Blobs */
 .hero-blob {
   position: absolute;

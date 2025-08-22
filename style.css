@@ -1601,7 +1601,7 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, auto);
-    gap: 12px;
+    gap: 8px;
   }
 
   #sub-menu-navigation .sub-menu-tab,
@@ -1610,9 +1610,7 @@ body {
     text-align: center;
     padding: 10px;
     font-size: 0.9rem;
-    border: 1px solid #ddd;
     border-radius: 8px;
-    background: #f9f9f9;
     transition: all 0.3s ease;
   }
 }

@@ -130,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+<!-- Navbar -->
 <nav class="navbar">
   <div class="nav-left">
     <a class="navbar-title">
@@ -151,7 +152,6 @@ document.addEventListener('DOMContentLoaded', () => {
         </ul>
       </li>
     </ul>
-    <i class="mobile-menu-toggle bi bi-list"></i>
   </div>
 
   <div class="nav-right">
@@ -162,22 +162,34 @@ document.addEventListener('DOMContentLoaded', () => {
       <a href="https://www.instagram.com/billiat.kachembo"><i class="bi bi-instagram"></i></a>
       <a href="mailto:billiatkachembo1@gmail.com"><i class="bi bi-envelope"></i></a>
     </div>
-   <form class="nav-search" action="search.html" method="GET" role="search">
-  <input type="text" name="q" placeholder="Search..." aria-label="Search" />
-  <button type="submit">Search</button>
-</form>
 
+    <form class="nav-search" action="search.html" method="GET" role="search">
+      <input type="text" name="q" placeholder="Search..." aria-label="Search" />
+      <button type="submit">Search</button>
+    </form>
+    
+   <!-- Desktop theme toggle -->
+<button id="theme-toggle" type="button">
+  <i id="theme-icon" class="bi bi-moon"></i>
+</button>
 
-    <button id="mobile-theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme" type="button">
+<!-- Mobile hamburger + theme toggle -->
+<div class="mobile-toggle-container">
+  <button class="mobile-menu-toggle" aria-label="Open menu" type="button">
+    <i class="bi bi-list"></i>
+  </button>
+
+  <button id="mobile-theme-toggle" type="button">
   <i id="mobile-theme-icon" class="bi bi-moon"></i>
 </button>
 
-  </div>
+</div>
+
 </nav>
 
+<!-- Mobile Menu -->
 <div class="mobile-menu">
   <i class="mobile-menu-close bi bi-x-lg"></i>
-  
   <ul class="mobile-menu-links">
     <li><a href="index.html"><i class="bi bi-house-door"></i> Home</a></li>
     <li><a href="#about"><i class="bi bi-person-circle"></i> About</a></li>
@@ -185,26 +197,17 @@ document.addEventListener('DOMContentLoaded', () => {
     <li><a href="https://drive.google.com/file/d/...">Finances in Zambia</a></li>
     <li><a href="https://www.geeksforgeeks.org/data-science-for-beginners/">Data Science</a></li>
   </ul>
- <!-- Mobile Search Bar with Back Arrow -->
-<div class="mobile-search-container" id="mobile-search">
-  <form class="mobile-nav-search" action="search.html" method="GET" role="search">
-    <input type="text" name="q" placeholder="Search..." aria-label="Search" />
-    <button type="submit">Search</button>
-  </form>
-</div>
 
-
-  <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme" type="button">
-  <i id="theme-icon" class="bi bi-moon"></i>
-</button>
-  <div class="social-icons-navbar">
-    <a href="https://facebook.com"><i class="bi bi-facebook"></i></a>
-    <a href="https://twitter.com"><i class="bi bi-twitter-x"></i></a>
-    <a href="https://linkedin.com"><i class="bi bi-linkedin"></i></a>
-    <a href="https://www.instagram.com/billiat.kachembo"><i class="bi bi-instagram"></i></a>
-    <a href="mailto:billiatkachembo1@gmail.com"><i class="bi bi-envelope"></i></a>
+  <!-- Mobile Search Bar -->
+  <div class="mobile-search-container" id="mobile-search">
+    <form class="mobile-nav-search" action="search.html" method="GET" role="search">
+      <input type="text" name="q" placeholder="Search..." aria-label="Search" />
+      <button type="submit">Search</button>
+    </form>
   </div>
 </div>
+
+<!-- Overlay -->
 <div class="mobile-menu-overlay"></div>
 
 <style>
@@ -214,8 +217,9 @@ a { text-decoration: none; color: inherit; }
 
 /* Navbar */
 .navbar {
-  display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: #f8f8f8;
-  border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 2rem; background: #f8f8f8;
+  border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100;
 }
 .nav-left, .nav-center, .nav-right { display: flex; align-items: center; }
 .nav-left .navbar-title { display: flex; align-items: center; }
@@ -223,131 +227,327 @@ a { text-decoration: none; color: inherit; }
 .nav-right { gap: 1rem; }
 
 /* Navigation Links */
-.nav-links { display:flex; list-style:none; gap:1.5rem; padding: 0; margin: 0; }
+.nav-links { display:flex; list-style:none; gap:1.5rem; padding:0; margin:0; }
 .nav-links a { text-decoration:none; color:#333; }
 .nav-links a.active { color:#06c1db; }
 .dropdown { position: relative; }
-.dropdown-menu { display:none; position:absolute; background:#fff; list-style:none; padding:0.5rem 0; margin-top:0.5rem; box-shadow:0 4px 8px rgba(0,0,0,0.1); white-space: nowrap; }
+.dropdown-menu {
+  display:none; position:absolute; background:#fff; list-style:none;
+  padding:0.5rem 0; margin-top:0.5rem; box-shadow:0 4px 8px rgba(0,0,0,0.1); white-space: nowrap;
+}
 .dropdown:hover .dropdown-menu { display:block; }
 .dropdown-menu li a { display:block; padding:0.25rem 1rem; color:#333; }
-.social-icons-navbar { display: flex; gap: 1rem; }
-.social-icons-navbar a { font-size: 1.25rem; color: #555; }
 
 /* Right side elements */
 .nav-right { display:flex; align-items:center; gap:1rem; }
 .nav-search { display:flex; gap:0.5rem; }
-.nav-search input { padding:0.25rem 0.5rem; border: 1px solid #ccc; border-radius: 4px; }
-.nav-search button { padding:0.25rem 0.5rem; background: #eee; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; }
+.nav-search input { padding:0.25rem 0.5rem; border:1px solid #ccc; border-radius:4px; }
+.nav-search button { padding:0.25rem 0.5rem; background:#eee; border:1px solid #ccc; border-radius:4px; cursor:pointer; }
+
+/* Social icons */
+.social-icons-navbar { display:flex; gap:1rem; }
+.social-icons-navbar a { font-size:1.25rem; color:#555; }
 
 /* Theme Toggle */
-#theme-toggle, #mobile-theme-toggle { background: none; border: none; cursor: pointer; font-size: 1.5rem; }
+#theme-toggle, #mobile-theme-toggle {
+  background:none; border:none; cursor:pointer; font-size:1.5rem;
+}
 
+/* Mobile Menu */
+.mobile-menu {
+  position: fixed; top:0; right:-100%;
+  width: clamp(250px, 80%, 350px); max-width:100%; height:100%;
+  background:hsl(210,40%,98%); backdrop-filter:blur(10px);
+  box-shadow:-4px 0 12px rgba(15,15,15,0.2);
+  transition: right 0.3s ease;
+  z-index:2000; overflow-y:auto; -webkit-overflow-scrolling:touch;
+}
+.mobile-menu.active { right:0; }
+
+/* Mobile Menu Close Button */
+.mobile-menu-close {
+  font-size: 2rem;
+  cursor: pointer;
+  display: block;
+  text-align: right;
+  margin-bottom: 2rem;
+  color: hsl(222, 84%, 4.9%); /* dark text for light mode */
+  transition: color 0.3s ease;
+}
+
+/* Dark Mode Close Button */
+body.dark .mobile-menu-close {
+  color: hsl(210, 40%, 98%); /* light text for dark mode */
+}
+
+
+.mobile-menu-links { list-style:none; padding:0; margin:0; }
+.mobile-menu-links li { margin-bottom:1rem; }
+.mobile-menu-links a {
+  display:flex; align-items:center; gap:0.5rem;
+  text-decoration:none; color:#333; font-weight:500;
+  transition: color 0.3s ease;
+}
+.mobile-menu-links a:hover { color:hsl(142 76% 21%);}
+
+/* Mobile Search */
+.mobile-nav-search { display:flex; gap:0.5rem; margin:1rem 0; }
+.mobile-nav-search input { padding:0.25rem 0.5rem; width:100%; }
+
+/* Mobile Toggle Container (hamburger + theme toggle) */
+.mobile-toggle-container {
+  display: none; align-items:center; gap:0.5rem;
+  position: fixed; top:1rem; right:1rem; z-index:1800;
+}
+.mobile-menu-toggle, #mobile-theme-toggle {
+  position: relative; top:auto; right:auto;
+  background: transparent; border:none; font-size:1.8rem; cursor:pointer;
+}
+
+/* Overlay */
+.mobile-menu-overlay {
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.3); opacity:0; visibility:hidden;
+  transition:0.3s; z-index:1500;
+}
+.mobile-menu-overlay.active { opacity:1; visibility:visible; }
+
+/* Responsive Rules */
+@media (max-width:768px){
+  .nav-links, .nav-search, #theme-toggle, .social-icons-navbar { display:none; }
+  .mobile-toggle-container { display:flex; }
+  .navbar { z-index:100; }
+  .mobile-menu { z-index:2000; }
+  .mobile-menu-overlay { z-index:1500; }
+  .navbar-title { font-size:1.2rem; }
+}
+@media (min-width:769px){
+  .mobile-menu, .mobile-menu-overlay, .mobile-toggle-container { display:none; }
+  #theme-toggle { display:block; } /* desktop theme toggle */
+}
+
+/* Sticky navbar only on desktops */
+@media (min-width:992px) { .navbar { position: sticky; top:0; } }
+/* On mobile, navbar is relative */
+@media (max-width:991px) { .navbar { position: relative; } }
+
+/* Lock scrolling when mobile menu is open */
+body.menu-open { overflow:hidden; }
+/* Mobile Menu Base */
+/* Mobile Menu Base */
 .mobile-menu {
   position: fixed;
   top: 0;
   right: -100%;
-  width: clamp(250px, 80%, 350px);
-  max-width: 100%;
+  width: clamp(250px, 50vw, 300px); /* cover roughly half the screen */
   height: 100%;
-  
-  /* Add these lines for transparency and blur */
-  background: rgba(255, 255, 255, 0.7); /* White with 70% opacity */
-  backdrop-filter: blur(10px); /* Adjust the pixel value to control blur strength */
-
+  background-color: hsl(0, 0%, 98%);
+  backdrop-filter: blur(10px);
   box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
   transition: right 0.3s ease;
-  z-index: 999;
+  z-index: 2000;
+  padding: 2rem 1.5rem;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
 }
-.mobile-menu.active { right:0; }
-.mobile-menu-close { font-size:1.5rem; cursor:pointer; margin-bottom:1rem; display:block; }
-.mobile-menu-links { list-style:none; padding:0; margin:0; }
-.mobile-menu-links li { margin-bottom:1rem; }
-.mobile-menu-links a { display:flex; align-items:center; gap:0.5rem; text-decoration:none; color:#333; font-weight:500; }
-.mobile-menu-links a:hover { color:#06c1db; }
 
-/* Mobile Search & Theme */
-.mobile-nav-search { display:flex; gap:0.5rem; margin:1rem 0; }
-.mobile-nav-search input { padding:0.25rem 0.5rem; width:100%; }
-#mobile-theme-toggle { display:block; margin-bottom:1rem; }
-
-/* Overlay */
-.mobile-menu-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.3); opacity:0; visibility:hidden; transition:0.3s; z-index:998; }
-.mobile-menu-overlay.active { opacity:1; visibility:visible; }
-
-/* Hamburger Button */
-.mobile-menu-toggle { display:none; font-size:1.6rem; cursor:pointer; }
-
-@media (max-width:768px){
-  .nav-links, .nav-search, #theme-toggle, .social-icons-navbar { display:none; }
-  .mobile-menu-toggle { display:block; }
-  .navbar-title { font-size:1.2rem; }
+.mobile-menu.active {
+  right: 0;
 }
-@media (min-width:769px){
-  .mobile-menu, .mobile-menu-overlay { display:none; }
+
+/* Mobile Menu Close Button */
+.mobile-menu-close {
+  font-size: 2rem;
+  cursor: pointer;
+  display: block;
+  text-align: right;
+  z-index: 2100;
+  margin-bottom: 2rem;
+  color: hsl(222, 84%, 4.9%);
+  transition: color 0.3s ease;
 }
+
+/* Dark Mode Close Button */
+body.dark .mobile-menu-close {
+  color: hsl(210, 40%, 98%);
+}
+
+/* Mobile Menu Links */
+.mobile-menu-links {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+}
+
+.mobile-menu-links li {
+  margin-bottom: 1.5rem;
+}
+
+.mobile-menu-links a {
+  font-size: 1.25rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: hsl(222, 84%, 4.9%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.mobile-menu-links a:hover {
+  color: hsl(142, 50%, 35%);
+}
+
+/* Mobile Search Bar */
+.mobile-nav-search {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.mobile-nav-search input {
+  flex-grow: 1;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+.mobile-nav-search button {
+  padding: 0.5rem 1rem;
+  background-color: hsl(142, 50%, 35%);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+/* Overlay covering the remaining half-screen */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50vw; /* half of the screen */
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+  z-index: 1500;
+  cursor: pointer; /* click to close */
+}
+
+.mobile-menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Dark Mode for Mobile Menu */
+body.dark .mobile-menu {
+  background-color: hsl(222, 84%, 4.9%);
+  color: hsl(210, 40%, 98%);
+}
+
+body.dark .mobile-menu-links a {
+  color: hsl(210, 40%, 98%);
+}
+
+body.dark .mobile-menu-links a:hover {
+  color: hsl(142, 50%, 35%);
+}
+
+body.dark .mobile-nav-search input {
+  border-color: #ccc;
+  background-color: hsl(222, 84%, 8%);
+  color: hsl(210, 40%, 98%);
+}
+
+body.dark .mobile-nav-search button {
+  background-color: hsl(142, 50%, 35%);
+  color: white;
+}
+
+/* Lock scrolling when menu open */
+body.menu-open {
+  overflow: hidden;
+}
+
 
 </style>
-
 <script>
-// --- Mobile Menu Logic ---
-const menu = document.querySelector('.mobile-menu');
-const openBtn = document.querySelector('.mobile-menu-toggle');
-const closeBtn = document.querySelector('.mobile-menu-close');
-const overlay = document.querySelector('.mobile-menu-overlay');
-const links = document.querySelectorAll('.mobile-menu-links a');
+// Mobile Menu JS
+const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+const mobileMenu = document.querySelector('.mobile-menu');
+const mobileMenuClose = document.querySelector('.mobile-menu-close');
+const mobileOverlay = document.querySelector('.mobile-menu-overlay');
 
-openBtn.addEventListener('click', () => { 
-  menu.classList.add('active'); 
-  overlay.classList.add('active'); 
-});
-closeBtn.addEventListener('click', () => { 
-  menu.classList.remove('active'); 
-  overlay.classList.remove('active'); 
-});
-overlay.addEventListener('click', () => { 
-  menu.classList.remove('active'); 
-  overlay.classList.remove('active'); 
-});
-links.forEach(link => { 
-  link.addEventListener('click', () => { 
-    menu.classList.remove('active'); 
-    overlay.classList.remove('active'); 
-  }); 
-});
-
-// --- Unified Theme Toggle Logic ---
-const themeToggleButtons = document.querySelectorAll('.theme-toggle-btn');
-const mobileThemeIcon = document.getElementById('mobile-theme-icon');
-
-// This function will toggle the dark class and the icons on BOTH buttons
-const toggleTheme = () => {
-  document.body.classList.toggle('dark');
-  const isDark = document.body.classList.contains('dark');
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
-
-  // Find all icon elements and toggle their classes
-  document.querySelectorAll('#theme-icon, #mobile-theme-icon').forEach(icon => {
-    icon.classList.toggle('bi-sun', isDark);
-    icon.classList.toggle('bi-moon', !isDark);
-  });
-};
-
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) {
-  document.body.classList.add(savedTheme);
-} else {
-  // Check for system preference only once on initial load
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.body.classList.add('dark');
-  }
+function openMobileMenu() {
+  mobileMenu.classList.add('active');
+  mobileOverlay.classList.add('active');
+  document.body.classList.add('menu-open');
 }
 
-// Attach the event listener to all buttons with the shared class
-themeToggleButtons.forEach(button => {
-  button.addEventListener('click', toggleTheme);
+function closeMobileMenu() {
+  mobileMenu.classList.remove('active');
+  mobileOverlay.classList.remove('active');
+  document.body.classList.remove('menu-open');
+}
+
+mobileMenuToggle.addEventListener('click', openMobileMenu);
+mobileMenuClose.addEventListener('click', closeMobileMenu);
+mobileOverlay.addEventListener('click', closeMobileMenu);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const desktopToggle = document.getElementById('theme-toggle');
+  const mobileToggle = document.getElementById('mobile-theme-toggle');
+  const desktopIcon = document.getElementById('theme-icon');
+  const mobileIcon = document.getElementById('mobile-theme-icon');
+
+  // Apply theme based on current state
+  function applyTheme(isDark) {
+    if (isDark) {
+      document.body.classList.add('dark');
+      if (desktopIcon) desktopIcon.classList.replace('bi-moon', 'bi-sun');
+      if (mobileIcon) mobileIcon.classList.replace('bi-moon', 'bi-sun');
+    } else {
+      document.body.classList.remove('dark');
+      if (desktopIcon) desktopIcon.classList.replace('bi-sun', 'bi-moon');
+      if (mobileIcon) mobileIcon.classList.replace('bi-sun', 'bi-moon');
+    }
+  }
+
+  // Toggle theme and store in localStorage
+  function toggleTheme() {
+    const isDark = !document.body.classList.contains('dark');
+    applyTheme(isDark);
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  }
+
+  // Attach event listeners
+  if (desktopToggle) desktopToggle.addEventListener('click', toggleTheme);
+  if (mobileToggle) mobileToggle.addEventListener('click', toggleTheme);
+
+  // Load saved theme or system preference
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    applyTheme(true);
+  } else if (savedTheme === 'light') {
+    applyTheme(false);
+  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    applyTheme(true);
+  }
+
+  // Optional: respond to system theme changes
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (!localStorage.getItem('theme')) {
+        applyTheme(e.matches);
+      }
+    });
+  }
 });
+
+
+
+
 </script>
 
   <section id="home" class="hero-section">
@@ -713,80 +913,7 @@ nav.addEventListener('wheel', (e) => {
     </iframe>
   </div>
 </section>
-<style>
-/* Keep existing styles untouched, only adding mobile responsiveness */
-@media (max-width: 768px) {
-  #sub-menu-navigation .sub-menu-tabs {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, auto);
-    gap: 12px;
-    text-align: center;
-  }
-
-  /* Nav links: no boxes, centered */
-  #sub-menu-navigation .sub-menu-tab {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--foreground);
-    background: none;
-    border: none;
-    border-radius: 0;
-    padding: 8px 0;
-    text-align: center;
-  }
-
-  /* Utility grids */
-  .grid4 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
-  .activity-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .benefits-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .footer-phones {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-}
-/* Mobile view adjustments */
-@media (max-width: 768px) {
-  .nav-search {
-    grid-column: 1 / -1; /* full width in grid */
-    margin-top: 0.5rem;
-    width: 100%;
-  }
-
-  .nav-search input {
-    width: 100%;
-    font-size: 1rem;
-  }
-
-  .nav-search button {
-    font-size: 1rem;
-  }
-}
-
-</style>
-
+<style> /* ------------------------------------------- */ /* Mobile Responsiveness - Core CSS Enhancements */ /* ------------------------------------------- */ /* Global Mobile Optimizations */ :root { --text-color-light: #343a40; --heading-color-light: #212529; --body-bg-light: #f8f9fa; --card-bg-light: #ffffff; --border-color-light: #e9ecef; --green-color: #21683e; --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.1); --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1); } .dark { --text-color-dark: #e9ecef; --heading-color-dark: #f8f9fa; --body-bg-dark: #1f2a37; --card-bg-dark: #2c3a4a; --border-color-dark: #495057; } body { color: var(--text-color-light); background-color: var(--body-bg-light); transition: color 0.3s ease, background-color 0.3s ease; font-family: 'Inter', sans-serif; margin: 0; padding: 0; } .dark body { color: var(--text-color-dark); background-color: var(--body-bg-dark); } h1, h2, h3, h4, h5, h6 { color: var(--heading-color-light); } .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 { color: var(--heading-color-dark); } .glass-card, .section-card, .newsletter-card { background-color: var(--card-bg-light); border: 1px solid var(--border-color-light); } .dark .glass-card, .dark .section-card, .dark .newsletter-card { background-color: var(--card-bg-dark); border: 1px solid var(--border-color-dark); } /* Sub-menu and hidden section styles */ .hidden-section { display: none !important; } /* --- Centered Sub-menu Tabs with Animated Glowing Switch & Bounce --- */ .sub-menu-tabs { position: relative; display: flex; justify-content: center; align-items: center; gap: 12px; padding: 10px 12px; background-color: rgba(0, 0, 0, 0.1); border-radius: 50px; box-shadow: var(--shadow-small); overflow: hidden; margin: 2rem auto; transition: background-color 0.3s ease; max-width: 95%; /* keeps tabs inside small screens */ } .sub-menu-tab { z-index: 1; padding: 10px 24px; border-radius: 50px; text-decoration: none; color: var(--text-color-light); font-weight: 500; font-size: 0.95rem; transition: color 0.3s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap; cursor: pointer; display: flex; align-items: center; justify-content: center; } .sub-menu-tab { z-index: 1; padding: 10px 22px; border-radius: 50px; text-decoration: none; color: var(--text-color-light); font-weight: 500; font-size: 0.95rem; transition: color 0.3s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap; cursor: pointer; } .dark .sub-menu-tab { color: var(--text-color-dark); } .sub-menu-tab.active, .sub-menu-tab:hover { color: #fff; transform: scale(1.08); /* Slight scale on active/hover */ } /* Glowing moving switch background */ .tabs-switch-bg { position: absolute; top: 0; left: 0; height: 100%; width: 0; background: linear-gradient(135deg, #205f4a, #177047); border-radius: 50px; box-shadow: 0 0 15px rgba(33, 104, 62, 0.6); transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s ease-in-out, transform 0.35s ease-out; z-index: 0; animation: glowPulse 2s infinite alternate; } /* Smooth glowing pulse */ @keyframes glowPulse { 0% { box-shadow: 0 0 12px rgba(33, 104, 62, 0.4), 0 0 20px rgba(33, 104, 62, 0.2); } 100% { box-shadow: 0 0 20px rgba(33, 104, 62, 0.7), 0 0 28px rgba(33, 104, 62, 0.3); } } /* Optional bounce effect for active tab */ .sub-menu-tab.bounce { animation: tabBounce 0.3s ease-out; } @keyframes tabBounce { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1.08); } } /* Responsive adjustments for sub-menu tabs */ @media (max-width: 768px) { .sub-menu-tabs { flex-wrap: wrap; gap: 6px; padding: 4px; } .sub-menu-tab { padding: 8px 16px; font-size: 0.85rem; } } /* Specific styling for phone numbers to ensure visibility */ .footer-phones a { color: var(--text-color-light); } .dark .footer-phones a { color: var(--text-color-dark); } /* Additional general styles for the page layout */ .navbar, .hero-section, .about-section, .skills-section, .section-card, .footer { padding: 2rem; } .about-grid, .info-grid, .grid3, .grid4, .activity-grid, .benefits-grid { display: grid; gap: 1.5rem; } .about-grid { grid-template-columns: 1fr; } .info-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); } .grid3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); } .grid4 { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); } @media (min-width: 768px) { .about-grid { grid-template-columns: 1fr 2fr; } } /* --- New Mobile-Specific Navbar Styles --- */ .nav-center, .nav-social-search { transition: transform 0.3s ease; } /* Hide desktop nav on mobile */ @media (max-width: 991px) { .nav-center .nav-links { display: none; } .nav-center .mobile-nav-toggle { display: block; /* Show hamburger icon */ } .nav-right .nav-social-search { display: none; } } /* Style for the mobile menu */ .mobile-menu { position: fixed; top: 0; right: -100%; width: clamp(250px, 80%, 350px); max-width: 100%; height: 100%; /* Add these lines for transparency and blur */ background: rgba(255, 255, 255, 0.7); /* White with 70% opacity */ backdrop-filter: blur(10px); /* Adjust the pixel value to control blur strength */ box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2); transition: right 0.3s ease; z-index: 999; overflow-y: auto; -webkit-overflow-scrolling: touch; } .mobile-menu.active { right:0; } .mobile-menu-close { font-size:1.5rem; cursor:pointer; margin-bottom:1rem; display:block; } .mobile-menu-links { list-style:none; padding:0; margin:0; } .mobile-menu-links li { margin-bottom:1rem; } .mobile-menu-links a { display:flex; align-items:center; gap:0.5rem; text-decoration:none; color:#333; font-weight:500; } .mobile-menu-links a:hover { color:#06c1db; } /* Mobile Submenu styles */ .mobile-submenu { list-style: none; padding: 0; margin: 0.5rem 0 0.5rem 1rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-in-out; } .mobile-submenu.active { max-height: 200px; /* Adjust this value based on your content */ } .mobile-submenu li { margin-bottom: 0.5rem; } /* Rotate chevron icon when submenu is open */ .mobile-menu-toggle-chevron { transition: transform 0.3s ease-in-out; } .mobile-menu-link.active .mobile-menu-toggle-chevron { transform: rotate(180deg); } /* Mobile Search & Theme */ .mobile-nav-search { display:flex; gap:0.5rem; margin:1rem 0; } .mobile-nav-search input { padding:0.25rem 0.5rem; width:100%; } #mobile-theme-toggle { display:block; margin-bottom:1rem; } /* Overlay */ .mobile-menu-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.3); opacity:0; visibility:hidden; transition:0.3s; z-index:998; } .mobile-menu-overlay.active { opacity:1; visibility:visible; } /* Hamburger Button */ .mobile-menu-toggle { display:none; font-size:1.6rem; cursor:pointer; } @media (max-width:768px){ .nav-links, .nav-search, #theme-toggle, .social-icons-navbar { display:none; } .mobile-menu-toggle { display:block; } .navbar-title { font-size:1.2rem; } } @media (min-width:769px){ .mobile-menu, .mobile-menu-overlay { display:none; } } </style>
 
   </section>
 
@@ -843,8 +970,91 @@ nav.addEventListener('wheel', (e) => {
     </div>
   </footer>
 
-  <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="scroll-top" aria-label="Back to top">
-    <i data-lucide="arrow-up"></i>
+ <!-- This is your button -->
+    <button id="scroll-top-btn" class="scroll-top" aria-label="Back to top">
+        <i data-lucide="arrow-up"></i>
+    </button>
+    
+    <style>
+              /* Back to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px hsl(142 50% 35% / 0.3);
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease-in-out;
+            
+            /* Initially hidden */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px); /* A slight starting position for the animation */
+        }
+        .scroll-top:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+        
+        /* Class to show the button */
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        /* For small screens */
+        @media (max-width: 768px) {
+            .scroll-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+        }
+    </style>
+    <script>
+              // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Get a reference to the button
+        const scrollTopBtn = document.getElementById('scroll-top-btn');
+        // Set a scroll threshold in pixels
+        const scrollThreshold = 300; 
+
+        // Function to toggle the button's visibility
+        const toggleScrollTopBtn = () => {
+            if (window.scrollY > scrollThreshold) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        };
+
+        // Add event listener for scrolling
+        window.addEventListener('scroll', toggleScrollTopBtn);
+
+        // Add event listener for button click
+        // Note: The original 'onclick' in HTML works fine, but this is the modern approach
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Initial check in case the page is loaded already scrolled
+        toggleScrollTopBtn();
+    </script>
   </button>
 <script>
   document.addEventListener('DOMContentLoaded', () => {

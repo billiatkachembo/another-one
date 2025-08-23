@@ -1300,26 +1300,6 @@ nav.addEventListener('wheel', (e) => {
     }
   }
 </style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const mapToggle = document.getElementById('map-toggle');
-    const mapWrapper = document.getElementById('map-wrapper');
-    
-    if (mapToggle && mapWrapper) {
-      mapToggle.addEventListener('click', function() {
-        mapWrapper.classList.toggle('hidden');
-        mapToggle.classList.toggle('active');
-        
-        // If we're showing the map, update the toggle text
-        const toggleText = mapWrapper.classList.contains('hidden') ? 
-          'See University Location' : 'Hide Map';
-        
-        mapToggle.querySelector('span').textContent = toggleText;
-      });
-    }
-  });
-</script>
   <h2>Certifications</h2>
   <div class="certifications-grid">
     <!-- IBM Certification -->

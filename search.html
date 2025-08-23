@@ -9,130 +9,343 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
 /* --- Base Styles --- */
-body { margin: 0; font-family: system-ui, sans-serif; background: #f9f9f9; color: #222; transition: background 0.3s, color 0.3s; }
-body.dark { background: #111; color: #eee; }
-a { text-decoration: none; color: #007bff; transition: color 0.3s; }
-body.dark a { color: #66ccff; }
-a:hover { text-decoration: underline; }
-main { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
-#searchResults p { margin-bottom: 1rem; }
-mark { background-color: yellow; }
-body.dark mark { background-color: #ffea00; color: #111; }
+:root {
+  --primary-color: #06c1db;
+  --primary-hover: #0499ac;
+  --text-color: #222;
+  --bg-color: #f9f9f9;
+  --card-bg: #fff;
+  --border-color: #e0e0e0;
+  --shadow-color: rgba(0,0,0,0.1);
+  --mark-bg: yellow;
+  --mark-color: #111;
+}
+
+body.dark {
+  --primary-color: #66ccff;
+  --primary-hover: #33bbff;
+  --text-color: #eee;
+  --bg-color: #111;
+  --card-bg: #222;
+  --border-color: #444;
+  --shadow-color: rgba(0,0,0,0.3);
+  --mark-bg: #ffea00;
+  --mark-color: #111;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: background 0.3s, color 0.3s;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+  transition: color 0.3s;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--primary-hover);
+}
+
+main {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+#searchResults p {
+  margin-bottom: 1rem;
+}
+
+mark {
+  background-color: var(--mark-bg);
+  color: var(--mark-color);
+  padding: 0.1em 0.2em;
+  border-radius: 2px;
+}
+
+/* --- Header Styles --- */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.page-title {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: var(--primary-color);
+}
+
+.controls-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* --- Button Styles --- */
+.icon-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: color 0.3s, transform 0.2s;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:hover {
+  color: var(--primary-color);
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: scale(1.1);
+}
+
+body.dark .icon-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
 
 /* --- Search Panel --- */
 .search-panel {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 50vw;
-    max-width: 350px;
-    height: 100%;
-    background: #fff;
-    box-shadow: -4px 0 12px rgba(0,0,0,0.2);
-    backdrop-filter: blur(10px);
-    transition: right 0.3s ease, background 0.3s, color 0.3s;
-    z-index: 2000;
-    padding: 2rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 50vw;
+  max-width: 400px;
+  height: 100%;
+  background: var(--card-bg);
+  box-shadow: -4px 0 12px var(--shadow-color);
+  transition: right 0.3s ease;
+  z-index: 2000;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }
-body.dark .search-panel { background: #222; color: #eee; }
-
-/* Back button */
-.back-btn {
-    font-size: 1.5rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #333;
-    margin-bottom: 1rem;
-    align-self: flex-start;
-    transition: color 0.3s;
-}
-.back-btn:hover { color: #06c1db; }
-body.dark .back-btn { color: #eee; }
-body.dark .back-btn:hover { color: #66ccff; }
 
 /* Search form */
-.search-form { display: flex; gap: 0.5rem; }
+.search-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
 .search-form input {
-    flex: 1;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
-    background: #fff;
-    color: #222;
-    transition: background 0.3s, color 0.3s, border-color 0.3s;
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--card-bg);
+  color: var(--text-color);
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
-body.dark .search-form input { background: #333; color: #eee; border-color: #555; }
+
+.search-form input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(6, 193, 219, 0.2);
+}
+
 .search-form button {
-    padding: 0.5rem 0.8rem;
-    border: none;
-    border-radius: 6px;
-    background: #06c1db;
-    color: white;
-    cursor: pointer;
-    transition: background 0.3s;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
 }
-.search-form button:hover { background: #0499ac; }
+
+.search-form button:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
 
 /* Overlay */
 .search-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.3);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease;
-    z-index: 1500;
-    cursor: pointer;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+  z-index: 1500;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
 }
-.search-overlay.active { opacity: 1; visibility: visible; }
+
+.search-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
 
 /* Search results */
 .result-item {
-    background: #fff;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    transition: background 0.3s, color 0.3s;
+  background: var(--card-bg);
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px var(--shadow-color);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-left: 4px solid var(--primary-color);
 }
-body.dark .result-item { background: #222; color: #eee; }
-.result-item a { font-weight: bold; color: #007bff; font-size: 1.1rem; }
-body.dark .result-item a { color: #66ccff; }
-.result-item p { margin-top: 0.5rem; }
 
-/* Header buttons */
-.header-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
+.result-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
 }
-.theme-toggle-btn, .open-search-btn {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #333;
-    transition: color 0.3s;
+
+.result-item a {
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: block;
+  margin-bottom: 0.5rem;
 }
-body.dark .theme-toggle-btn, body.dark .open-search-btn { color: #eee; }
-.theme-toggle-btn:hover, .open-search-btn:hover { color: #06c1db; }
-body.dark .theme-toggle-btn:hover, body.dark .open-search-btn:hover { color: #66ccff; }
+
+.result-item p {
+  margin: 0;
+  color: var(--text-color);
+  opacity: 0.9;
+}
+
+/* Loading animation */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.loading-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.loading-dots div {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  animation: bounce 1.5s infinite ease-in-out;
+}
+
+.loading-dots div:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dots div:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+}
+
+/* No results */
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+.no-results i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+/* Recent searches */
+.recent-searches {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.recent-searches h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+.recent-search-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.recent-search-tag {
+  background: rgba(6, 193, 219, 0.1);
+  color: var(--primary-color);
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.recent-search-tag:hover {
+  background: rgba(6, 193, 219, 0.2);
+  transform: translateY(-1px);
+}
+
+body.dark .recent-search-tag {
+  background: rgba(102, 204, 255, 0.15);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-panel {
+    width: 85vw;
+    padding: 1.5rem 1rem;
+  }
+  
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .result-item {
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .search-panel {
+    width: 40vw;
+  }
+}
 
 /* Prevent scroll when menu is open */
-body.menu-open { overflow: hidden; }
-
-@media(min-width: 768px) {
-    .search-panel { width: 30vw; }
-    .search-overlay { width: 100vw; }
+body.menu-open {
+  overflow: hidden;
 }
 </style>
 </head>
@@ -140,13 +353,21 @@ body.menu-open { overflow: hidden; }
 
 <!-- Search Panel -->
 <div class="search-panel" id="search-panel">
-    <button type="button" class="back-btn" id="close-search" aria-label="Close Search">
+    <button type="button" class="icon-btn" id="close-search" aria-label="Close Search">
         <i class="fas fa-arrow-left"></i>
     </button>
+    <h2>Search</h2>
     <form class="search-form" action="search.html" method="GET" role="search">
-        <input type="text" name="q" placeholder="Search..." aria-label="Search" />
-        <button type="submit">Search</button>
+        <input type="text" name="q" placeholder="Enter your search terms..." aria-label="Search" />
+        <button type="submit"><i class="fas fa-search"></i></button>
     </form>
+    
+    <div class="recent-searches">
+        <h3>Recent Searches</h3>
+        <div class="recent-search-tags" id="recent-searches-container">
+            <!-- Recent searches will be added here dynamically -->
+        </div>
+    </div>
 </div>
 
 <!-- Overlay -->
@@ -154,19 +375,26 @@ body.menu-open { overflow: hidden; }
 
 <!-- Main content -->
 <main>
-    <div class="header-controls">
-        <h1>Search Results</h1>
-        <div>
-            <button id="open-search-btn" class="open-search-btn" aria-label="Open search panel">
+    <div class="page-header">
+        <h1 class="page-title">Search Results</h1>
+        <div class="controls-container">
+            <button id="open-search-btn" class="icon-btn" aria-label="Open search panel">
                 <i class="fas fa-search"></i>
             </button>
-            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark theme">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle light/dark theme">
                 <i id="theme-icon" class="fas fa-moon"></i>
             </button>
         </div>
     </div>
+    
     <div id="searchResults">
-        <p>Loading results...</p>
+        <div class="loading">
+            <div class="loading-dots">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
     </div>
 </main>
 
@@ -181,6 +409,12 @@ body.menu-open { overflow: hidden; }
         panel.style.right = "0";
         overlay.classList.add("active");
         document.body.classList.add("menu-open");
+        
+        // Focus on search input when panel opens
+        setTimeout(() => {
+            const searchInput = document.querySelector('.search-form input[name="q"]');
+            if (searchInput) searchInput.focus();
+        }, 100);
     }
 
     function closePanel() {
@@ -192,6 +426,13 @@ body.menu-open { overflow: hidden; }
     openSearchBtn.addEventListener("click", openPanel);
     overlay.addEventListener("click", closePanel);
     closeBtn.addEventListener("click", closePanel);
+
+    // Close panel with Escape key
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && panel.style.right === "0px") {
+            closePanel();
+        }
+    });
 
     // --- Theme Toggle ---
     const themeToggleBtn = document.getElementById("theme-toggle");
@@ -213,16 +454,49 @@ body.menu-open { overflow: hidden; }
         document.body.classList.contains('dark') ? disableDark() : enableDark();
     });
 
+    // Check for saved theme preference or respect OS preference
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') enableDark();
     else if (savedTheme === 'light') disableDark();
     else if (window.matchMedia('(prefers-color-scheme: dark)').matches) enableDark();
 
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        if (!localStorage.getItem('theme')) {
+            e.matches ? enableDark() : disableDark();
+        }
+    });
+
     // --- Search Functionality ---
     document.addEventListener("DOMContentLoaded", async () => {
         const searchInput = document.querySelector('.search-form input[name="q"]');
         const searchResultsContainer = document.getElementById("searchResults");
+        const recentSearchesContainer = document.getElementById("recent-searches-container");
         let contentArray = [];
+        let recentSearches = JSON.parse(localStorage.getItem('recentSearches') || '[]');
+
+        // Display recent searches
+        function updateRecentSearches() {
+            recentSearchesContainer.innerHTML = '';
+            if (recentSearches.length === 0) {
+                recentSearchesContainer.innerHTML = '<p style="opacity:0.7; margin:0;">No recent searches</p>';
+                return;
+            }
+            
+            recentSearches.slice(0, 5).forEach(search => {
+                const tag = document.createElement('div');
+                tag.className = 'recent-search-tag';
+                tag.textContent = search;
+                tag.addEventListener('click', () => {
+                    searchInput.value = search;
+                    const event = new Event('input', { bubbles: true });
+                    searchInput.dispatchEvent(event);
+                });
+                recentSearchesContainer.appendChild(tag);
+            });
+        }
+
+        updateRecentSearches();
 
         async function getSiteContent() {
             try {
@@ -230,20 +504,22 @@ body.menu-open { overflow: hidden; }
                 const text = await response.text();
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(text, "text/html");
-                const sections = doc.querySelectorAll("section");
+                const sections = doc.querySelectorAll("section, article, [data-searchable]");
                 const pageContent = [];
+                
                 sections.forEach(sec => {
-                    const title = sec.querySelector("h2")?.innerText || sec.id;
-                    const content = (sec.innerText || "").replace(/\s+/g, " ").trim();
+                    const title = sec.querySelector("h1, h2, h3")?.innerText || sec.id || "Untitled";
+                    const content = (sec.textContent || "").replace(/\s+/g, " ").trim();
                     if (content.length) pageContent.push({
                         title,
                         text: content,
                         url: `index.html#${sec.id}`
                     });
                 });
+                
                 return pageContent;
             } catch (err) {
-                console.error(err);
+                console.error("Error fetching content:", err);
                 return [];
             }
         }
@@ -254,36 +530,82 @@ body.menu-open { overflow: hidden; }
             if (!query) return [];
             const term = query.toLowerCase();
             return data.map(item => {
-                const idx = item.text.toLowerCase().indexOf(term);
-                if (idx !== -1) {
+                const titleMatch = item.title.toLowerCase().includes(term);
+                const contentMatch = item.text.toLowerCase().includes(term);
+                
+                if (titleMatch || contentMatch) {
+                    // Prioritize title matches
+                    const relevance = titleMatch ? 2 : 1;
+                    
+                    // Find the position of the match
+                    let idx = item.text.toLowerCase().indexOf(term);
+                    if (idx === -1 && titleMatch) {
+                        idx = 0; // If it's a title match but not in content, show from start
+                    }
+                    
                     const start = Math.max(0, idx - 30);
-                    const end = Math.min(item.text.length, idx + 70);
-                    const snippet = (start > 0 ? "..." : "") + item.text.substring(start, end) + (end < item.text.length ? "..." : "");
+                    const end = Math.min(item.text.length, idx + term.length + 70);
+                    let snippet = item.text.substring(start, end);
+                    
+                    if (start > 0) snippet = "..." + snippet;
+                    if (end < item.text.length) snippet = snippet + "...";
+                    
                     return {
                         title: item.title,
                         snippet,
-                        url: item.url
+                        url: item.url,
+                        relevance
                     };
                 }
                 return null;
-            }).filter(Boolean);
+            }).filter(Boolean)
+            .sort((a, b) => b.relevance - a.relevance); // Sort by relevance
         }
 
         function highlightTerm(text, term) {
-            const regex = new RegExp(`(${term})`, "gi");
+            if (!term) return text;
+            const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "gi");
             return text.replace(regex, "<mark>$1</mark>");
         }
 
         function showResults(results, query, container) {
             container.innerHTML = "";
-            if (query.trim() === "" || results.length === 0) {
-                container.innerHTML = `<p style="padding: 10px;">No results found for "${query}".</p>`;
+            
+            if (query.trim() === "") {
+                container.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search"></i>
+                        <p>Enter a search term to find content</p>
+                    </div>`;
                 return;
             }
+            
+            if (results.length === 0) {
+                container.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search-minus"></i>
+                        <p>No results found for "${query}"</p>
+                        <p>Try different keywords or browse the main site</p>
+                    </div>`;
+                return;
+            }
+            
+            // Add to recent searches if not already there
+            if (!recentSearches.includes(query)) {
+                recentSearches.unshift(query);
+                // Keep only the 5 most recent searches
+                if (recentSearches.length > 5) recentSearches.pop();
+                localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
+                updateRecentSearches();
+            }
+            
             results.forEach(res => {
                 const div = document.createElement("div");
                 div.className = "result-item";
-                div.innerHTML = `<a href="${res.url}">${res.title}</a><p>${highlightTerm(res.snippet, query)}</p>`;
+                div.innerHTML = `
+                    <a href="${res.url}">${res.title}</a>
+                    <p>${highlightTerm(res.snippet, query)}</p>
+                `;
                 container.appendChild(div);
             });
         }
@@ -306,6 +628,15 @@ body.menu-open { overflow: hidden; }
 
         if (searchInput) {
             searchInput.addEventListener("input", handleSearch);
+            
+            // Check if there's a search query in the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlQuery = urlParams.get('q');
+            if (urlQuery) {
+                searchInput.value = urlQuery;
+                const results = searchContent(urlQuery, contentArray);
+                showResults(results, urlQuery, searchResultsContainer);
+            }
         }
     });
 </script>

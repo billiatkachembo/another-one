@@ -2,257 +2,311 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="#06c1db">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Search Interface</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Modern Search Interface</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #06c1db;
-            --primary-hover: #0499ac;
-            --text-color: #222;
-            --bg-color: #f9f9f9;
-            --card-bg: #fff;
-            --border-color: #e0e0e0;
-            --shadow-color: rgba(0,0,0,0.1);
-            --mark-bg: #ffeb3b;
-            --mark-color: #111;
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --bg: #f9fafb;
+            --card-bg: #ffffff;
+            --border: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+            --transition: all 0.3s ease;
         }
 
-        body.dark {
-            --primary-color: #66ccff;
-            --primary-hover: #33bbff;
-            --text-color: #eee;
-            --bg-color: #111;
-            --card-bg: #222;
-            --border-color: #444;
-            --shadow-color: rgba(0,0,0,0.3);
-            --mark-bg: #ffea00;
-            --mark-color: #111;
+        .dark-theme {
+            --primary: #3b82f6;
+            --primary-light: #60a5fa;
+            --primary-dark: #2563eb;
+            --text: #f9fafb;
+            --text-light: #d1d5db;
+            --bg: #111827;
+            --card-bg: #1f2937;
+            --border: #374151;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            margin: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg-color);
-            color: var(--text-color);
-            transition: background 0.3s, color 0.3s;
+            background-color: var(--bg);
+            color: var(--text);
             line-height: 1.6;
-        }
-
-        a {
-            text-decoration: none;
-            color: var(--primary-color);
-            transition: color 0.3s;
-        }
-
-        a:hover {
-            text-decoration: underline;
-            color: var(--primary-hover);
+            transition: var(--transition);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            width: 100%;
         }
 
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
-            margin-bottom: 30px;
-            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
         }
 
         .logo {
-            font-size: 24px;
+            font-size: 1.8rem;
             font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        .controls-container {
-            display: flex;
-            gap: 10px;
-        }
-
-        .icon-btn {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: var(--text-color);
-            transition: color 0.3s, transform 0.2s;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            color: var(--primary);
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 0.5rem;
         }
 
-        .icon-btn:hover {
-            color: var(--primary-color);
-            background-color: rgba(0, 0, 0, 0.05);
-            transform: scale(1.1);
+        .logo i {
+            font-size: 2rem;
         }
 
-        body.dark .icon-btn:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+        .controls {
+            display: flex;
+            gap: 0.75rem;
         }
 
-        .search-container {
-            margin-bottom: 30px;
-            position: relative;
-        }
-
-        .search-input-container {
-            position: relative;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        #search-input {
-            width: 100%;
-            padding: 15px 20px;
-            padding-right: 50px;
-            border: 2px solid var(--border-color);
-            border-radius: 30px;
-            font-size: 16px;
+        .btn {
             background: var(--card-bg);
-            color: var(--text-color);
-            transition: border-color 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 10px var(--shadow-color);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
         }
 
-        #search-input:focus {
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .search-section {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2.5rem;
+            transition: var(--transition);
+        }
+
+        .search-section:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .search-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .search-title i {
+            color: var(--primary);
+        }
+
+        .search-box {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1.1rem;
+            background: var(--bg);
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(6, 193, 219, 0.2);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
         }
 
-        .search-icon {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary-color);
-            font-size: 20px;
+        .search-btn {
+            padding: 1rem 1.75rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
         }
 
         .search-stats {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 14px;
-            color: var(--text-color);
-            opacity: 0.7;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-stats i {
+            color: var(--primary);
         }
 
         .results-container {
             display: grid;
-            gap: 20px;
+            gap: 1.5rem;
         }
 
-        .result-item {
+        .result-card {
             background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px var(--shadow-color);
-            transition: transform 0.2s, box-shadow 0.2s;
-            border-left: 4px solid var(--primary-color);
+            border-radius: var(--radius);
+            padding: 1.75rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
         }
 
-        .result-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px var(--shadow-color);
+        .result-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
         }
 
-        .result-item a {
-            font-weight: 700;
-            font-size: 18px;
-            display: block;
-            margin-bottom: 10px;
+        .result-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            color: var(--primary);
         }
 
-        .result-item p {
-            margin: 0;
-            color: var(--text-color);
-            opacity: 0.9;
+        .result-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .result-title a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .result-snippet {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .result-url {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .no-results {
             text-align: center;
-            padding: 40px;
-            color: var(--text-color);
-            opacity: 0.7;
+            padding: 3rem;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
         }
 
         .no-results i {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: var(--primary-color);
+            font-size: 3.5rem;
+            color: var(--primary-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .no-results p {
+            color: var(--text-light);
+            max-width: 500px;
+            margin: 0 auto;
         }
 
         mark {
-            background-color: var(--mark-bg);
-            color: var(--mark-color);
+            background-color: rgba(255, 230, 0, 0.3);
+            color: inherit;
             padding: 0.1em 0.2em;
             border-radius: 3px;
         }
 
-        .loading {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100px;
-        }
-
-        .loading-dots {
-            display: flex;
-            gap: 8px;
-        }
-
-        .loading-dots div {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--primary-color);
-            animation: bounce 1.5s infinite ease-in-out;
-        }
-
-        .loading-dots div:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .loading-dots div:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-                opacity: 0.5;
-            }
-            50% {
-                transform: translateY(-10px);
-                opacity: 1;
-            }
+        footer {
+            margin-top: auto;
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 15px;
+            body {
+                padding: 1.5rem;
             }
             
             header {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 15px;
+                gap: 1rem;
             }
             
-            .result-item {
-                padding: 15px;
+            .search-box {
+                flex-direction: column;
+            }
+            
+            .search-section {
+                padding: 1.5rem;
+            }
+            
+            .result-card {
+                padding: 1.5rem;
             }
         }
     </style>
@@ -260,69 +314,113 @@
 <body>
     <div class="container">
         <header>
-            <div class="logo">Search Interface</div>
-            <div class="controls-container">
-                <button id="theme-toggle" class="icon-btn" aria-label="Toggle light/dark theme">
-                    <i id="theme-icon" class="fas fa-moon"></i>
+            <div class="logo">
+                <i class="fas fa-search"></i>
+                <span>SearchHub</span>
+            </div>
+            <div class="controls">
+                <button class="btn" id="theme-toggle">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                    <span>Toggle Theme</span>
                 </button>
             </div>
         </header>
-        
-        <div class="search-container">
-            <div class="search-input-container">
-                <input type="text" id="search-input" placeholder="Search for content..." aria-label="Search">
-                <div class="search-icon"><i class="fas fa-search"></i></div>
+
+        <section class="search-section">
+            <h2 class="search-title">
+                <i class="fas fa-search"></i>
+                Discover Relevant Content
+            </h2>
+            <div class="search-box">
+                <input type="text" class="search-input" id="search-input" placeholder="Enter your search terms...">
+                <button class="search-btn" id="search-btn">
+                    <i class="fas fa-search"></i>
+                    Search
+                </button>
             </div>
-            <div class="search-stats" id="search-stats">Start typing to search...</div>
-        </div>
-        
+            <div class="search-stats">
+                <i class="fas fa-info-circle"></i>
+                <span id="search-stats">Start typing to search...</span>
+            </div>
+        </section>
+
         <div class="results-container" id="results-container">
-            <!-- Results will be displayed here -->
+            <div class="no-results">
+                <i class="fas fa-search"></i>
+                <h3>Your Search Results Will Appear Here</h3>
+                <p>Enter a search term in the input field above to find relevant content</p>
+            </div>
         </div>
     </div>
 
+    <footer>
+        <p>© 2023 SearchHub • Modern Search Interface</p>
+    </footer>
+
     <script>
+        // Theme toggle functionality
+        const themeToggleBtn = document.getElementById("theme-toggle");
+        const themeIcon = document.getElementById("theme-icon");
+
+        function enableDark() {
+            document.body.classList.add('dark-theme');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+            localStorage.setItem('theme', 'dark');
+        }
+
+        function disableDark() {
+            document.body.classList.remove('dark-theme');
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+            localStorage.setItem('theme', 'light');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.contains('dark-theme') ? disableDark() : enableDark();
+        });
+
+        // Check for saved theme preference or respect OS preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') enableDark();
+        else if (savedTheme === 'light') disableDark();
+        else if (window.matchMedia('(prefers-color-scheme: dark)').matches) enableDark();
+
+        // Search functionality
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        const resultsContainer = document.getElementById('results-container');
+        const searchStats = document.getElementById('search-stats');
+
         // Sample content for demonstration
         const sampleContent = [
             {
                 title: "Introduction to Web Development",
                 text: "Learn the basics of HTML, CSS, and JavaScript to build modern websites. This guide covers everything from structure to styling and interactivity.",
-                url: "intro-web-dev.html"
+                url: "#"
             },
             {
                 title: "CSS Styling Techniques",
                 text: "Advanced CSS techniques for creating responsive layouts, animations, and beautiful user interfaces. Master Flexbox, Grid, and CSS variables.",
-                url: "css-techniques.html"
+                url: "#"
             },
             {
                 title: "JavaScript Fundamentals",
                 text: "Understand variables, functions, objects, and control flow in JavaScript. Learn how to make your web pages interactive and dynamic.",
-                url: "js-fundamentals.html"
+                url: "#"
             },
             {
                 title: "Responsive Design Principles",
                 text: "Create websites that look great on all devices. Learn about media queries, fluid layouts, and responsive images.",
-                url: "responsive-design.html"
+                url: "#"
             },
             {
                 title: "Web Performance Optimization",
                 text: "Techniques to make your website load faster and run smoother. Covering lazy loading, code splitting, and asset optimization.",
-                url: "web-performance.html"
+                url: "#"
             },
             {
                 title: "Accessibility Best Practices",
                 text: "Make your website usable for everyone. Learn about ARIA roles, keyboard navigation, and screen reader compatibility.",
-                url: "accessibility.html"
-            },
-            {
-                title: "Search Implementation Guide",
-                text: "How to implement fast and relevant search functionality on your website. Covering client-side and server-side approaches.",
-                url: "search-implementation.html"
-            },
-            {
-                title: "Dark Mode Implementation",
-                text: "Learn how to add a dark mode theme to your website using CSS variables and JavaScript. Respect user preferences and system settings.",
-                url: "dark-mode.html"
+                url: "#"
             }
         ];
 
@@ -346,57 +444,55 @@
         document.addEventListener('DOMContentLoaded', () => {
             searchIndex = createSearchIndex(sampleContent);
             
-            // Set up search functionality
-            const searchInput = document.getElementById('search-input');
-            const resultsContainer = document.getElementById('results-container');
-            const searchStats = document.getElementById('search-stats');
-            
             // Add event listener with debouncing
             searchInput.addEventListener('input', debounce((e) => {
-                const query = e.target.value.trim();
-                
-                if (query.length < 2) {
-                    if (query.length === 0) {
-                        resultsContainer.innerHTML = '';
-                        searchStats.textContent = 'Start typing to search...';
-                    } else {
-                        resultsContainer.innerHTML = `
-                            <div class="no-results">
-                                <i class="fas fa-info-circle"></i>
-                                <p>Type at least 2 characters to search</p>
-                            </div>`;
-                        searchStats.textContent = 'Type at least 2 characters to search';
-                    }
-                    return;
-                }
-                
-                // Show loading indicator
-                resultsContainer.innerHTML = `
-                    <div class="loading">
-                        <div class="loading-dots">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                    </div>`;
-                
-                // Use setTimeout to allow UI to update before heavy computation
-                setTimeout(() => {
-                    const startTime = performance.now();
-                    const results = searchContent(query, searchIndex);
-                    const endTime = performance.now();
-                    
-                    displayResults(results, query, resultsContainer);
-                    
-                    // Update search stats
-                    const searchTime = (endTime - startTime).toFixed(2);
-                    searchStats.textContent = `Found ${results.length} results in ${searchTime}ms`;
-                }, 50);
-            }, 200));
+                performSearch(e.target.value.trim());
+            }, 250));
             
-            // Focus on search input on page load
-            searchInput.focus();
+            searchBtn.addEventListener('click', () => {
+                performSearch(searchInput.value.trim());
+            });
+            
+            // Allow Enter key to trigger search
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch(searchInput.value.trim());
+                }
+            });
         });
+
+        function performSearch(query) {
+            if (query.length < 2) {
+                if (query.length === 0) {
+                    resultsContainer.innerHTML = `
+                        <div class="no-results">
+                            <i class="fas fa-search"></i>
+                            <h3>Your Search Results Will Appear Here</h3>
+                            <p>Enter a search term in the input field above to find relevant content</p>
+                        </div>`;
+                    searchStats.textContent = 'Start typing to search...';
+                } else {
+                    resultsContainer.innerHTML = `
+                        <div class="no-results">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <h3>More Characters Needed</h3>
+                            <p>Please enter at least 2 characters to search</p>
+                        </div>`;
+                    searchStats.textContent = 'Type at least 2 characters to search';
+                }
+                return;
+            }
+            
+            const startTime = performance.now();
+            const results = searchContent(query, searchIndex);
+            const endTime = performance.now();
+            
+            displayResults(results, query, resultsContainer);
+            
+            // Update search stats
+            const searchTime = (endTime - startTime).toFixed(2);
+            searchStats.textContent = `Found ${results.length} results in ${searchTime}ms`;
+        }
 
         // Fast search function using precomputed values
         function searchContent(query, data) {
@@ -415,7 +511,7 @@
                         title: item.title,
                         snippet: getSnippet(item.text, term, true),
                         url: item.url,
-                        relevance: 2 + (item.titleLower.startsWith(term) ? 1 : 0) // Bonus for starting with term
+                        relevance: 2 // Higher relevance for title matches
                     });
                     continue;
                 }
@@ -427,12 +523,12 @@
                         title: item.title,
                         snippet: getSnippet(item.text, term, false),
                         url: item.url,
-                        relevance: 1
+                        relevance: 1 // Lower relevance for content matches
                     });
                 }
             }
             
-            // Sort by relevance
+            // Sort by relevance (title matches first)
             return results.sort((a, b) => b.relevance - a.relevance);
         }
         
@@ -474,7 +570,7 @@
                 container.innerHTML = `
                     <div class="no-results">
                         <i class="fas fa-search-minus"></i>
-                        <p>No results found for "${query}"</p>
+                        <h3>No results found for "${query}"</h3>
                         <p>Try different keywords or check your spelling</p>
                     </div>`;
                 return;
@@ -485,10 +581,16 @@
             
             results.forEach(res => {
                 const div = document.createElement("div");
-                div.className = "result-item";
+                div.className = "result-card";
                 div.innerHTML = `
-                    <a href="${res.url}">${highlightTerm(res.title, query)}</a>
-                    <p>${highlightTerm(res.snippet, query)}</p>
+                    <h3 class="result-title">
+                        <a href="${res.url}">${highlightTerm(res.title, query)}</a>
+                    </h3>
+                    <p class="result-snippet">${highlightTerm(res.snippet, query)}</p>
+                    <div class="result-url">
+                        <i class="fas fa-link"></i>
+                        <span>${res.url}</span>
+                    </div>
                 `;
                 fragment.appendChild(div);
             });
@@ -504,32 +606,6 @@
                 timer = setTimeout(() => fn.apply(this, args), delay);
             };
         }
-
-        // Theme toggle functionality
-        const themeToggleBtn = document.getElementById("theme-toggle");
-        const themeIcon = document.getElementById("theme-icon");
-
-        function enableDark() {
-            document.body.classList.add('dark');
-            themeIcon.classList.replace('fa-moon', 'fa-sun');
-            localStorage.setItem('theme', 'dark');
-        }
-
-        function disableDark() {
-            document.body.classList.remove('dark');
-            themeIcon.classList.replace('fa-sun', 'fa-moon');
-            localStorage.setItem('theme', 'light');
-        }
-
-        themeToggleBtn.addEventListener('click', () => {
-            document.body.classList.contains('dark') ? disableDark() : enableDark();
-        });
-
-        // Check for saved theme preference or respect OS preference
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') enableDark();
-        else if (savedTheme === 'light') disableDark();
-        else if (window.matchMedia('(prefers-color-scheme: dark)').matches) enableDark();
     </script>
 </body>
 </html>

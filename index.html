@@ -1042,475 +1042,319 @@ nav.addEventListener('wheel', (e) => {
 <style> /* ------------------------------------------- */ /* Mobile Responsiveness - Core CSS Enhancements */ /* ------------------------------------------- */ /* Global Mobile Optimizations */ :root { --text-color-light: #343a40; --heading-color-light: #212529; --body-bg-light: #f8f9fa; --card-bg-light: #ffffff; --border-color-light: #e9ecef; --green-color: #21683e; --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.1); --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1); } .dark { --text-color-dark: #e9ecef; --heading-color-dark: #f8f9fa; --body-bg-dark: #1f2a37; --card-bg-dark: #2c3a4a; --border-color-dark: #495057; } body { color: var(--text-color-light); background-color: var(--body-bg-light); transition: color 0.3s ease, background-color 0.3s ease; font-family: 'Inter', sans-serif; margin: 0; padding: 0; } .dark body { color: var(--text-color-dark); background-color: var(--body-bg-dark); } h1, h2, h3, h4, h5, h6 { color: var(--heading-color-light); } .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 { color: var(--heading-color-dark); } .glass-card, .section-card, .newsletter-card { background-color: var(--card-bg-light); border: 1px solid var(--border-color-light); } .dark .glass-card, .dark .section-card, .dark .newsletter-card { background-color: var(--card-bg-dark); border: 1px solid var(--border-color-dark); } /* Sub-menu and hidden section styles */ .hidden-section { display: none !important; } /* --- Centered Sub-menu Tabs with Animated Glowing Switch & Bounce --- */ .sub-menu-tabs { position: relative; display: flex; justify-content: center; align-items: center; gap: 12px; padding: 10px 12px; background-color: rgba(0, 0, 0, 0.1); border-radius: 50px; box-shadow: var(--shadow-small); overflow: hidden; margin: 2rem auto; transition: background-color 0.3s ease; max-width: 95%; /* keeps tabs inside small screens */ } .sub-menu-tab { z-index: 1; padding: 10px 24px; border-radius: 50px; text-decoration: none; color: var(--text-color-light); font-weight: 500; font-size: 0.95rem; transition: color 0.3s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap; cursor: pointer; display: flex; align-items: center; justify-content: center; } .sub-menu-tab { z-index: 1; padding: 10px 22px; border-radius: 50px; text-decoration: none; color: var(--text-color-light); font-weight: 500; font-size: 0.95rem; transition: color 0.3s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap; cursor: pointer; } .dark .sub-menu-tab { color: var(--text-color-dark); } .sub-menu-tab.active, .sub-menu-tab:hover { color: #fff; transform: scale(1.08); /* Slight scale on active/hover */ } /* Glowing moving switch background */ .tabs-switch-bg { position: absolute; top: 0; left: 0; height: 100%; width: 0; background: linear-gradient(135deg, #205f4a, #177047); border-radius: 50px; box-shadow: 0 0 15px rgba(33, 104, 62, 0.6); transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s ease-in-out, transform 0.35s ease-out; z-index: 0; animation: glowPulse 2s infinite alternate; } /* Smooth glowing pulse */ @keyframes glowPulse { 0% { box-shadow: 0 0 12px rgba(33, 104, 62, 0.4), 0 0 20px rgba(33, 104, 62, 0.2); } 100% { box-shadow: 0 0 20px rgba(33, 104, 62, 0.7), 0 0 28px rgba(33, 104, 62, 0.3); } } /* Optional bounce effect for active tab */ .sub-menu-tab.bounce { animation: tabBounce 0.3s ease-out; } @keyframes tabBounce { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1.08); } } /* Responsive adjustments for sub-menu tabs */ @media (max-width: 768px) { .sub-menu-tabs { flex-wrap: wrap; gap: 6px; padding: 4px; } .sub-menu-tab { padding: 8px 16px; font-size: 0.85rem; } } /* Specific styling for phone numbers to ensure visibility */ .footer-phones a { color: var(--text-color-light); } .dark .footer-phones a { color: var(--text-color-dark); } /* Additional general styles for the page layout */ .navbar, .hero-section, .about-section, .skills-section, .section-card, .footer { padding: 2rem; } .about-grid, .info-grid, .grid3, .grid4, .activity-grid, .benefits-grid { display: grid; gap: 1.5rem; } .about-grid { grid-template-columns: 1fr; } .info-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); } .grid3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); } .grid4 { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); } @media (min-width: 768px) { .about-grid { grid-template-columns: 1fr 2fr; } } /* --- New Mobile-Specific Navbar Styles --- */ .nav-center, .nav-social-search { transition: transform 0.3s ease; } /* Hide desktop nav on mobile */ @media (max-width: 991px) { .nav-center .nav-links { display: none; } .nav-center .mobile-nav-toggle { display: block; /* Show hamburger icon */ } .nav-right .nav-social-search { display: none; } } /* Style for the mobile menu */ .mobile-menu { position: fixed; top: 0; right: -100%; width: clamp(250px, 80%, 350px); max-width: 100%; height: 100%; /* Add these lines for transparency and blur */ background: rgba(255, 255, 255, 0.7); /* White with 70% opacity */ backdrop-filter: blur(10px); /* Adjust the pixel value to control blur strength */ box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2); transition: right 0.3s ease; z-index: 999; overflow-y: auto; -webkit-overflow-scrolling: touch; } .mobile-menu.active { right:0; } .mobile-menu-close { font-size:1.5rem; cursor:pointer; margin-bottom:1rem; display:block; } .mobile-menu-links { list-style:none; padding:0; margin:0; } .mobile-menu-links li { margin-bottom:1rem; } .mobile-menu-links a { display:flex; align-items:center; gap:0.5rem; text-decoration:none; color:#333; font-weight:500; } .mobile-menu-links a:hover { color:#06c1db; } /* Mobile Submenu styles */ .mobile-submenu { list-style: none; padding: 0; margin: 0.5rem 0 0.5rem 1rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-in-out; } .mobile-submenu.active { max-height: 200px; /* Adjust this value based on your content */ } .mobile-submenu li { margin-bottom: 0.5rem; } /* Rotate chevron icon when submenu is open */ .mobile-menu-toggle-chevron { transition: transform 0.3s ease-in-out; } .mobile-menu-link.active .mobile-menu-toggle-chevron { transform: rotate(180deg); } /* Mobile Search & Theme */ .mobile-nav-search { display:flex; gap:0.5rem; margin:1rem 0; } .mobile-nav-search input { padding:0.25rem 0.5rem; width:100%; } #mobile-theme-toggle { display:block; margin-bottom:1rem; } /* Overlay */ .mobile-menu-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.3); opacity:0; visibility:hidden; transition:0.3s; z-index:998; } .mobile-menu-overlay.active { opacity:1; visibility:visible; } /* Hamburger Button */ .mobile-menu-toggle { display:none; font-size:1.6rem; cursor:pointer; } @media (max-width:768px){ .nav-links, .nav-search, #theme-toggle, .social-icons-navbar { display:none; } .mobile-menu-toggle { display:block; } .navbar-title { font-size:1.2rem; } } @media (min-width:769px){ .mobile-menu, .mobile-menu-overlay { display:none; } } </style>
 
   </section>
-
-  <section id="certifications" class="section-card section-tab-content hidden-section">
-    <title>Certifications Section</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-           :root {
-  /* Light Theme */
-  --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
-
-  --card: 0 0% 100%;
-  --card-foreground: 222.2 84% 4.9%;
-
-  --popover: 0 0% 100%;
-  --popover-foreground: 222.2 84% 4.9%;
-
-  --primary: 142 76% 21%;
-  --primary-foreground: 0 0% 98%;
-  --primary-light: 142 50% 35%;
-
-  --secondary: 210 40% 96.1%;
-  --secondary-foreground: 222.2 47.4% 11.2%;
-
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 210 40% 98%;
-
-  --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%;
-
-  --accent: 142 50% 35%;
-  --accent-foreground: 0 0% 98%;
-
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
-  --ring: 142 76% 21%;
-
-  --sidebar-background: 0 0% 98%;
-  --sidebar-foreground: 240 5.3% 26.1%;
-  --sidebar-primary: 240 5.9% 10%;
-  --sidebar-primary-foreground: 0 0% 98%;
-  --sidebar-accent: 240 4.8% 95.9%;
-  --sidebar-accent-foreground: 240 5.9% 10%;
-  --sidebar-border: 220 13% 91%;
-  --sidebar-ring: 217.2 91.2% 59.8%;
-
-  --radius: 0.75rem;
-  --background: 222.2 84% 4.9%;
---foreground: 210 40% 98%;
---primary: 142 50% 35%;
---accent: 142 40% 45%;
---gradient-primary: linear-gradient(135deg, hsl(142 50% 35%), hsl(142 40% 45%));
-        }
-
-        .dark-theme {
-            --primary: #06c1db;
-            --primary-light: #3bdcf5;
-            --primary-dark: #0499ac;
-            --secondary: #21683e;
-            --secondary-light: #2e8b57;
-            background-color: hsl(222.2, 84%, 4.9%);
-            color: hsl(210, 40%, 98%);
-            --card-bg: #2d3748;
-            --border: #4a5568;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            transition: var(--transition);
-            min-height: 100vh;
-            padding: 2rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            padding: 2.5rem;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            margin-bottom: 2rem;
-            border-top: 4px solid var(--primary);
-        }
-
-        .section-card:hover {
-            box-shadow: var(--shadow-lg);
-        }
-
-        h2 {
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            font-size: 2rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: var(--secondary);
-        }
-
-        .certifications-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .certification-card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border-left: 4px solid var(--secondary);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .certification-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .certification-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .certification-card:hover::before {
-            opacity: 1;
-        }
-
-        .certification-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-        .certification-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .certification-platform {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-
-        .certification-date {
-            background: var(--secondary);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .certification-details {
-            margin-top: 1rem;
-        }
-
-        .certification-detail-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .detail-icon {
-            color: var(--primary);
-            font-size: 1rem;
-            margin-top: 0.25rem;
-            flex-shrink: 0;
-        }
-
-        .detail-content {
-            flex: 1;
-        }
-
-        .detail-label {
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 0.25rem;
-            font-size: 0.9rem;
-        }
-
-        .detail-value {
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-
-        .skills-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-
-        .skill-pill {
-            background: var(--primary);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .certification-actions {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 1.5rem;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: var(--radius);
-            font-weight: 500;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: var(--secondary);
-        }
-
-        .btn-secondary:hover {
-            background: var(--secondary-light);
-        }
-
-        .theme-toggle {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 0.5rem;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: var(--transition);
-            z-index: 100;
-        }
-
-        .theme-toggle:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        @media (max-width: 768px) {
-            .certifications-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            body {
-                padding: 1rem;
-            }
-            
-            .section-card {
-                padding: 1.5rem;
-            }
-        }
-    </style>
-
-    <div class="container">
-        <section id="certifications" class="section-card">
-            <h2>Certifications</h2>
-            <div class="certifications-grid">
-                <!-- IBM Certification -->
-                <div class="certification-card">
-                    <div class="certification-header">
-                        <div>
-                            <h3 class="certification-title">IBM Data Science Professional Certificate</h3>
-                            <div class="certification-platform">
-                                <i class="fas fa-graduation-cap"></i>
-                                <span>Coursera</span>
-                            </div>
-                        </div>
-                        <div class="certification-date">Aug 2024</div>
-                    </div>
-                    
-                    <div class="certification-details">
-                        <div class="certification-detail-item">
-                            <div class="detail-icon">
-                                <i class="fas fa-certificate"></i>
-                            </div>
-                            <div class="detail-content">
-                                <div class="detail-label">Certification</div>
-                                <div class="detail-value">IBM Data Science Professional Certificate</div>
-                            </div>
-                        </div>
-                        
-                        <div class="certification-detail-item">
-                            <div class="detail-icon">
-                                <i class="fas fa-calendar-alt"></i>
-                            </div>
-                            <div class="detail-content">
-                                <div class="detail-label">Completion Date</div>
-                                <div class="detail-value">August 2024</div>
-                            </div>
-                        </div>
-                        
-                        <div class="certification-detail-item">
-                            <div class="detail-icon">
-                                <i class="fas fa-tools"></i>
-                            </div>
-                            <div class="detail-content">
-                                <div class="detail-label">Skills Gained</div>
-                                <div class="skills-list">
-                                    <span class="skill-pill">Python</span>
-                                    <span class="skill-pill">SQL</span>
-                                    <span class="skill-pill">Data Visualization</span>
-                                    <span class="skill-pill">Machine Learning</span>
-                                    <span class="skill-pill">Statistical Analysis</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="certification-actions">
-                        <a href="#" class="btn">
-                            <i class="fas fa-external-link-alt"></i>
-                            View Certificate
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Google Certification -->
-                <div class="certification-card">
-                    <div class="certification-header">
-                        <div>
-                            <h3 class="certification-title">Google Data Analytics Professional Certificate</h3>
-                            <div class="certification-platform">
-                                <i class="fas fa-graduation-cap"></i>
-                                <span>Coursera</span>
-                            </div>
-                        </div>
-                        <div class="certification-date">Jul 2024</div>
-                    </div>
-                    
-                    <div class="certification-details">
-                        <div class="certification-detail-item">
-                            <div class="detail-icon">
-                                <i class="fas fa-certificate"></i>
-                            </div>
-                            <div class="detail-content">
-                                <div class="detail-label">Certification</div>
-                                <div class="detail-value">Google Data Analytics Professional Certificate</div>
-                            </div>
-                        </div>
-                        
-                        <div class="certification-detail-item">
-                            <div class="detail-icon">
-                                <i class="fas fa-calendar-alt"></i>
-                            </div>
-                            <div class="detail-content">
-                                <div class="detail-label">Completion Date</div>
-                                <div class="detail-value">July 2024</div>
-                            </div>
-                        </div>
-                        
-                        <div class="certification-detail-item">
-                            <div class="detail-icon">
-                                <i class="fas fa-tools"></i>
-                            </div>
-                            <div class="detail-content">
-                                <div class="detail-label">Skills Gained</div>
-                                <div class="skills-list">
-                                    <span class="skill-pill">R</span>
-                                    <span class="skill-pill">Tableau</span>
-                                    <span class="skill-pill">Spreadsheets</span>
-                                    <span class="skill-pill">Data Cleaning</span>
-                                    <span class="skill-pill">Data Analysis</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="certification-actions">
-                        <a href="#" class="btn">
-                            <i class="fas fa-external-link-alt"></i>
-                    
-                        </a>
-                    </div>
-                </div>
+<section id="certifications" class="section-card">
+  <h2>Certifications</h2>
+  <div class="certifications-grid">
+    <!-- IBM Certification -->
+    <div class="certification-card">
+      <div class="certification-header">
+        <div>
+          <h3 class="certification-title">IBM Data Science Professional Certificate</h3>
+          <div class="certification-platform">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Coursera</span>
+          </div>
+        </div>
+        <div class="certification-date">Aug 2024</div>
+      </div>
+      
+      <div class="certification-details">
+        <div class="certification-detail-item">
+          <div class="detail-icon">
+            <i class="fas fa-certificate"></i>
+          </div>
+          <div class="detail-content">
+            <div class="detail-label">Certification</div>
+            <div class="detail-value">IBM Data Science Professional Certificate</div>
+          </div>
+        </div>
+        
+        <div class="certification-detail-item">
+          <div class="detail-icon">
+            <i class="fas fa-calendar-alt"></i>
+          </div>
+          <div class="detail-content">
+            <div class="detail-label">Completion Date</div>
+            <div class="detail-value">August 2024</div>
+          </div>
+        </div>
+        
+        <div class="certification-detail-item">
+          <div class="detail-icon">
+            <i class="fas fa-tools"></i>
+          </div>
+          <div class="detail-content">
+            <div class="detail-label">Skills Gained</div>
+            <div class="skills-list">
+              <span class="skill-pill">Python</span>
+              <span class="skill-pill">SQL</span>
+              <span class="skill-pill">Data Visualization</span>
+              <span class="skill-pill">Machine Learning</span>
+              <span class="skill-pill">Statistical Analysis</span>
             </div>
-        </section>
+          </div>
+        </div>
+      </div>
+      
+      <div class="certification-actions">
+        <a href="#" class="btn">
+          <i class="fas fa-external-link-alt"></i>
+          View Certificate
+        </a>
+      </div>
     </div>
+    
+    <!-- Google Certification -->
+    <div class="certification-card">
+      <div class="certification-header">
+        <div>
+          <h3 class="certification-title">Google Data Analytics Professional Certificate</h3>
+          <div class="certification-platform">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Coursera</span>
+          </div>
+        </div>
+        <div class="certification-date">Jul 2024</div>
+      </div>
+      
+      <div class="certification-details">
+        <div class="certification-detail-item">
+          <div class="detail-icon">
+            <i class="fas fa-certificate"></i>
+          </div>
+          <div class="detail-content">
+            <div class="detail-label">Certification</div>
+            <div class="detail-value">Google Data Analytics Professional Certificate</div>
+          </div>
+        </div>
+        
+        <div class="certification-detail-item">
+          <div class="detail-icon">
+            <i class="fas fa-calendar-alt"></i>
+          </div>
+          <div class="detail-content">
+            <div class="detail-label">Completion Date</div>
+            <div class="detail-value">July 2024</div>
+          </div>
+        </div>
+        
+        <div class="certification-detail-item">
+          <div class="detail-icon">
+            <i class="fas fa-tools"></i>
+          </div>
+          <div class="detail-content">
+            <div class="detail-label">Skills Gained</div>
+            <div class="skills-list">
+              <span class="skill-pill">R</span>
+              <span class="skill-pill">Tableau</span>
+              <span class="skill-pill">Spreadsheets</span>
+              <span class="skill-pill">Data Cleaning</span>
+              <span class="skill-pill">Data Analysis</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="certification-actions">
+        <a href="#" class="btn">
+          <i class="fas fa-external-link-alt"></i>
+          View Certificate
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        // Theme toggle functionality
-        const themeToggle = document.getElementById('theme-toggle');
-        const themeIcon = themeToggle.querySelector('i');
-        
-        function enableDark() {
-            document.body.classList.add('dark-theme');
-            document.body.classList.remove('light');
-            themeIcon.classList.replace('fa-moon', 'fa-sun');
-            localStorage.setItem('theme', 'dark');
-        }
-        
-        function disableDark() {
-            document.body.classList.remove('dark-theme');
-            document.body.classList.add('light');
-            themeIcon.classList.replace('fa-sun', 'fa-moon');
-            localStorage.setItem('theme', 'light');
-        }
-        
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.contains('dark-theme') ? disableDark() : enableDark();
-        });
-        
-        // Check for saved theme preference or respect OS preference
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            enableDark();
-        } else if (savedTheme === 'light') {
-            disableDark();
-        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            enableDark();
-        }
-    </script>
-  </section>
+<style>
+  /* Certifications Section Styles */
+  #certifications {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    margin-bottom: 2rem;
+    border-top: 4px solid var(--primary);
+  }
 
+  #certifications:hover {
+    box-shadow: var(--shadow-lg);
+  }
+
+  #certifications h2 {
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    position: relative;
+    display: inline-block;
+  }
+
+  #certifications h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--secondary);
+  }
+
+  .certifications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .certification-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border-left: 4px solid var(--secondary);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .certification-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    opacity: 0;
+    transition: var(--transition);
+  }
+
+  .certification-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .certification-card:hover::before {
+    opacity: 1;
+  }
+
+  .certification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .certification-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .certification-platform {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+  }
+
+  .certification-date {
+    background: var(--secondary);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .certification-details {
+    margin-top: 1rem;
+  }
+
+  .certification-detail-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .detail-icon {
+    color: var(--primary);
+    font-size: 1rem;
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .detail-content {
+    flex: 1;
+  }
+
+  .detail-label {
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+  }
+
+  .detail-value {
+    color: var(--text-light);
+    font-size: 0.9rem;
+  }
+
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .skill-pill {
+    background: var(--primary);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .certification-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+  }
+
+  .certification-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius);
+    font-weight: 500;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+  }
+
+  .certification-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .certifications-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    #certifications {
+      padding: 1.5rem;
+    }
+  }
+</style>
   <footer class="footer">
     <div class="hero-blob hero-blob-1"></div>
     <div class="hero-blob hero-blob-2"></div>

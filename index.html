@@ -1044,6 +1044,8 @@ nav.addEventListener('wheel', (e) => {
   </section>
 
   <section id="certifications" class="section-card section-tab-content hidden-section">
+    <title>Certifications Section</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #06c1db;
@@ -1063,16 +1065,16 @@ nav.addEventListener('wheel', (e) => {
         }
 
         .dark-theme {
-            --primary: #66ccff;
-            --primary-light: #99ddff;
-            --primary-dark: #33bbff;
-            --secondary: #4caf50;
-            --secondary-light: #6ec071;
+            --primary: #06c1db;
+            --primary-light: #3bdcf5;
+            --primary-dark: #0499ac;
+            --secondary: #21683e;
+            --secondary-light: #2e8b57;
             --text: #eee;
             --text-light: #d1d5db;
-            --bg: #111;
-            --card-bg: #222;
-            --border: #444;
+            --bg: #1f2a37;
+            --card-bg: #2d3748;
+            --border: #4a5568;
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
         }
@@ -1105,11 +1107,11 @@ nav.addEventListener('wheel', (e) => {
             box-shadow: var(--shadow);
             transition: var(--transition);
             margin-bottom: 2rem;
+            border-top: 4px solid var(--primary);
         }
 
         .section-card:hover {
             box-shadow: var(--shadow-lg);
-            transform: translateY(-5px);
         }
 
         h2 {
@@ -1127,7 +1129,7 @@ nav.addEventListener('wheel', (e) => {
             left: 0;
             width: 60px;
             height: 3px;
-            background: var(--primary);
+            background: var(--secondary);
         }
 
         .certifications-grid {
@@ -1138,12 +1140,12 @@ nav.addEventListener('wheel', (e) => {
         }
 
         .certification-card {
-            background: var(--bg);
+            background: var(--card-bg);
             border-radius: var(--radius);
             padding: 1.5rem;
             box-shadow: var(--shadow);
             transition: var(--transition);
-            border-left: 4px solid var(--primary);
+            border-left: 4px solid var(--secondary);
             position: relative;
             overflow: hidden;
         }
@@ -1192,7 +1194,7 @@ nav.addEventListener('wheel', (e) => {
         }
 
         .certification-date {
-            background: var(--primary-light);
+            background: var(--secondary);
             color: white;
             padding: 0.25rem 0.75rem;
             border-radius: 20px;
@@ -1226,6 +1228,7 @@ nav.addEventListener('wheel', (e) => {
             font-weight: 600;
             color: var(--text);
             margin-bottom: 0.25rem;
+            font-size: 0.9rem;
         }
 
         .detail-value {
@@ -1241,7 +1244,7 @@ nav.addEventListener('wheel', (e) => {
         }
 
         .skill-pill {
-            background: var(--primary-light);
+            background: var(--primary);
             color: white;
             padding: 0.25rem 0.75rem;
             border-radius: 20px;
@@ -1266,11 +1269,21 @@ nav.addEventListener('wheel', (e) => {
             border-radius: var(--radius);
             font-weight: 500;
             transition: var(--transition);
+            border: none;
+            cursor: pointer;
         }
 
         .btn:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary-light);
         }
 
         .theme-toggle {
@@ -1306,11 +1319,6 @@ nav.addEventListener('wheel', (e) => {
             }
         }
     </style>
-</head>
-<body class="light">
-    <button class="theme-toggle" id="theme-toggle">
-        <i class="fas fa-moon"></i>
-    </button>
 
     <div class="container">
         <section id="certifications" class="section-card">
@@ -1429,7 +1437,7 @@ nav.addEventListener('wheel', (e) => {
                     <div class="certification-actions">
                         <a href="#" class="btn">
                             <i class="fas fa-external-link-alt"></i>
-                            View Certificate
+                    
                         </a>
                     </div>
                 </div>

@@ -10,6 +10,8 @@
             --primary: #06c1db;
             --primary-light: #3bdcf5;
             --primary-dark: #0499ac;
+            --secondary: #21683e;
+            --secondary-light: #2e8b57;
             --text: #222;
             --text-light: #6b7280;
             --bg: #f9f9f9;
@@ -25,6 +27,8 @@
             --primary: #66ccff;
             --primary-light: #99ddff;
             --primary-dark: #33bbff;
+            --secondary: #4caf50;
+            --secondary-light: #6ec071;
             --text: #eee;
             --text-light: #d1d5db;
             --bg: #111;
@@ -117,6 +121,16 @@
             background: var(--primary-dark);
         }
 
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+            border: none;
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary-light);
+        }
+
         .search-section {
             background: var(--card-bg);
             padding: 2.5rem;
@@ -124,10 +138,23 @@
             box-shadow: var(--shadow);
             margin-bottom: 2.5rem;
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .search-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
         }
 
         .search-section:hover {
             box-shadow: var(--shadow-lg);
+            transform: translateY(-5px);
         }
 
         .search-title {
@@ -197,6 +224,29 @@
             color: var(--primary);
         }
 
+        .filter-options {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
         .results-container {
             display: grid;
             gap: 1.5rem;
@@ -209,11 +259,29 @@
             box-shadow: var(--shadow);
             transition: var(--transition);
             border-left: 4px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: var(--transition);
         }
 
         .result-card:hover {
             transform: translateY(-3px);
             box-shadow: var(--shadow-lg);
+        }
+
+        .result-card:hover::before {
+            opacity: 1;
         }
 
         .result-title {
@@ -327,6 +395,28 @@
             }
         }
 
+        .suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .suggestion {
+            padding: 0.5rem 1rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .suggestion:hover {
+            background: var(--primary);
+            color: white;
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 1.5rem;
@@ -383,6 +473,13 @@
                 <i class="fas fa-info-circle"></i>
                 <span id="search-stats">Start typing to search...</span>
             </div>
+            
+            <div class="suggestions">
+                <div class="suggestion" data-search="data science">data science</div>
+                <div class="suggestion" data-search="machine learning">machine learning</div>
+                <div class="suggestion" data-search="financial analysis">financial analysis</div>
+                <div class="suggestion" data-search="Zambia">Zambia</div>
+            </div>
         </section>
 
         <div class="results-container" id="results-container">
@@ -395,7 +492,7 @@
     </div>
 
     <footer>
-        <p>© 2023 Portfolio Search • Integrated Search Solution</p>
+        <p>© 2023 Billiat Kachembo Portfolio • Integrated Search Solution</p>
     </footer>
 
     <script>
@@ -430,6 +527,15 @@
         const searchBtn = document.getElementById('search-btn');
         const resultsContainer = document.getElementById('results-container');
         const searchStats = document.getElementById('search-stats');
+        const suggestions = document.querySelectorAll('.suggestion');
+
+        // Add click handlers to suggestions
+        suggestions.forEach(suggestion => {
+            suggestion.addEventListener('click', () => {
+                searchInput.value = suggestion.getAttribute('data-search');
+                performSearch(searchInput.value.trim());
+            });
+        });
 
         // Function to extract content from your portfolio
         async function getPortfolioContent() {
@@ -492,18 +598,28 @@
                 return [
                     {
                         title: "Introduction",
-                        text: "Welcome to my portfolio. I'm a Data Scientist with a passion for exploring data and uncovering insights.",
+                        text: "Welcome to my portfolio. I'm Billiat Kachembo, a Data Scientist with a passion for exploring data and uncovering insights.",
                         url: "index.html#home"
                     },
                     {
                         title: "About Me",
-                        text: "I'm a Data Scientist with a passion for exploring data and uncovering insights. Curious, analytical, and always learning.",
+                        text: "I'm a Data Scientist with a passion for exploring data and uncovering insights. Curious, analytical, and always learning. I specialize in financial analysis and data visualization.",
                         url: "index.html#about"
                     },
                     {
                         title: "Skills",
-                        text: "Data Analysis, Machine Learning, Innovation, Data Visualization, AI, Statistical Modeling",
+                        text: "Data Analysis, Machine Learning, Innovation, Data Visualization, AI, Statistical Modeling, Python, R, SQL, Financial Analysis",
                         url: "index.html#skills"
+                    },
+                    {
+                        title: "Projects",
+                        text: "Financial analysis for Zambian markets, Machine learning models for predictive analytics, Data visualization dashboards",
+                        url: "index.html#projects"
+                    },
+                    {
+                        title: "Contact",
+                        text: "Get in touch with me for collaborations or inquiries. Email: billiatkachembo1@gmail.com",
+                        url: "index.html#contact"
                     }
                 ];
             }
@@ -727,4 +843,4 @@
         }
     </script>
 </body>
-    </html>
+</html>

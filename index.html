@@ -162,12 +162,12 @@ document.addEventListener('DOMContentLoaded', () => {
       <a href="https://www.instagram.com/billiat.kachembo"><i class="bi bi-instagram"></i></a>
       <a href="mailto:billiatkachembo1@gmail.com"><i class="bi bi-envelope"></i></a>
     </div>
-
-    <form class="nav-search" action="search.html" method="GET" role="search">
-      <input type="text" name="q" placeholder="Search..." aria-label="Search" />
-      <button type="submit">Search</button>
-    </form>
-    
+<!-- Add this to your nav-right section -->
+<div class="nav-search">
+    <a href="search.html" class="search-link">
+        <i class="bi bi-search"></i> Search
+    </a>
+</div>
    <!-- Desktop theme toggle -->
 <button id="theme-toggle" type="button">
   <i id="theme-icon" class="bi bi-moon"></i>
@@ -199,12 +199,12 @@ document.addEventListener('DOMContentLoaded', () => {
   </ul>
 
   <!-- Mobile Search Bar -->
-  <div class="mobile-search-container" id="mobile-search">
-    <form class="mobile-nav-search" action="search.html" method="GET" role="search">
-      <input type="text" name="q" placeholder="Search..." aria-label="Search" />
-      <button type="submit">Search</button>
-    </form>
-  </div>
+  <!-- Add this to your nav-right section -->
+<div class="nav-search">
+    <a href="search.html" class="search-link">
+        <i class="bi bi-search"></i> Search
+    </a>
+</div>
 
   <!-- Mobile Social Icons -->
   <div class="mobile-social-icons">
@@ -286,7 +286,27 @@ a { text-decoration: none; color: inherit; }
 #theme-toggle, #mobile-theme-toggle {
   background:none; border:none; cursor:pointer; font-size:1.5rem;
 }
+.search-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
 
+.search-link:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+body.dark .search-link {
+    color: #eee;
+}
+
+body.dark .search-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
 /* Mobile Menu */
 .mobile-menu {
   position: fixed; top:0; right:-100%;

@@ -1048,20 +1048,52 @@ nav.addEventListener('wheel', (e) => {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #06c1db;
-            --primary-light: #3bdcf5;
-            --primary-dark: #0499ac;
-            --secondary: #21683e;
-            --secondary-light: #2e8b57;
-            --text: #222;
-            --text-light: #6b7280;
-            --bg: #f9f9f9;
-            --card-bg: #fff;
-            --border: #e0e0e0;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-            --radius: 12px;
-            --transition: all 0.3s ease;
+           :root {
+  /* Light Theme */
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+
+  --primary: 142 76% 21%;
+  --primary-foreground: 0 0% 98%;
+  --primary-light: 142 50% 35%;
+
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+
+  --accent: 142 50% 35%;
+  --accent-foreground: 0 0% 98%;
+
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 142 76% 21%;
+
+  --sidebar-background: 0 0% 98%;
+  --sidebar-foreground: 240 5.3% 26.1%;
+  --sidebar-primary: 240 5.9% 10%;
+  --sidebar-primary-foreground: 0 0% 98%;
+  --sidebar-accent: 240 4.8% 95.9%;
+  --sidebar-accent-foreground: 240 5.9% 10%;
+  --sidebar-border: 220 13% 91%;
+  --sidebar-ring: 217.2 91.2% 59.8%;
+
+  --radius: 0.75rem;
+  --background: 222.2 84% 4.9%;
+--foreground: 210 40% 98%;
+--primary: 142 50% 35%;
+--accent: 142 40% 45%;
+--gradient-primary: linear-gradient(135deg, hsl(142 50% 35%), hsl(142 40% 45%));
         }
 
         .dark-theme {
@@ -1070,9 +1102,8 @@ nav.addEventListener('wheel', (e) => {
             --primary-dark: #0499ac;
             --secondary: #21683e;
             --secondary-light: #2e8b57;
-            --text: #eee;
-            --text-light: #d1d5db;
-            --bg: #1f2a37;
+            background-color: hsl(222.2, 84%, 4.9%);
+            color: hsl(210, 40%, 98%);
             --card-bg: #2d3748;
             --border: #4a5568;
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);

@@ -1,712 +1,535 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="theme-color" content="#06c1db">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Search Results</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<style>
-:root {
-  --primary-color: #06c1db;
-  --primary-hover: #0499ac;
-  --text-color: #222;
-  --bg-color: #f9f9f9;
-  --card-bg: #fff;
-  --border-color: #e0e0e0;
-  --shadow-color: rgba(0,0,0,0.1);
-  --mark-bg: yellow;
-  --mark-color: #111;
-}
+    <meta charset="UTF-8">
+    <meta name="theme-color" content="#06c1db">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Search Interface</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #06c1db;
+            --primary-hover: #0499ac;
+            --text-color: #222;
+            --bg-color: #f9f9f9;
+            --card-bg: #fff;
+            --border-color: #e0e0e0;
+            --shadow-color: rgba(0,0,0,0.1);
+            --mark-bg: #ffeb3b;
+            --mark-color: #111;
+        }
 
-body.dark {
-  --primary-color: #66ccff;
-  --primary-hover: #33bbff;
-  --text-color: #eee;
-  --bg-color: #111;
-  --card-bg: #222;
-  --border-color: #444;
-  --shadow-color: rgba(0,0,0,0.3);
-  --mark-bg: #ffea00;
-  --mark-color: #111;
-}
+        body.dark {
+            --primary-color: #66ccff;
+            --primary-hover: #33bbff;
+            --text-color: #eee;
+            --bg-color: #111;
+            --card-bg: #222;
+            --border-color: #444;
+            --shadow-color: rgba(0,0,0,0.3);
+            --mark-bg: #ffea00;
+            --mark-color: #111;
+        }
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: var(--bg-color);
-  color: var(--text-color);
-  transition: background 0.3s, color 0.3s;
-  line-height: 1.6;
-}
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: background 0.3s, color 0.3s;
+            line-height: 1.6;
+        }
 
-a {
-  text-decoration: none;
-  color: var(--primary-color);
-  transition: color 0.3s;
-}
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: color 0.3s;
+        }
 
-a:hover {
-  text-decoration: underline;
-  color: var(--primary-hover);
-}
+        a:hover {
+            text-decoration: underline;
+            color: var(--primary-hover);
+        }
 
-main {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--border-color);
-}
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
 
-.page-title {
-  margin: 0;
-  font-weight: 700;
-  font-size: 1.8rem;
-  color: var(--primary-color);
-}
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
 
-.controls-container {
-  display: flex;
-  gap: 0.5rem;
-}
+        .controls-container {
+            display: flex;
+            gap: 10px;
+        }
 
-.icon-btn {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: var(--text-color);
-  transition: color 0.3s, transform 0.2s;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: color 0.3s, transform 0.2s;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.icon-btn:hover {
-  color: var(--primary-color);
-  background-color: rgba(0, 0, 0, 0.05);
-  transform: scale(1.1);
-}
+        .icon-btn:hover {
+            color: var(--primary-color);
+            background-color: rgba(0, 0, 0, 0.05);
+            transform: scale(1.1);
+        }
 
-body.dark .icon-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
+        body.dark .icon-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
 
-.search-panel {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 50vw;
-  max-width: 400px;
-  height: 100%;
-  background: var(--card-bg);
-  box-shadow: -4px 0 12px var(--shadow-color);
-  transition: right 0.3s ease;
-  z-index: 2000;
-  padding: 2rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-}
+        .search-container {
+            margin-bottom: 30px;
+            position: relative;
+        }
 
-.search-form {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
+        .search-input-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-.search-form input {
-  flex: 1;
-  padding: 0.75rem;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  font-size: 1rem;
-  background: var(--card-bg);
-  color: var(--text-color);
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
+        #search-input {
+            width: 100%;
+            padding: 15px 20px;
+            padding-right: 50px;
+            border: 2px solid var(--border-color);
+            border-radius: 30px;
+            font-size: 16px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 10px var(--shadow-color);
+        }
 
-.search-form input:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px rgba(6, 193, 219, 0.2);
-}
+        #search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(6, 193, 219, 0.2);
+        }
 
-.search-form button {
-  padding: 0.75rem 1rem;
-  border: none;
-  border-radius: 8px;
-  background: var(--primary-color);
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
-}
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            font-size: 20px;
+        }
 
-.search-form button:hover {
-  background: var(--primary-hover);
-  transform: translateY(-1px);
-}
+        .search-stats {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--text-color);
+            opacity: 0.7;
+        }
 
-.search-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease;
-  z-index: 1500;
-  cursor: pointer;
-  backdrop-filter: blur(4px);
-}
+        .results-container {
+            display: grid;
+            gap: 20px;
+        }
 
-.search-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
+        .result-item {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-color);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid var(--primary-color);
+        }
 
-.result-item {
-  background: var(--card-bg);
-  padding: 1.25rem;
-  margin-bottom: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px var(--shadow-color);
-  transition: transform 0.2s, box-shadow 0.2s;
-  border-left: 4px solid var(--primary-color);
-}
+        .result-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
 
-.result-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--shadow-color);
-}
+        .result-item a {
+            font-weight: 700;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 10px;
+        }
 
-.result-item a {
-  font-weight: 700;
-  font-size: 1.1rem;
-  display: block;
-  margin-bottom: 0.5rem;
-}
+        .result-item p {
+            margin: 0;
+            color: var(--text-color);
+            opacity: 0.9;
+        }
 
-.result-item p {
-  margin: 0;
-  color: var(--text-color);
-  opacity: 0.9;
-}
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-color);
+            opacity: 0.7;
+        }
 
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100px;
-}
+        .no-results i {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
 
-.loading-dots {
-  display: flex;
-  gap: 0.5rem;
-}
+        mark {
+            background-color: var(--mark-bg);
+            color: var(--mark-color);
+            padding: 0.1em 0.2em;
+            border-radius: 3px;
+        }
 
-.loading-dots div {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--primary-color);
-  animation: bounce 1.5s infinite ease-in-out;
-}
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
 
-.loading-dots div:nth-child(2) {
-  animation-delay: 0.2s;
-}
+        .loading-dots {
+            display: flex;
+            gap: 8px;
+        }
 
-.loading-dots div:nth-child(3) {
-  animation-delay: 0.4s;
-}
+        .loading-dots div {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            animation: bounce 1.5s infinite ease-in-out;
+        }
 
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-    opacity: 0.5;
-  }
-  50% {
-    transform: translateY(-10px);
-    opacity: 1;
-  }
-}
+        .loading-dots div:nth-child(2) {
+            animation-delay: 0.2s;
+        }
 
-.no-results {
-  text-align: center;
-  padding: 2rem;
-  color: var(--text-color);
-  opacity: 0.7;
-}
+        .loading-dots div:nth-child(3) {
+            animation-delay: 0.4s;
+        }
 
-.no-results i {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  color: var(--primary-color);
-}
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
 
-.recent-searches {
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border-color);
-}
-
-.recent-searches h3 {
-  margin: 0 0 1rem 0;
-  font-size: 1rem;
-  color: var(--text-color);
-  opacity: 0.8;
-}
-
-.recent-search-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.recent-search-tag {
-  background: rgba(6, 193, 219, 0.1);
-  color: var(--primary-color);
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
-}
-
-.recent-search-tag:hover {
-  background: rgba(6, 193, 219, 0.2);
-  transform: translateY(-1px);
-}
-
-body.dark .recent-search-tag {
-  background: rgba(102, 204, 255, 0.15);
-}
-
-mark {
-  background-color: var(--mark-bg);
-  color: var(--mark-color);
-  padding: 0.1em 0.2em;
-  border-radius: 2px;
-}
-
-@media (max-width: 768px) {
-  .search-panel {
-    width: 85vw;
-    padding: 1.5rem 1rem;
-  }
-  
-  .page-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-  
-  .result-item {
-    padding: 1rem;
-  }
-}
-
-@media (min-width: 769px) {
-  .search-panel {
-    width: 40vw;
-  }
-}
-
-body.menu-open {
-  overflow: hidden;
-}
-</style>
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .result-item {
+                padding: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
-
-<div class="search-panel" id="search-panel">
-    <button type="button" class="icon-btn" id="close-search" aria-label="Close Search">
-        <i class="fas fa-arrow-left"></i>
-    </button>
-    <h2>Search</h2>
-    <form class="search-form" action="search.html" method="GET" role="search">
-        <input type="text" name="q" placeholder="Enter your search terms..." aria-label="Search" id="search-input" />
-        <button type="submit"><i class="fas fa-search"></i></button>
-    </form>
-    
-    <div class="recent-searches">
-        <h3>Recent Searches</h3>
-        <div class="recent-search-tags" id="recent-searches-container">
-            <!-- Recent searches will be added here dynamically -->
-        </div>
-    </div>
-</div>
-
-<div class="search-overlay" id="search-overlay"></div>
-
-<main>
-    <div class="page-header">
-        <h1 class="page-title">Search Results</h1>
-        <div class="controls-container">
-            <button id="open-search-btn" class="icon-btn" aria-label="Open search panel">
-                <i class="fas fa-search"></i>
-            </button>
-            <button id="theme-toggle" class="icon-btn" aria-label="Toggle light/dark theme">
-                <i id="theme-icon" class="fas fa-moon"></i>
-            </button>
-        </div>
-    </div>
-    
-    <div id="searchResults">
-        <div class="loading">
-            <div class="loading-dots">
-                <div></div>
-                <div></div>
-                <div></div>
+    <div class="container">
+        <header>
+            <div class="logo">Search Interface</div>
+            <div class="controls-container">
+                <button id="theme-toggle" class="icon-btn" aria-label="Toggle light/dark theme">
+                    <i id="theme-icon" class="fas fa-moon"></i>
+                </button>
             </div>
+        </header>
+        
+        <div class="search-container">
+            <div class="search-input-container">
+                <input type="text" id="search-input" placeholder="Search for content..." aria-label="Search">
+                <div class="search-icon"><i class="fas fa-search"></i></div>
+            </div>
+            <div class="search-stats" id="search-stats">Start typing to search...</div>
+        </div>
+        
+        <div class="results-container" id="results-container">
+            <!-- Results will be displayed here -->
         </div>
     </div>
-</main>
 
-<script>
-// --- Panel Controls ---
-const panel = document.getElementById("search-panel");
-const overlay = document.getElementById("search-overlay");
-const closeBtn = document.getElementById("close-search");
-const openSearchBtn = document.getElementById("open-search-btn");
-const searchInput = document.getElementById("search-input");
+    <script>
+        // Sample content for demonstration
+        const sampleContent = [
+            {
+                title: "Introduction to Web Development",
+                text: "Learn the basics of HTML, CSS, and JavaScript to build modern websites. This guide covers everything from structure to styling and interactivity.",
+                url: "intro-web-dev.html"
+            },
+            {
+                title: "CSS Styling Techniques",
+                text: "Advanced CSS techniques for creating responsive layouts, animations, and beautiful user interfaces. Master Flexbox, Grid, and CSS variables.",
+                url: "css-techniques.html"
+            },
+            {
+                title: "JavaScript Fundamentals",
+                text: "Understand variables, functions, objects, and control flow in JavaScript. Learn how to make your web pages interactive and dynamic.",
+                url: "js-fundamentals.html"
+            },
+            {
+                title: "Responsive Design Principles",
+                text: "Create websites that look great on all devices. Learn about media queries, fluid layouts, and responsive images.",
+                url: "responsive-design.html"
+            },
+            {
+                title: "Web Performance Optimization",
+                text: "Techniques to make your website load faster and run smoother. Covering lazy loading, code splitting, and asset optimization.",
+                url: "web-performance.html"
+            },
+            {
+                title: "Accessibility Best Practices",
+                text: "Make your website usable for everyone. Learn about ARIA roles, keyboard navigation, and screen reader compatibility.",
+                url: "accessibility.html"
+            },
+            {
+                title: "Search Implementation Guide",
+                text: "How to implement fast and relevant search functionality on your website. Covering client-side and server-side approaches.",
+                url: "search-implementation.html"
+            },
+            {
+                title: "Dark Mode Implementation",
+                text: "Learn how to add a dark mode theme to your website using CSS variables and JavaScript. Respect user preferences and system settings.",
+                url: "dark-mode.html"
+            }
+        ];
 
-function openPanel() {
-    panel.style.right = "0";
-    overlay.classList.add("active");
-    document.body.classList.add("menu-open");
-    
-    setTimeout(() => {
-        if (searchInput) searchInput.focus();
-    }, 100);
-}
+        // Precompute search index for faster searching
+        let searchIndex = null;
 
-function closePanel() {
-    panel.style.right = "-100%";
-    overlay.classList.remove("active");
-    document.body.classList.remove("menu-open");
-}
-
-openSearchBtn.addEventListener("click", openPanel);
-overlay.addEventListener("click", closePanel);
-closeBtn.addEventListener("click", closePanel);
-
-document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && panel.style.right === "0px") {
-        closePanel();
-    }
-});
-
-// --- Theme Toggle ---
-const themeToggleBtn = document.getElementById("theme-toggle");
-const themeIcon = document.getElementById("theme-icon");
-
-function enableDark() {
-    document.body.classList.add('dark');
-    themeIcon.classList.replace('fa-moon', 'fa-sun');
-    localStorage.setItem('theme', 'dark');
-}
-
-function disableDark() {
-    document.body.classList.remove('dark');
-    themeIcon.classList.replace('fa-sun', 'fa-moon');
-    localStorage.setItem('theme', 'light');
-}
-
-themeToggleBtn.addEventListener('click', () => {
-    document.body.classList.contains('dark') ? disableDark() : enableDark();
-});
-
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'dark') enableDark();
-else if (savedTheme === 'light') disableDark();
-else if (window.matchMedia('(prefers-color-scheme: dark)').matches) enableDark();
-
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-    if (!localStorage.getItem('theme')) {
-        e.matches ? enableDark() : disableDark();
-    }
-});
-
-// --- Optimized Search Functionality ---
-document.addEventListener("DOMContentLoaded", async () => {
-    const searchResultsContainer = document.getElementById("searchResults");
-    const recentSearchesContainer = document.getElementById("recent-searches-container");
-    let contentArray = [];
-    let searchIndex = null;
-    let recentSearches = JSON.parse(localStorage.getItem('recentSearches') || '[]');
-
-    // Display recent searches
-    function updateRecentSearches() {
-        recentSearchesContainer.innerHTML = '';
-        if (recentSearches.length === 0) {
-            recentSearchesContainer.innerHTML = '<p style="opacity:0.7; margin:0;">No recent searches</p>';
-            return;
-        }
-        
-        recentSearches.slice(0, 5).forEach(search => {
-            const tag = document.createElement('div');
-            tag.className = 'recent-search-tag';
-            tag.textContent = search;
-            tag.addEventListener('click', () => {
-                searchInput.value = search;
-                const event = new Event('input', { bubbles: true });
-                searchInput.dispatchEvent(event);
+        function createSearchIndex(content) {
+            return content.map(item => {
+                // Precompute lowercase versions for faster searching
+                return {
+                    title: item.title,
+                    titleLower: item.title.toLowerCase(),
+                    text: item.text,
+                    textLower: item.text.toLowerCase(),
+                    url: item.url
+                };
             });
-            recentSearchesContainer.appendChild(tag);
-        });
-    }
+        }
 
-    updateRecentSearches();
-
-    // Create a simple search index for faster searching
-    function createSearchIndex(content) {
-        return content.map(item => {
-            // Precompute lowercase versions for faster searching
-            return {
-                title: item.title,
-                titleLower: item.title.toLowerCase(),
-                text: item.text,
-                textLower: item.text.toLowerCase(),
-                url: item.url
-            };
-        });
-    }
-
-    async function getSiteContent() {
-        try {
-            // For demo purposes, we'll create some sample content
-            // In a real implementation, you would fetch from your actual site
-            const sampleContent = [
-                {
-                    title: "Introduction",
-                    text: "Welcome to our website. We provide excellent services and solutions for your needs. Our team is dedicated to delivering high-quality results.",
-                    url: "index.html#intro"
-                },
-                {
-                    title: "Services",
-                    text: "We offer a wide range of services including web development, design, and consulting. Our experts are ready to help you achieve your goals.",
-                    url: "index.html#services"
-                },
-                {
-                    title: "About Us",
-                    text: "Learn more about our company history, mission, and values. We've been serving clients for over 10 years with dedication and excellence.",
-                    url: "index.html#about"
-                },
-                {
-                    title: "Contact Information",
-                    text: "Get in touch with us through phone, email, or our contact form. We're available to answer any questions you might have about our services.",
-                    url: "index.html#contact"
-                },
-                {
-                    title: "FAQ",
-                    text: "Frequently asked questions about our services, pricing, and processes. Find answers to common queries from our clients.",
-                    url: "index.html#faq"
-                },
-                {
-                    title: "Blog",
-                    text: "Read our latest articles and insights on industry trends, tips, and best practices. Stay updated with our recent news and updates.",
-                    url: "index.html#blog"
-                },
-                {
-                    title: "Testimonials",
-                    text: "What our clients say about our services and their experiences working with our team. Read success stories from satisfied customers.",
-                    url: "index.html#testimonials"
-                },
-                {
-                    title: "Portfolio",
-                    text: "Browse through our portfolio of completed projects and case studies. See examples of our work and the results we've achieved.",
-                    url: "index.html#portfolio"
+        // Initialize the search index
+        document.addEventListener('DOMContentLoaded', () => {
+            searchIndex = createSearchIndex(sampleContent);
+            
+            // Set up search functionality
+            const searchInput = document.getElementById('search-input');
+            const resultsContainer = document.getElementById('results-container');
+            const searchStats = document.getElementById('search-stats');
+            
+            // Add event listener with debouncing
+            searchInput.addEventListener('input', debounce((e) => {
+                const query = e.target.value.trim();
+                
+                if (query.length < 2) {
+                    if (query.length === 0) {
+                        resultsContainer.innerHTML = '';
+                        searchStats.textContent = 'Start typing to search...';
+                    } else {
+                        resultsContainer.innerHTML = `
+                            <div class="no-results">
+                                <i class="fas fa-info-circle"></i>
+                                <p>Type at least 2 characters to search</p>
+                            </div>`;
+                        searchStats.textContent = 'Type at least 2 characters to search';
+                    }
+                    return;
                 }
-            ];
+                
+                // Show loading indicator
+                resultsContainer.innerHTML = `
+                    <div class="loading">
+                        <div class="loading-dots">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>`;
+                
+                // Use setTimeout to allow UI to update before heavy computation
+                setTimeout(() => {
+                    const startTime = performance.now();
+                    const results = searchContent(query, searchIndex);
+                    const endTime = performance.now();
+                    
+                    displayResults(results, query, resultsContainer);
+                    
+                    // Update search stats
+                    const searchTime = (endTime - startTime).toFixed(2);
+                    searchStats.textContent = `Found ${results.length} results in ${searchTime}ms`;
+                }, 50);
+            }, 200));
             
-            return sampleContent;
-        } catch (err) {
-            console.error("Error fetching content:", err);
-            return [];
-        }
-    }
-
-    // Load content and create search index
-    contentArray = await getSiteContent();
-    searchIndex = createSearchIndex(contentArray);
-    
-    // Remove loading animation
-    searchResultsContainer.innerHTML = `
-        <div class="no-results">
-            <i class="fas fa-search"></i>
-            <p>Enter a search term to find content</p>
-        </div>`;
-
-    // Fast search function using precomputed values
-    function searchContent(query, data) {
-        if (!query || query.length < 2) return [];
-        
-        const term = query.toLowerCase();
-        const results = [];
-        
-        for (let i = 0; i < data.length; i++) {
-            const item = data[i];
-            
-            // Check for title matches first (higher priority)
-            const titleIndex = item.titleLower.indexOf(term);
-            if (titleIndex !== -1) {
-                results.push({
-                    title: item.title,
-                    snippet: getSnippet(item.text, term, true),
-                    url: item.url,
-                    relevance: 2 // Higher relevance for title matches
-                });
-                continue;
-            }
-            
-            // Check for content matches
-            const contentIndex = item.textLower.indexOf(term);
-            if (contentIndex !== -1) {
-                results.push({
-                    title: item.title,
-                    snippet: getSnippet(item.text, term, false),
-                    url: item.url,
-                    relevance: 1 // Lower relevance for content matches
-                });
-            }
-        }
-        
-        // Sort by relevance (title matches first)
-        return results.sort((a, b) => b.relevance - a.relevance);
-    }
-    
-    // Efficient snippet generation
-    function getSnippet(text, term, isTitleMatch) {
-        if (isTitleMatch) {
-            // For title matches, just show the beginning of the content
-            const maxLength = 120;
-            return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
-        }
-        
-        // For content matches, find the term position
-        const index = text.toLowerCase().indexOf(term);
-        if (index === -1) return text.substring(0, 120) + "...";
-        
-        const start = Math.max(0, index - 40);
-        const end = Math.min(text.length, index + term.length + 80);
-        
-        let snippet = "";
-        if (start > 0) snippet += "...";
-        snippet += text.substring(start, end);
-        if (end < text.length) snippet += "...";
-        
-        return snippet;
-    }
-
-    function highlightTerm(text, term) {
-        if (!term) return text;
-        // Escape special regex characters
-        const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(`(${escapedTerm})`, "gi");
-        return text.replace(regex, "<mark>$1</mark>");
-    }
-
-    function showResults(results, query, container) {
-        container.innerHTML = "";
-        
-        if (query.trim() === "") {
-            container.innerHTML = `
-                <div class="no-results">
-                    <i class="fas fa-search"></i>
-                    <p>Enter a search term to find content</p>
-                </div>`;
-            return;
-        }
-        
-        if (results.length === 0) {
-            container.innerHTML = `
-                <div class="no-results">
-                    <i class="fas fa-search-minus"></i>
-                    <p>No results found for "${query}"</p>
-                    <p>Try different keywords or browse the main site</p>
-                </div>`;
-            return;
-        }
-        
-        // Add to recent searches if not already there
-        if (!recentSearches.includes(query)) {
-            recentSearches.unshift(query);
-            if (recentSearches.length > 5) recentSearches.pop();
-            localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
-            updateRecentSearches();
-        }
-        
-        // Use DocumentFragment for faster DOM manipulation
-        const fragment = document.createDocumentFragment();
-        
-        results.forEach(res => {
-            const div = document.createElement("div");
-            div.className = "result-item";
-            div.innerHTML = `
-                <a href="${res.url}">${res.title}</a>
-                <p>${highlightTerm(res.snippet, query)}</p>
-            `;
-            fragment.appendChild(div);
+            // Focus on search input on page load
+            searchInput.focus();
         });
-        
-        container.appendChild(fragment);
-    }
 
-    // Optimized debounce function
-    function debounce(fn, delay) {
-        let timer;
-        return function(...args) {
-            clearTimeout(timer);
-            timer = setTimeout(() => fn.apply(this, args), delay);
-        };
-    }
-
-    const handleSearch = debounce((e) => {
-        const query = e.target.value.trim();
-        
-        // Minimum search term length
-        if (query.length < 2) {
-            searchResultsContainer.innerHTML = `
-                <div class="no-results">
-                    <i class="fas fa-search"></i>
-                    <p>Please enter at least 2 characters to search</p>
-                </div>`;
-            return;
+        // Fast search function using precomputed values
+        function searchContent(query, data) {
+            if (!query) return [];
+            
+            const term = query.toLowerCase();
+            const results = [];
+            
+            for (let i = 0; i < data.length; i++) {
+                const item = data[i];
+                
+                // Check for title matches first (higher priority)
+                const titleIndex = item.titleLower.indexOf(term);
+                if (titleIndex !== -1) {
+                    results.push({
+                        title: item.title,
+                        snippet: getSnippet(item.text, term, true),
+                        url: item.url,
+                        relevance: 2 + (item.titleLower.startsWith(term) ? 1 : 0) // Bonus for starting with term
+                    });
+                    continue;
+                }
+                
+                // Check for content matches
+                const contentIndex = item.textLower.indexOf(term);
+                if (contentIndex !== -1) {
+                    results.push({
+                        title: item.title,
+                        snippet: getSnippet(item.text, term, false),
+                        url: item.url,
+                        relevance: 1
+                    });
+                }
+            }
+            
+            // Sort by relevance
+            return results.sort((a, b) => b.relevance - a.relevance);
         }
         
-        const results = searchContent(query, searchIndex);
-        showResults(results, query, searchResultsContainer);
-    }, 200); // Reduced debounce time for faster response
-
-    if (searchInput) {
-        searchInput.addEventListener("input", handleSearch);
-        
-        // Check if there's a search query in the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const urlQuery = urlParams.get('q');
-        if (urlQuery) {
-            searchInput.value = urlQuery;
-            const results = searchContent(urlQuery, searchIndex);
-            showResults(results, urlQuery, searchResultsContainer);
+        // Efficient snippet generation
+        function getSnippet(text, term, isTitleMatch) {
+            if (isTitleMatch) {
+                // For title matches, just show the beginning of the content
+                const maxLength = 120;
+                return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+            }
+            
+            // For content matches, find the term position
+            const index = text.toLowerCase().indexOf(term);
+            if (index === -1) return text.substring(0, 120) + "...";
+            
+            const start = Math.max(0, index - 40);
+            const end = Math.min(text.length, index + term.length + 80);
+            
+            let snippet = "";
+            if (start > 0) snippet += "...";
+            snippet += text.substring(start, end);
+            if (end < text.length) snippet += "...";
+            
+            return snippet;
         }
-    }
-});
-</script>
+
+        function highlightTerm(text, term) {
+            if (!term) return text;
+            // Escape special regex characters
+            const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(`(${escapedTerm})`, "gi");
+            return text.replace(regex, "<mark>$1</mark>");
+        }
+
+        function displayResults(results, query, container) {
+            container.innerHTML = "";
+            
+            if (results.length === 0) {
+                container.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search-minus"></i>
+                        <p>No results found for "${query}"</p>
+                        <p>Try different keywords or check your spelling</p>
+                    </div>`;
+                return;
+            }
+            
+            // Use DocumentFragment for faster DOM manipulation
+            const fragment = document.createDocumentFragment();
+            
+            results.forEach(res => {
+                const div = document.createElement("div");
+                div.className = "result-item";
+                div.innerHTML = `
+                    <a href="${res.url}">${highlightTerm(res.title, query)}</a>
+                    <p>${highlightTerm(res.snippet, query)}</p>
+                `;
+                fragment.appendChild(div);
+            });
+            
+            container.appendChild(fragment);
+        }
+
+        // Optimized debounce function
+        function debounce(fn, delay) {
+            let timer;
+            return function(...args) {
+                clearTimeout(timer);
+                timer = setTimeout(() => fn.apply(this, args), delay);
+            };
+        }
+
+        // Theme toggle functionality
+        const themeToggleBtn = document.getElementById("theme-toggle");
+        const themeIcon = document.getElementById("theme-icon");
+
+        function enableDark() {
+            document.body.classList.add('dark');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+            localStorage.setItem('theme', 'dark');
+        }
+
+        function disableDark() {
+            document.body.classList.remove('dark');
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+            localStorage.setItem('theme', 'light');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.contains('dark') ? disableDark() : enableDark();
+        });
+
+        // Check for saved theme preference or respect OS preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') enableDark();
+        else if (savedTheme === 'light') disableDark();
+        else if (window.matchMedia('(prefers-color-scheme: dark)').matches) enableDark();
+    </script>
 </body>
 </html>

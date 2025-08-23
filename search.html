@@ -171,97 +171,143 @@ body.menu-open { overflow: hidden; }
 </main>
 
 <script>
-document.addEventListener("DOMContentLoaded", async () => {
-    // --- Inputs & containers ---
-    const desktopInput = document.querySelector('.search-form input[name="q"]');
-    const mobileInput = document.querySelector('.mobile-nav-search input[name="q"]');
-    const desktopResults = document.getElementById("searchResults");
-    const mobileResults = document.getElementById("mobileSearchResults");
+    // --- Panel Controls ---
+    const panel = document.getElementById("search-panel");
+    const overlay = document.getElementById("search-overlay");
+    const closeBtn = document.getElementById("close-search");
+    const openSearchBtn = document.getElementById("open-search-btn");
 
-    if(!desktopInput && !mobileInput) return;
-
-    // --- Load site content once ---
-    async function getSiteContent() {
-        try {
-            const response = await fetch("index.html");
-            const text = await response.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(text,"text/html");
-            const sections = doc.querySelectorAll("section");
-            const contentArray = [];
-            sections.forEach(sec => {
-                const title = sec.querySelector("h2")?.innerText || sec.id;
-                const content = (sec.innerText || "").replace(/\s+/g," ").trim();
-                if(content.length) contentArray.push({title, text:content, url:`index.html#${sec.id}`});
-            });
-            return contentArray;
-        } catch(err) { console.error(err); return []; }
+    function openPanel() {
+        panel.style.right = "0";
+        overlay.classList.add("active");
+        document.body.classList.add("menu-open");
     }
 
-    const contentArray = await getSiteContent();
+    function closePanel() {
+        panel.style.right = "-100%";
+        overlay.classList.remove("active");
+        document.body.classList.remove("menu-open");
+    }
 
-    // --- Search & Highlight ---
-    function searchContent(query) {
-        if(!query) return [];
-        const term = query.toLowerCase();
-        return contentArray.map(item => {
-            const idx = item.text.toLowerCase().indexOf(term);
-            if(idx !== -1) {
-                const start = Math.max(0, idx-30);
-                const end = Math.min(item.text.length, idx+70);
-                const snippet = (start>0?"...":"") + item.text.substring(start,end) + (end<item.text.length?"...":"");
-                return {title:item.title, snippet, url:item.url};
+    openSearchBtn.addEventListener("click", openPanel);
+    overlay.addEventListener("click", closePanel);
+    closeBtn.addEventListener("click", closePanel);
+
+    // --- Theme Toggle ---
+    const themeToggleBtn = document.getElementById("theme-toggle");
+    const themeIcon = document.getElementById("theme-icon");
+
+    function enableDark() {
+        document.body.classList.add('dark');
+        themeIcon.classList.replace('fa-moon', 'fa-sun');
+        localStorage.setItem('theme', 'dark');
+    }
+
+    function disableDark() {
+        document.body.classList.remove('dark');
+        themeIcon.classList.replace('fa-sun', 'fa-moon');
+        localStorage.setItem('theme', 'light');
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.contains('dark') ? disableDark() : enableDark();
+    });
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') enableDark();
+    else if (savedTheme === 'light') disableDark();
+    else if (window.matchMedia('(prefers-color-scheme: dark)').matches) enableDark();
+
+    // --- Search Functionality ---
+    document.addEventListener("DOMContentLoaded", async () => {
+        const searchInput = document.querySelector('.search-form input[name="q"]');
+        const searchResultsContainer = document.getElementById("searchResults");
+        let contentArray = [];
+
+        async function getSiteContent() {
+            try {
+                const response = await fetch("index.html");
+                const text = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, "text/html");
+                const sections = doc.querySelectorAll("section");
+                const pageContent = [];
+                sections.forEach(sec => {
+                    const title = sec.querySelector("h2")?.innerText || sec.id;
+                    const content = (sec.innerText || "").replace(/\s+/g, " ").trim();
+                    if (content.length) pageContent.push({
+                        title,
+                        text: content,
+                        url: `index.html#${sec.id}`
+                    });
+                });
+                return pageContent;
+            } catch (err) {
+                console.error(err);
+                return [];
             }
-            return null;
-        }).filter(Boolean);
-    }
-
-    function highlightTerm(text, term) {
-        const regex = new RegExp(`(${term})`, "gi");
-        return text.replace(regex, "<mark>$1</mark>");
-    }
-
-    function showResults(results, query, container) {
-        if(!container) return;
-        container.innerHTML = "";
-        if(results.length === 0) {
-            container.innerHTML = `<p>No results found for "${query}".</p>`;
-            return;
         }
-        results.forEach(res => {
-            const div = document.createElement("div");
-            div.className = "result-item";
-            div.innerHTML = `<a href="${res.url}">${res.title}</a><p>${highlightTerm(res.snippet, query)}</p>`;
-            container.appendChild(div);
-        });
-    }
 
-    // --- Debounce helper ---
-    function debounce(fn, delay) {
-        let timer;
-        return (...args) => {
-            clearTimeout(timer);
-            timer = setTimeout(() => fn(...args), delay);
-        };
-    }
+        contentArray = await getSiteContent();
 
-    // --- Event Handlers ---
-    const handleDesktop = debounce(e => {
-        const query = e.target.value.trim();
-        const results = searchContent(query);
-        showResults(results, query, desktopResults);
-    }, 300);
+        function searchContent(query, data) {
+            if (!query) return [];
+            const term = query.toLowerCase();
+            return data.map(item => {
+                const idx = item.text.toLowerCase().indexOf(term);
+                if (idx !== -1) {
+                    const start = Math.max(0, idx - 30);
+                    const end = Math.min(item.text.length, idx + 70);
+                    const snippet = (start > 0 ? "..." : "") + item.text.substring(start, end) + (end < item.text.length ? "..." : "");
+                    return {
+                        title: item.title,
+                        snippet,
+                        url: item.url
+                    };
+                }
+                return null;
+            }).filter(Boolean);
+        }
 
-    const handleMobile = debounce(e => {
-        const query = e.target.value.trim();
-        const results = searchContent(query);
-        showResults(results, query, mobileResults);
-    }, 300);
+        function highlightTerm(text, term) {
+            const regex = new RegExp(`(${term})`, "gi");
+            return text.replace(regex, "<mark>$1</mark>");
+        }
 
-    if(desktopInput) desktopInput.addEventListener("input", handleDesktop);
-    if(mobileInput) mobileInput.addEventListener("input", handleMobile);
-});
+        function showResults(results, query, container) {
+            container.innerHTML = "";
+            if (query.trim() === "" || results.length === 0) {
+                container.innerHTML = `<p style="padding: 10px;">No results found for "${query}".</p>`;
+                return;
+            }
+            results.forEach(res => {
+                const div = document.createElement("div");
+                div.className = "result-item";
+                div.innerHTML = `<a href="${res.url}">${res.title}</a><p>${highlightTerm(res.snippet, query)}</p>`;
+                container.appendChild(div);
+            });
+        }
+
+        function debounce(fn, delay) {
+            let timer;
+            return function(...args) {
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                    fn.apply(this, args);
+                }, delay);
+            };
+        }
+
+        const handleSearch = debounce((e) => {
+            const query = e.target.value.trim();
+            const results = searchContent(query, contentArray);
+            showResults(results, query, searchResultsContainer);
+        }, 300);
+
+        if (searchInput) {
+            searchInput.addEventListener("input", handleSearch);
+        }
+    });
 </script>
-
 </body>
 </html>

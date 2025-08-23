@@ -1024,7 +1024,6 @@ nav.addEventListener('wheel', (e) => {
     </div>
   </section>
  <section id="education" class="section-card section-tab-content hidden-section">
-
   <h2>Education</h2>
   
   <div class="education-content">
@@ -1256,15 +1255,24 @@ nav.addEventListener('wheel', (e) => {
   }
 
   .map-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
     background: rgba(255, 255, 255, 0.9);
     color: var(--primary);
-    backdrop-filter: blur(10px);
+    text-decoration: none;
+    border-radius: var(--radius);
+    font-weight: 500;
+    transition: var(--transition);
     border: 1px solid var(--primary);
+    backdrop-filter: blur(10px);
   }
 
   .map-btn:hover {
     background: var(--primary);
     color: white;
+    transform: translateY(-2px);
   }
 
   @media (max-width: 768px) {
@@ -1300,6 +1308,26 @@ nav.addEventListener('wheel', (e) => {
     }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const mapToggle = document.getElementById('map-toggle');
+    const mapWrapper = document.getElementById('map-wrapper');
+    
+    if (mapToggle && mapWrapper) {
+      mapToggle.addEventListener('click', function() {
+        mapWrapper.classList.toggle('hidden');
+        mapToggle.classList.toggle('active');
+        
+        // If we're showing the map, update the toggle text
+        const toggleText = mapWrapper.classList.contains('hidden') ? 
+          'See University Location' : 'Hide Map';
+        
+        mapToggle.querySelector('span').textContent = toggleText;
+      });
+    }
+  });
+</script>
   <h2>Certifications</h2>
   <div class="certifications-grid">
     <!-- IBM Certification -->

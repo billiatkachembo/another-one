@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Search Interface</title>
+    <title>Portfolio Search</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -35,6 +35,590 @@
         }
 
         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: var(--transition);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 2rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .search-section {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2.5rem;
+            transition: var(--transition);
+        }
+
+        .search-section:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .search-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .search-title i {
+            color: var(--primary);
+        }
+
+        .search-box {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1.1rem;
+            background: var(--bg);
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+
+        .search-btn {
+            padding: 1rem 1.75rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .search-stats {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-stats i {
+            color: var(--primary);
+        }
+
+        .results-container {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .result-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 1.75rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
+        }
+
+        .result-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .result-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            color: var(--primary);
+        }
+
+        .result-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .result-title a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .result-snippet {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .result-url {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .no-results i {
+            font-size: 3.5rem;
+            color: var(--primary-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .no-results p {
+            color: var(--text-light);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        mark {
+            background-color: rgba(255, 230, 0, 0.3);
+            color: inherit;
+            padding: 0.1em 0.2em;
+            border-radius: 3px;
+        }
+
+        footer {
+            margin-top: auto;
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1.5rem;
+            }
+            
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+            
+            .search-section {
+                padding: 1.5rem;
+            }
+            
+            .result-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-search"></i>
+                <span>Portfolio Search</span>
+            </div>
+            <div class="controls">
+                <button class="btn" id="theme-toggle">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                    <span>Toggle Theme</span>
+                </button>
+            </div>
+        </header>
+
+        <section class="search-section">
+            <h2 class="search-title">
+                <i class="fas fa-search"></i>
+                Search Portfolio Content
+            </h2>
+            <div class="search-box">
+                <input type="text" class="search-input" id="search-input" placeholder="Enter your search terms...">
+                <button class="search-btn" id="search-btn">
+                    <i class="fas fa-search"></i>
+                    Search
+                </button>
+            </div>
+            <div class="search-stats">
+                <i class="fas fa-info-circle"></i>
+                <span id="search-stats">Start typing to search...</span>
+            </div>
+        </section>
+
+        <div class="results-container" id="results-container">
+            <div class="no-results">
+                <i class="fas fa-search"></i>
+                <h3>Your Search Results Will Appear Here</h3>
+                <p>Enter a search term in the input field above to find relevant content</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Billiat Kachembo • Integrated Search Solution</p>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggleBtn = document.getElementById("theme-toggle");
+        const themeIcon = document.getElementById("theme-icon");
+
+        function enableDark() {
+            document.body.classList.add('dark-theme');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+            localStorage.setItem('theme', 'dark');
+        }
+
+        function disableDark() {
+            document.body.classList.remove('dark-theme');
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+            localStorage.setItem('theme', 'light');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.contains('dark-theme') ? disableDark() : enableDark();
+        });
+
+        // Check for saved theme preference or respect OS preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') enableDark();
+        else if (savedTheme === 'light') disableDark();
+        else if (window.matchMedia('(prefers-color-scheme: dark)').matches) enableDark();
+
+        // Search functionality
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        const resultsContainer = document.getElementById('results-container');
+        const searchStats = document.getElementById('search-stats');
+
+        // Function to extract content from your portfolio
+        async function getPortfolioContent() {
+            try {
+                // This function would normally fetch your portfolio content
+                // For demonstration, we'll use a sample of what might be in your portfolio
+                return [
+                    {
+                        title: "Introduction",
+                        text: "Welcome to my portfolio. I'm a Data Scientist with a passion for exploring data and uncovering insights.",
+                        url: "#home"
+                    },
+                    {
+                        title: "About Me",
+                        text: "I'm a Data Scientist with a passion for exploring data and uncovering insights. Curious, analytical, and always learning.",
+                        url: "#about"
+                    },
+                    {
+                        title: "Skills",
+                        text: "Data Analysis, Machine Learning, Innovation, Data Visualization, AI, Statistical Modeling",
+                        url: "#skills"
+                    },
+                    {
+                        title: "Education",
+                        text: "BSc in Data Science at Kapasa Makasa University",
+                        url: "#education"
+                    },
+                    {
+                        title: "Contact",
+                        text: "You can reach me at billiatkachembo1@gmail.com or by phone at +260777771921",
+                        url: "#contact"
+                    },
+                    {
+                        title: "Newsletter",
+                        text: "Subscribe to my newsletter for updates on my latest projects and insights in data science.",
+                        url: "#newsletter"
+                    }
+                ];
+            } catch (err) {
+                console.error("Error fetching portfolio content:", err);
+                return [];
+            }
+        }
+
+        // Precompute search index for faster searching
+        let searchIndex = null;
+
+        function createSearchIndex(content) {
+            return content.map(item => {
+                // Precompute lowercase versions for faster searching
+                return {
+                    title: item.title,
+                    titleLower: item.title.toLowerCase(),
+                    text: item.text,
+                    textLower: item.text.toLowerCase(),
+                    url: item.url
+                };
+            });
+        }
+
+        // Initialize the search index
+        document.addEventListener('DOMContentLoaded', async () => {
+            const portfolioContent = await getPortfolioContent();
+            searchIndex = createSearchIndex(portfolioContent);
+            
+            // Add event listener with debouncing
+            searchInput.addEventListener('input', debounce((e) => {
+                performSearch(e.target.value.trim());
+            }, 250));
+            
+            searchBtn.addEventListener('click', () => {
+                performSearch(searchInput.value.trim());
+            });
+            
+            // Allow Enter key to trigger search
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch(searchInput.value.trim());
+                }
+            });
+        });
+
+        function performSearch(query) {
+            if (query.length < 2) {
+                if (query.length === 0) {
+                    resultsContainer.innerHTML = `
+                        <div class="no-results">
+                            <i class="fas fa-search"></i>
+                            <h3>Your Search Results Will Appear Here</h3>
+                            <p>Enter a search term in the input field above to find relevant content</p>
+                        </div>`;
+                    searchStats.textContent = 'Start typing to search...';
+                } else {
+                    resultsContainer.innerHTML = `
+                        <div class="no-results">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <h3>More Characters Needed</h3>
+                            <p>Please enter at least 2 characters to search</p>
+                        </div>`;
+                    searchStats.textContent = 'Type at least 2 characters to search';
+                }
+                return;
+            }
+            
+            const startTime = performance.now();
+            const results = searchContent(query, searchIndex);
+            const endTime = performance.now();
+            
+            displayResults(results, query, resultsContainer);
+            
+            // Update search stats
+            const searchTime = (endTime - startTime).toFixed(2);
+            searchStats.textContent = `Found ${results.length} results in ${searchTime}ms`;
+        }
+
+        // Fast search function using precomputed values
+        function searchContent(query, data) {
+            if (!query) return [];
+            
+            const term = query.toLowerCase();
+            const results = [];
+            
+            for (let i = 0; i < data.length; i++) {
+                const item = data[i];
+                
+                // Check for title matches first (higher priority)
+                const titleIndex = item.titleLower.indexOf(term);
+                if (titleIndex !== -1) {
+                    results.push({
+                        title: item.title,
+                        snippet: getSnippet(item.text, term, true),
+                        url: item.url,
+                        relevance: 2 // Higher relevance for title matches
+                    });
+                    continue;
+                }
+                
+                // Check for content matches
+                const contentIndex = item.textLower.indexOf(term);
+                if (contentIndex !== -1) {
+                    results.push({
+                        title: item.title,
+                        snippet: getSnippet(item.text, term, false),
+                        url: item.url,
+                        relevance: 1 // Lower relevance for content matches
+                    });
+                }
+            }
+            
+            // Sort by relevance (title matches first)
+            return results.sort((a, b) => b.relevance - a.relevance);
+        }
+        
+        // Efficient snippet generation
+        function getSnippet(text, term, isTitleMatch) {
+            if (isTitleMatch) {
+                // For title matches, just show the beginning of the content
+                const maxLength = 120;
+                return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+            }
+            
+            // For content matches, find the term position
+            const index = text.toLowerCase().indexOf(term);
+            if (index === -1) return text.substring(0, 120) + "...";
+            
+            const start = Math.max(0, index - 40);
+            const end = Math.min(text.length, index + term.length + 80);
+            
+            let snippet = "";
+            if (start > 0) snippet += "...";
+            snippet += text.substring(start, end);
+            if (end < text.length) snippet += "...";
+            
+            return snippet;
+        }
+
+        function highlightTerm(text, term) {
+            if (!term) return text;
+            // Escape special regex characters
+            const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(`(${escapedTerm})`, "gi");
+            return text.replace(regex, "<mark>$1</mark>");
+        }
+
+        function displayResults(results, query, container) {
+            container.innerHTML = "";
+            
+            if (results.length === 0) {
+                container.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search-minus"></i>
+                        <h3>No results found for "${query}"</h3>
+                        <p>Try different keywords or check your spelling</p>
+                    </div>`;
+                return;
+            }
+            
+            // Use DocumentFragment for faster DOM manipulation
+            const fragment = document.createDocumentFragment();
+            
+            results.forEach(res => {
+                const div = document.createElement("div");
+                div.className = "result-card";
+                div.innerHTML = `
+                    <h3 class="result-title">
+                        <a href="${res.url}">${highlightTerm(res.title, query)}</a>
+                    </h3>
+                    <p class="result-snippet">${highlightTerm(res.snippet, query)}</p>
+                    <div class="result-url">
+                        <i class="fas fa-link"></i>
+                        <span>${res.url}</span>
+                    </div>
+                `;
+                fragment.appendChild(div);
+            });
+            
+            container.appendChild(fragment);
+        }
+
+        // Optimized debounce function
+        function debounce(fn, delay) {
+            let timer;
+            return function(...args) {
+                clearTimeout(timer);
+                timer = setTimeout(() => fn.apply(this, args), delay);
+            };
+        }
+    </script>
+</body>
+</html>        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;

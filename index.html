@@ -1044,19 +1044,432 @@ nav.addEventListener('wheel', (e) => {
   </section>
 
   <section id="certifications" class="section-card section-tab-content hidden-section">
-    <h2>Certifications</h2>
-    <ul>
-      <li>**Certification Name:** IBM Data Science Professional Certificate</li>
-      <li>**Platform:** Coursera</li>
-      <li>**Completion Date:** August 2024</li>
-      <li>**Skills Gained:** Python, SQL, Data Visualization, Machine Learning, Statistical Analysis</li>
-    </ul>
-    <ul>
-      <li>**Certification Name:** Google Data Analytics Professional Certificate</li>
-      <li>**Platform:** Coursera</li>
-      <li>**Completion Date:** July 2024</li>
-      <li>**Skills Gained:** R, Tableau, Spreadsheets, Data Cleaning, Data Analysis</li>
-    </ul>
+    <style>
+        :root {
+            --primary: #06c1db;
+            --primary-light: #3bdcf5;
+            --primary-dark: #0499ac;
+            --secondary: #21683e;
+            --secondary-light: #2e8b57;
+            --text: #222;
+            --text-light: #6b7280;
+            --bg: #f9f9f9;
+            --card-bg: #fff;
+            --border: #e0e0e0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        .dark-theme {
+            --primary: #66ccff;
+            --primary-light: #99ddff;
+            --primary-dark: #33bbff;
+            --secondary: #4caf50;
+            --secondary-light: #6ec071;
+            --text: #eee;
+            --text-light: #d1d5db;
+            --bg: #111;
+            --card-bg: #222;
+            --border: #444;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: var(--transition);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            margin-bottom: 2rem;
+        }
+
+        .section-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .certification-card {
+            background: var(--bg);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .certification-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .certification-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .certification-card:hover::before {
+            opacity: 1;
+        }
+
+        .certification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .certification-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .certification-platform {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .certification-date {
+            background: var(--primary-light);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .certification-details {
+            margin-top: 1rem;
+        }
+
+        .certification-detail-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .detail-icon {
+            color: var(--primary);
+            font-size: 1rem;
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+        }
+
+        .detail-content {
+            flex: 1;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .skill-pill {
+            background: var(--primary-light);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .certification-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .certifications-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            body {
+                padding: 1rem;
+            }
+            
+            .section-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="light">
+    <button class="theme-toggle" id="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <div class="container">
+        <section id="certifications" class="section-card">
+            <h2>Certifications</h2>
+            <div class="certifications-grid">
+                <!-- IBM Certification -->
+                <div class="certification-card">
+                    <div class="certification-header">
+                        <div>
+                            <h3 class="certification-title">IBM Data Science Professional Certificate</h3>
+                            <div class="certification-platform">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Coursera</span>
+                            </div>
+                        </div>
+                        <div class="certification-date">Aug 2024</div>
+                    </div>
+                    
+                    <div class="certification-details">
+                        <div class="certification-detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <div class="detail-content">
+                                <div class="detail-label">Certification</div>
+                                <div class="detail-value">IBM Data Science Professional Certificate</div>
+                            </div>
+                        </div>
+                        
+                        <div class="certification-detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="detail-content">
+                                <div class="detail-label">Completion Date</div>
+                                <div class="detail-value">August 2024</div>
+                            </div>
+                        </div>
+                        
+                        <div class="certification-detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="detail-content">
+                                <div class="detail-label">Skills Gained</div>
+                                <div class="skills-list">
+                                    <span class="skill-pill">Python</span>
+                                    <span class="skill-pill">SQL</span>
+                                    <span class="skill-pill">Data Visualization</span>
+                                    <span class="skill-pill">Machine Learning</span>
+                                    <span class="skill-pill">Statistical Analysis</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="certification-actions">
+                        <a href="#" class="btn">
+                            <i class="fas fa-external-link-alt"></i>
+                            View Certificate
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Google Certification -->
+                <div class="certification-card">
+                    <div class="certification-header">
+                        <div>
+                            <h3 class="certification-title">Google Data Analytics Professional Certificate</h3>
+                            <div class="certification-platform">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Coursera</span>
+                            </div>
+                        </div>
+                        <div class="certification-date">Jul 2024</div>
+                    </div>
+                    
+                    <div class="certification-details">
+                        <div class="certification-detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <div class="detail-content">
+                                <div class="detail-label">Certification</div>
+                                <div class="detail-value">Google Data Analytics Professional Certificate</div>
+                            </div>
+                        </div>
+                        
+                        <div class="certification-detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="detail-content">
+                                <div class="detail-label">Completion Date</div>
+                                <div class="detail-value">July 2024</div>
+                            </div>
+                        </div>
+                        
+                        <div class="certification-detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="detail-content">
+                                <div class="detail-label">Skills Gained</div>
+                                <div class="skills-list">
+                                    <span class="skill-pill">R</span>
+                                    <span class="skill-pill">Tableau</span>
+                                    <span class="skill-pill">Spreadsheets</span>
+                                    <span class="skill-pill">Data Cleaning</span>
+                                    <span class="skill-pill">Data Analysis</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="certification-actions">
+                        <a href="#" class="btn">
+                            <i class="fas fa-external-link-alt"></i>
+                            View Certificate
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        function enableDark() {
+            document.body.classList.add('dark-theme');
+            document.body.classList.remove('light');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+            localStorage.setItem('theme', 'dark');
+        }
+        
+        function disableDark() {
+            document.body.classList.remove('dark-theme');
+            document.body.classList.add('light');
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+            localStorage.setItem('theme', 'light');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.contains('dark-theme') ? disableDark() : enableDark();
+        });
+        
+        // Check for saved theme preference or respect OS preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            enableDark();
+        } else if (savedTheme === 'light') {
+            disableDark();
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            enableDark();
+        }
+    </script>
   </section>
 
   <footer class="footer">

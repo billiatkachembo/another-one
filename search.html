@@ -3,35 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Search</title>
+    <title>Search My Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-light: #3b82f6;
-            --primary-dark: #1d4ed8;
-            --text: #1f2937;
+            --primary: #06c1db;
+            --primary-light: #3bdcf5;
+            --primary-dark: #0499ac;
+            --text: #222;
             --text-light: #6b7280;
-            --bg: #f9fafb;
-            --card-bg: #ffffff;
-            --border: #e5e7eb;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --bg: #f9f9f9;
+            --card-bg: #fff;
+            --border: #e0e0e0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
             --radius: 12px;
             --transition: all 0.3s ease;
         }
 
         .dark-theme {
-            --primary: #3b82f6;
-            --primary-light: #60a5fa;
-            --primary-dark: #2563eb;
-            --text: #f9fafb;
+            --primary: #66ccff;
+            --primary-light: #99ddff;
+            --primary-dark: #33bbff;
+            --text: #eee;
             --text-light: #d1d5db;
-            --bg: #111827;
-            --card-bg: #1f2937;
-            --border: #374151;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+            --bg: #111;
+            --card-bg: #222;
+            --border: #444;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
         }
 
         * {
@@ -74,6 +74,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            text-decoration: none;
         }
 
         .logo i {
@@ -98,6 +99,7 @@
             font-weight: 500;
             transition: var(--transition);
             box-shadow: var(--shadow);
+            text-decoration: none;
         }
 
         .btn:hover {
@@ -161,7 +163,7 @@
         .search-input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 0 3px rgba(6, 193, 219, 0.3);
         }
 
         .search-btn {
@@ -286,6 +288,45 @@
             font-size: 0.9rem;
         }
 
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
+
+        .loading-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .loading-dots div {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: bounce 1.5s infinite ease-in-out;
+        }
+
+        .loading-dots div:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loading-dots div:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 1.5rem;
@@ -314,10 +355,10 @@
 <body>
     <div class="container">
         <header>
-            <div class="logo">
-                <i class="fas fa-search"></i>
-                <span>Portfolio Search</span>
-            </div>
+            <a href="index.html" class="logo">
+                <i class="fas fa-home"></i>
+                <span>Back to Portfolio</span>
+            </a>
             <div class="controls">
                 <button class="btn" id="theme-toggle">
                     <i class="fas fa-moon" id="theme-icon"></i>
@@ -393,43 +434,78 @@
         // Function to extract content from your portfolio
         async function getPortfolioContent() {
             try {
-                // This function would normally fetch your portfolio content
-                // For demonstration, we'll use a sample of what might be in your portfolio
+                // Fetch the index.html file
+                const response = await fetch('index.html');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch index.html');
+                }
+                
+                const html = await response.text();
+                
+                // Parse the HTML to extract content
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                
+                // Extract content from sections
+                const sections = doc.querySelectorAll("section");
+                const contentArray = [];
+                
+                sections.forEach(section => {
+                    // Get section title
+                    let titleElement = section.querySelector("h2");
+                    if (!titleElement) titleElement = section.querySelector("h1");
+                    const title = titleElement ? titleElement.textContent : section.id;
+                    
+                    // Get all text content from the section
+                    const text = section.textContent.replace(/\s+/g, " ").trim();
+                    const url = `index.html#${section.id}`;
+                    
+                    if (text.length > 0) {
+                        contentArray.push({ 
+                            title, 
+                            text, 
+                            url 
+                        });
+                    }
+                });
+                
+                // Also extract content from other important elements
+                const otherElements = doc.querySelectorAll("div.about-section, div.skill-card, div.feature-box");
+                otherElements.forEach(element => {
+                    let title = element.querySelector("h3, h4") ? element.querySelector("h3, h4").textContent : "Content";
+                    const text = element.textContent.replace(/\s+/g, " ").trim();
+                    const url = "index.html";
+                    
+                    if (text.length > 0) {
+                        contentArray.push({ 
+                            title, 
+                            text, 
+                            url 
+                        });
+                    }
+                });
+                
+                return contentArray;
+            } catch (err) {
+                console.error("Error fetching portfolio content:", err);
+                // Fallback to sample content if fetch fails
                 return [
                     {
                         title: "Introduction",
                         text: "Welcome to my portfolio. I'm a Data Scientist with a passion for exploring data and uncovering insights.",
-                        url: "#home"
+                        url: "index.html#home"
                     },
                     {
                         title: "About Me",
                         text: "I'm a Data Scientist with a passion for exploring data and uncovering insights. Curious, analytical, and always learning.",
-                        url: "#about"
+                        url: "index.html#about"
                     },
                     {
                         title: "Skills",
                         text: "Data Analysis, Machine Learning, Innovation, Data Visualization, AI, Statistical Modeling",
-                        url: "#skills"
-                    },
-                    {
-                        title: "Education",
-                        text: "BSc in Data Science at Kapasa Makasa University",
-                        url: "#education"
-                    },
-                    {
-                        title: "Contact",
-                        text: "You can reach me at billiatkachembo1@gmail.com or by phone at +260777771921",
-                        url: "#contact"
-                    },
-                    {
-                        title: "Newsletter",
-                        text: "Subscribe to my newsletter for updates on my latest projects and insights in data science.",
-                        url: "#newsletter"
+                        url: "index.html#skills"
                     }
                 ];
-            } catch (err) {
-                console.error("Error fetching portfolio content:", err);
-                return [];
             }
         }
 
@@ -451,8 +527,36 @@
 
         // Initialize the search index
         document.addEventListener('DOMContentLoaded', async () => {
+            // Show loading state
+            resultsContainer.innerHTML = `
+                <div class="loading">
+                    <div class="loading-dots">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            `;
+            searchStats.textContent = "Loading portfolio content...";
+            
             const portfolioContent = await getPortfolioContent();
             searchIndex = createSearchIndex(portfolioContent);
+            
+            // Check if there's a search query in the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlQuery = urlParams.get('q');
+            if (urlQuery) {
+                searchInput.value = urlQuery;
+                performSearch(urlQuery);
+            } else {
+                resultsContainer.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search"></i>
+                        <h3>Your Search Results Will Appear Here</h3>
+                        <p>Enter a search term in the input field above to find relevant content</p>
+                    </div>`;
+                searchStats.textContent = 'Start typing to search...';
+            }
             
             // Add event listener with debouncing
             searchInput.addEventListener('input', debounce((e) => {
@@ -472,6 +576,11 @@
         });
 
         function performSearch(query) {
+            // Update URL with search query
+            const url = new URL(window.location);
+            url.searchParams.set('q', query);
+            window.history.replaceState({}, '', url);
+            
             if (query.length < 2) {
                 if (query.length === 0) {
                     resultsContainer.innerHTML = `

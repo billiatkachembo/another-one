@@ -1023,27 +1023,303 @@ nav.addEventListener('wheel', (e) => {
       </div>
     </div>
   </section>
-  <section id="education" class="section-card section-tab-content hidden-section">
-  <h2>Education</h2>
-  <p>I am currently pursuing a BSc in Data Science at Kapasa Makasa University.</p>
+ <section id="education" class="section-card section-tab-content hidden-section">
 
-  <div class="map-toggle">
-    <small>Tap to see map</small>
-    <span class="arrow">&#x25BC;</span> <!-- Down arrow -->
-  </div>
-  <div class="visit-map-wrapper hidden">
-    <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m21!1m12!1m3!1d1003976.1127326398!2d32.1292393681145!3d-10.59623444019156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m6!3e6!4m0!4m3!3m2!1d-10.605165999999999!2d32.221727!5e0!3m2!1sen!2szm!4v1753871654429!5m2!1sen!2szm"
-      width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
+  <h2>Education</h2>
+  
+  <div class="education-content">
+    <div class="education-info">
+      <div class="education-icon">
+        <i class="fas fa-graduation-cap"></i>
+      </div>
+      <div class="education-details">
+        <h3>BSc in Data Science</h3>
+        <p class="institution">Kapasa Makasa University</p>
+        <p class="education-status">Currently pursuing degree</p>
+        <div class="education-features">
+          <div class="feature">
+            <i class="fas fa-book"></i>
+            <span>Data Science Curriculum</span>
+          </div>
+          <div class="feature">
+            <i class="fas fa-chart-line"></i>
+            <span>Statistical Analysis Focus</span>
+          </div>
+          <div class="feature">
+            <i class="fas fa-laptop-code"></i>
+            <span>Practical Programming</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-toggle" id="map-toggle">
+      <div class="map-toggle-content">
+        <i class="fas fa-map-marked-alt"></i>
+        <span>See University Location</span>
+        <span class="arrow">&#x25BC;</span>
+      </div>
+    </div>
+    
+    <div class="visit-map-wrapper hidden" id="map-wrapper">
+      <div class="map-container">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m21!1m12!1m3!1d1003976.1127326398!2d32.1292393681145!3d-10.59623444019156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m6!3e6!4m0!4m3!3m2!1d-10.605165999999999!2d32.221727!5e0!3m2!1sen!2szm!4v1753871654429!5m2!1sen!2szm"
+          width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+        <div class="map-overlay">
+          <a href="https://www.google.com/maps/place/Kapasa+Makasa+University" target="_blank" class="btn map-btn">
+            <i class="fas fa-directions"></i>
+            Open in Google Maps
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
-<style> /* ------------------------------------------- */ /* Mobile Responsiveness - Core CSS Enhancements */ /* ------------------------------------------- */ /* Global Mobile Optimizations */ :root { --text-color-light: #343a40; --heading-color-light: #212529; --body-bg-light: #f8f9fa; --card-bg-light: #ffffff; --border-color-light: #e9ecef; --green-color: #21683e; --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.1); --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1); } .dark { --text-color-dark: #e9ecef; --heading-color-dark: #f8f9fa; --body-bg-dark: #1f2a37; --card-bg-dark: #2c3a4a; --border-color-dark: #495057; } body { color: var(--text-color-light); background-color: var(--body-bg-light); transition: color 0.3s ease, background-color 0.3s ease; font-family: 'Inter', sans-serif; margin: 0; padding: 0; } .dark body { color: var(--text-color-dark); background-color: var(--body-bg-dark); } h1, h2, h3, h4, h5, h6 { color: var(--heading-color-light); } .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 { color: var(--heading-color-dark); } .glass-card, .section-card, .newsletter-card { background-color: var(--card-bg-light); border: 1px solid var(--border-color-light); } .dark .glass-card, .dark .section-card, .dark .newsletter-card { background-color: var(--card-bg-dark); border: 1px solid var(--border-color-dark); } /* Sub-menu and hidden section styles */ .hidden-section { display: none !important; } /* --- Centered Sub-menu Tabs with Animated Glowing Switch & Bounce --- */ .sub-menu-tabs { position: relative; display: flex; justify-content: center; align-items: center; gap: 12px; padding: 10px 12px; background-color: rgba(0, 0, 0, 0.1); border-radius: 50px; box-shadow: var(--shadow-small); overflow: hidden; margin: 2rem auto; transition: background-color 0.3s ease; max-width: 95%; /* keeps tabs inside small screens */ } .sub-menu-tab { z-index: 1; padding: 10px 24px; border-radius: 50px; text-decoration: none; color: var(--text-color-light); font-weight: 500; font-size: 0.95rem; transition: color 0.3s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap; cursor: pointer; display: flex; align-items: center; justify-content: center; } .sub-menu-tab { z-index: 1; padding: 10px 22px; border-radius: 50px; text-decoration: none; color: var(--text-color-light); font-weight: 500; font-size: 0.95rem; transition: color 0.3s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap; cursor: pointer; } .dark .sub-menu-tab { color: var(--text-color-dark); } .sub-menu-tab.active, .sub-menu-tab:hover { color: #fff; transform: scale(1.08); /* Slight scale on active/hover */ } /* Glowing moving switch background */ .tabs-switch-bg { position: absolute; top: 0; left: 0; height: 100%; width: 0; background: linear-gradient(135deg, #205f4a, #177047); border-radius: 50px; box-shadow: 0 0 15px rgba(33, 104, 62, 0.6); transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s ease-in-out, transform 0.35s ease-out; z-index: 0; animation: glowPulse 2s infinite alternate; } /* Smooth glowing pulse */ @keyframes glowPulse { 0% { box-shadow: 0 0 12px rgba(33, 104, 62, 0.4), 0 0 20px rgba(33, 104, 62, 0.2); } 100% { box-shadow: 0 0 20px rgba(33, 104, 62, 0.7), 0 0 28px rgba(33, 104, 62, 0.3); } } /* Optional bounce effect for active tab */ .sub-menu-tab.bounce { animation: tabBounce 0.3s ease-out; } @keyframes tabBounce { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1.08); } } /* Responsive adjustments for sub-menu tabs */ @media (max-width: 768px) { .sub-menu-tabs { flex-wrap: wrap; gap: 6px; padding: 4px; } .sub-menu-tab { padding: 8px 16px; font-size: 0.85rem; } } /* Specific styling for phone numbers to ensure visibility */ .footer-phones a { color: var(--text-color-light); } .dark .footer-phones a { color: var(--text-color-dark); } /* Additional general styles for the page layout */ .navbar, .hero-section, .about-section, .skills-section, .section-card, .footer { padding: 2rem; } .about-grid, .info-grid, .grid3, .grid4, .activity-grid, .benefits-grid { display: grid; gap: 1.5rem; } .about-grid { grid-template-columns: 1fr; } .info-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); } .grid3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); } .grid4 { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); } @media (min-width: 768px) { .about-grid { grid-template-columns: 1fr 2fr; } } /* --- New Mobile-Specific Navbar Styles --- */ .nav-center, .nav-social-search { transition: transform 0.3s ease; } /* Hide desktop nav on mobile */ @media (max-width: 991px) { .nav-center .nav-links { display: none; } .nav-center .mobile-nav-toggle { display: block; /* Show hamburger icon */ } .nav-right .nav-social-search { display: none; } } /* Style for the mobile menu */ .mobile-menu { position: fixed; top: 0; right: -100%; width: clamp(250px, 80%, 350px); max-width: 100%; height: 100%; /* Add these lines for transparency and blur */ background: rgba(255, 255, 255, 0.7); /* White with 70% opacity */ backdrop-filter: blur(10px); /* Adjust the pixel value to control blur strength */ box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2); transition: right 0.3s ease; z-index: 999; overflow-y: auto; -webkit-overflow-scrolling: touch; } .mobile-menu.active { right:0; } .mobile-menu-close { font-size:1.5rem; cursor:pointer; margin-bottom:1rem; display:block; } .mobile-menu-links { list-style:none; padding:0; margin:0; } .mobile-menu-links li { margin-bottom:1rem; } .mobile-menu-links a { display:flex; align-items:center; gap:0.5rem; text-decoration:none; color:#333; font-weight:500; } .mobile-menu-links a:hover { color:#06c1db; } /* Mobile Submenu styles */ .mobile-submenu { list-style: none; padding: 0; margin: 0.5rem 0 0.5rem 1rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-in-out; } .mobile-submenu.active { max-height: 200px; /* Adjust this value based on your content */ } .mobile-submenu li { margin-bottom: 0.5rem; } /* Rotate chevron icon when submenu is open */ .mobile-menu-toggle-chevron { transition: transform 0.3s ease-in-out; } .mobile-menu-link.active .mobile-menu-toggle-chevron { transform: rotate(180deg); } /* Mobile Search & Theme */ .mobile-nav-search { display:flex; gap:0.5rem; margin:1rem 0; } .mobile-nav-search input { padding:0.25rem 0.5rem; width:100%; } #mobile-theme-toggle { display:block; margin-bottom:1rem; } /* Overlay */ .mobile-menu-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.3); opacity:0; visibility:hidden; transition:0.3s; z-index:998; } .mobile-menu-overlay.active { opacity:1; visibility:visible; } /* Hamburger Button */ .mobile-menu-toggle { display:none; font-size:1.6rem; cursor:pointer; } @media (max-width:768px){ .nav-links, .nav-search, #theme-toggle, .social-icons-navbar { display:none; } .mobile-menu-toggle { display:block; } .navbar-title { font-size:1.2rem; } } @media (min-width:769px){ .mobile-menu, .mobile-menu-overlay { display:none; } } </style>
 
-  </section>
-  <section id="certifications" class="section-card section-tab-content hidden-section">
+<style>
+  /* Education Section Styles */
+  #education {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    margin-bottom: 2rem;
+    border-top: 4px solid var(--primary);
+  }
 
+  #education:hover {
+    box-shadow: var(--shadow-lg);
+  }
+
+  #education h2 {
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    position: relative;
+    display: inline-block;
+  }
+
+  #education h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--secondary);
+  }
+
+  .education-content {
+    margin-top: 1.5rem;
+  }
+
+  .education-info {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    align-items: flex-start;
+  }
+
+  .education-icon {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .education-details {
+    flex: 1;
+  }
+
+  .education-details h3 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+  }
+
+  .institution {
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  .education-status {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+
+  .education-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .feature {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    color: var(--text);
+    font-size: 0.9rem;
+  }
+
+  .feature i {
+    color: var(--primary);
+  }
+
+  .map-toggle {
+    background: var(--bg);
+    border: 2px dashed var(--primary);
+    border-radius: var(--radius);
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-bottom: 1.5rem;
+  }
+
+  .map-toggle:hover {
+    background: var(--primary-light);
+    border-color: var(--primary-dark);
+    transform: translateY(-2px);
+  }
+
+  .map-toggle-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  .map-toggle-content i {
+    font-size: 1.2rem;
+  }
+
+  .arrow {
+    transition: transform 0.3s ease;
+  }
+
+  .map-toggle.active .arrow {
+    transform: rotate(180deg);
+  }
+
+  .visit-map-wrapper {
+    overflow: hidden;
+    transition: all 0.5s ease;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .visit-map-wrapper:not(.hidden) {
+    animation: slideDown 0.5s ease;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .map-container {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .map-overlay {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+  }
+
+  .map-btn {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--primary);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--primary);
+  }
+
+  .map-btn:hover {
+    background: var(--primary);
+    color: white;
+  }
+
+  @media (max-width: 768px) {
+    #education {
+      padding: 1.5rem;
+    }
+    
+    .education-info {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .education-icon {
+      align-self: center;
+    }
+    
+    .education-features {
+      justify-content: center;
+    }
+    
+    .feature {
+      flex: 1;
+      min-width: 140px;
+      justify-content: center;
+    }
+    
+    .map-overlay {
+      position: relative;
+      top: 0;
+      right: 0;
+      margin-top: 1rem;
+      text-align: center;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const mapToggle = document.getElementById('map-toggle');
+    const mapWrapper = document.getElementById('map-wrapper');
+    
+    if (mapToggle && mapWrapper) {
+      mapToggle.addEventListener('click', function() {
+        mapWrapper.classList.toggle('hidden');
+        mapToggle.classList.toggle('active');
+        
+        // If we're showing the map, update the toggle text
+        const toggleText = mapWrapper.classList.contains('hidden') ? 
+          'See University Location' : 'Hide Map';
+        
+        mapToggle.querySelector('span').textContent = toggleText;
+      });
+    }
+  });
+</script>
   <h2>Certifications</h2>
   <div class="certifications-grid">
     <!-- IBM Certification -->

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="theme-color" content="#06c1db">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Search Results</title>
 <!-- Font Awesome for icons -->
@@ -198,14 +199,14 @@ const themeIcon = document.getElementById("theme-icon");
 
 function enableDark() {
     document.body.classList.add('dark');
-    themeIcon.classList.replace('fa-moon', 'fa-sun');
-    localStorage.setItem('theme', 'dark');
+    themeIcon.classList.replace('fa-moon','fa-sun');
+    localStorage.setItem('theme','dark');
 }
 
 function disableDark() {
     document.body.classList.remove('dark');
-    themeIcon.classList.replace('fa-sun', 'fa-moon');
-    localStorage.setItem('theme', 'light');
+    themeIcon.classList.replace('fa-sun','fa-moon');
+    localStorage.setItem('theme','light');
 }
 
 themeToggleBtn.addEventListener('click', () => {
@@ -213,115 +214,71 @@ themeToggleBtn.addEventListener('click', () => {
 });
 
 const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'dark') enableDark();
-else if (savedTheme === 'light') disableDark();
-else if (window.matchMedia('(prefers-color-scheme: dark)').matches) enableDark();
+if(savedTheme === 'dark') enableDark();
+else if(savedTheme === 'light') disableDark();
+else if(window.matchMedia('(prefers-color-scheme: dark)').matches) enableDark();
 
 // --- Search Functionality ---
-// The following code now runs immediately and listens for input events.
-const searchInput = document.querySelector(".search-panel .search-form input[name='q']");
-const searchResultsContainer = document.getElementById("searchResults");
+document.addEventListener("DOMContentLoaded", async () => {
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get("q") ? params.get("q").toLowerCase() : "";
 
-// Fetch site content once when the script loads
-async function getSiteContent() {
-    try {
-        const response = await fetch("index.html");
-        const text = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(text, "text/html");
-        const sections = doc.querySelectorAll("section");
-        const contentArray = [];
-        sections.forEach(sec => {
-            const title = sec.querySelector("h2") ? sec.querySelector("h2").innerText : sec.id;
-            let content = sec.innerText || "";
-            content = content.replace(/\s+/g, " ").trim();
-            if (content.length > 0) contentArray.push({
-                title,
-                text: content,
-                url: `index.html#${sec.id}`
-            });
-        });
-        return contentArray;
-    } catch (err) {
-        console.error(err);
-        return [];
-    }
-}
-
-let siteContent = [];
-getSiteContent().then(data => {
-    siteContent = data;
-});
-
-function searchContent(query, contentArray) {
-    if (!query) return [];
-    const terms = query.toLowerCase().split(" ").filter(t => t.length > 1);
-    
-    return contentArray.map(item => {
-        // Use a more robust search logic for multiple terms
-        const lowerText = item.text.toLowerCase();
-        const foundTerms = terms.filter(term => lowerText.includes(term));
-        
-        if (foundTerms.length > 0) {
-            // Find the first occurrence to generate a relevant snippet
-            const firstIndex = lowerText.indexOf(foundTerms[0]);
-            const start = Math.max(0, firstIndex - 30);
-            const end = Math.min(item.text.length, firstIndex + 70);
-            const snippet = (start > 0 ? "..." : "") + item.text.substring(start, end) + (end < item.text.length ? "..." : "");
-            return {
-                title: item.title,
-                snippet,
-                url: item.url
-            };
-        }
-        return null;
-    }).filter(Boolean);
-}
-
-function highlightTerm(text, query) {
-    if (!query) return text;
-    const terms = query.toLowerCase().split(" ").filter(t => t.length > 1);
-    let highlighted = text;
-    terms.forEach(t => {
-        const regex = new RegExp(`(${t})`, "gi");
-        highlighted = highlighted.replace(regex, "<mark>$1</mark>");
-    });
-    return highlighted;
-}
-
-function showResults(results, query, container) {
-    container.innerHTML = "";
-    if (query.trim() === "" || results.length === 0) {
-        container.innerHTML = `<p style="padding: 10px;">No results found for "<mark>${query}</mark>".</p>`;
+    if(!query) {
+        document.getElementById("searchResults").innerHTML = <p>Please enter a search query.</p>;
         return;
     }
-    
-    results.forEach(res => {
-        const div = document.createElement("div");
-        div.className = "result-item";
-        const link = document.createElement("a");
-        link.href = res.url;
-        link.innerText = res.title;
-        const snippet = document.createElement("p");
-        snippet.innerHTML = highlightTerm(res.snippet, query);
-        div.appendChild(link);
-        div.appendChild(snippet);
-        container.appendChild(div);
-    });
-}
 
-// Add event listener for live input
-searchInput.addEventListener("input", (e) => {
-    const query = e.target.value.trim();
-    const results = searchContent(query, siteContent);
-    showResults(results, query, searchResultsContainer);
-});
-
-// Hide results when the user clicks outside
-document.addEventListener("click", (e) => {
-    if (!panel.contains(e.target) && !openSearchBtn.contains(e.target)) {
-        closePanel();
+    async function getSiteContent() {
+        try {
+            const response = await fetch("index.html");
+            const text = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(text,"text/html");
+            const sections = doc.querySelectorAll("section");
+            const contentArray = [];
+            sections.forEach(sec => {
+                const title = sec.querySelector("h2") ? sec.querySelector("h2").innerText : sec.id;
+                let content = sec.innerText || "";
+                content = content.replace(/\s+/g," ").trim();
+                if(content.length>0) contentArray.push({title,text:content,url:index.html#${sec.id}});
+            });
+            return contentArray;
+        } catch(err) { console.error(err); return []; }
     }
+
+    const contentArray = await getSiteContent();
+
+    function searchContent(query, contentArray) {
+        return contentArray.map(item => {
+            const idx = item.text.toLowerCase().indexOf(query);
+            if(idx !== -1) {
+                const start = Math.max(0, idx-30);
+                const end = Math.min(item.text.length, idx+70);
+                const snippet = (start>0?"...":"")+item.text.substring(start,end)+(end<item.text.length?"...":"");
+                return {title:item.title, snippet, url:item.url};
+            }
+            return null;
+        }).filter(Boolean);
+    }
+
+    function highlightTerm(text,term) {
+        const regex = new RegExp((${term}),"gi");
+        return text.replace(regex,"<mark>$1</mark>");
+    }
+
+    function showResults(results,query) {
+        const container = document.getElementById("searchResults");
+        container.innerHTML="";
+        if(results.length===0) { container.innerHTML=<p>No results found for "${query}".</p>; return; }
+        results.forEach(res => {
+            const div = document.createElement("div");
+            div.className="result-item";
+            div.innerHTML=<a href="${res.url}">${res.title}</a><p>${highlightTerm(res.snippet,query)}</p>;
+            container.appendChild(div);
+        });
+    }
+
+    showResults(searchContent(query,contentArray),query);
 });
 </script>
 </body>

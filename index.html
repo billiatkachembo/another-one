@@ -328,10 +328,15 @@ body.dark .mobile-menu-close {
 .mobile-nav-search { display:flex; gap:0.5rem; margin:1rem 0; }
 .mobile-nav-search input { padding:0.25rem 0.5rem; width:100%; }
 
-/* Mobile Toggle Container (hamburger + theme toggle) */
 .mobile-toggle-container {
-  display: none; align-items:center; gap:0.5rem;
-  position: fixed; top:1rem; right:1rem; z-index:1800;
+  display: none;
+  flex-direction: column; /* Aligns children vertically */
+  align-items: center;
+  gap: 0.5rem;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1800;
 }
 .mobile-menu-toggle, #mobile-theme-toggle {
   position: relative; top:auto; right:auto;

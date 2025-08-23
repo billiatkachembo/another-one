@@ -544,12 +544,12 @@ document.addEventListener('DOMContentLoaded', () => {
   function applyTheme(isDark) {
     if (isDark) {
       document.body.classList.add('dark');
-      if (desktopIcon) desktopIcon.classList.replace('bi-moon', 'bi-sun');
-      if (mobileIcon) mobileIcon.classList.replace('bi-moon', 'bi-sun');
-    } else {
-      document.body.classList.remove('dark');
       if (desktopIcon) desktopIcon.classList.replace('bi-sun', 'bi-moon');
       if (mobileIcon) mobileIcon.classList.replace('bi-sun', 'bi-moon');
+    } else {
+      document.body.classList.remove('dark');
+      if (desktopIcon) desktopIcon.classList.replace('bi-moon', 'bi-sun');
+      if (mobileIcon) mobileIcon.classList.replace('bi-moon', 'bi-sun');
     }
   }
 

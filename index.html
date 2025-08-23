@@ -199,12 +199,79 @@ document.addEventListener('DOMContentLoaded', () => {
   </ul>
 
   <!-- Mobile Search Bar -->
-  <!-- Add this to your nav-right section -->
-<div class="nav-search">
-    <a href="search.html" class="search-link">
-        <i class="bi bi-search"></i> Search
-    </a>
+  <!-- Replace the existing mobile-search-container with this -->
+<div class="mobile-search-container" id="mobile-search">
+  <div class="mobile-search-header">
+    <h3>Search Portfolio</h3>
+    <p>Find content across all sections</p>
+  </div>
+  <form class="mobile-nav-search" action="search.html" method="GET" role="search">
+    <input type="text" name="q" placeholder="Enter search terms..." aria-label="Search" />
+    <button type="submit">Search</button>
+  </form>
+  <div class="mobile-search-note">
+    <small>Opens in search page with full results</small>
+  </div>
 </div>
+  <style>
+    /* Mobile search container styling */
+.mobile-search-header {
+  margin-bottom: 1rem;
+}
+
+.mobile-search-header h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+  color: var(--primary-color);
+}
+
+.mobile-search-header p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin: 0;
+}
+
+.mobile-search-note {
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.mobile-search-note small {
+  color: var(--text-light);
+  font-size: 0.8rem;
+}
+
+/* Dark mode adjustments */
+body.dark .mobile-search-header h3 {
+  color: var(--primary-color);
+}
+
+body.dark .mobile-search-header p {
+  color: var(--text-light);
+}
+    </style>
+  <script>
+    // Add this to your existing JavaScript in search.html
+// Handle direct searches from mobile menu
+document.addEventListener('DOMContentLoaded', () => {
+    // Check if we have a search query from mobile menu
+    const urlParams = new URLSearchParams(window.location.search);
+    const mobileQuery = urlParams.get('q');
+    
+    if (mobileQuery) {
+        // Pre-fill the search input
+        const searchInput = document.getElementById('search-input');
+        if (searchInput) {
+            searchInput.value = mobileQuery;
+            
+            // Trigger search after a short delay to allow content loading
+            setTimeout(() => {
+                performSearch(mobileQuery);
+            }, 500);
+        }
+    }
+});
+  </script>
 
   <!-- Mobile Social Icons -->
   <div class="mobile-social-icons">

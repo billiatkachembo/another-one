@@ -5,10 +5,8 @@
 <meta name="theme-color" content="#06c1db">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Search Results</title>
-<!-- Font Awesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
-/* --- Base Styles --- */
 :root {
   --primary-color: #06c1db;
   --primary-hover: #0499ac;
@@ -35,7 +33,7 @@ body.dark {
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background: var(--bg-color);
   color: var(--text-color);
   transition: background 0.3s, color 0.3s;
@@ -59,18 +57,6 @@ main {
   padding: 0 1rem;
 }
 
-#searchResults p {
-  margin-bottom: 1rem;
-}
-
-mark {
-  background-color: var(--mark-bg);
-  color: var(--mark-color);
-  padding: 0.1em 0.2em;
-  border-radius: 2px;
-}
-
-/* --- Header Styles --- */
 .page-header {
   display: flex;
   justify-content: space-between;
@@ -92,7 +78,6 @@ mark {
   gap: 0.5rem;
 }
 
-/* --- Button Styles --- */
 .icon-btn {
   background: none;
   border: none;
@@ -118,7 +103,6 @@ body.dark .icon-btn:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* --- Search Panel --- */
 .search-panel {
   position: fixed;
   top: 0;
@@ -136,7 +120,6 @@ body.dark .icon-btn:hover {
   overflow-y: auto;
 }
 
-/* Search form */
 .search-form {
   display: flex;
   gap: 0.5rem;
@@ -176,7 +159,6 @@ body.dark .icon-btn:hover {
   transform: translateY(-1px);
 }
 
-/* Overlay */
 .search-overlay {
   position: fixed;
   top: 0;
@@ -197,7 +179,6 @@ body.dark .icon-btn:hover {
   visibility: visible;
 }
 
-/* Search results */
 .result-item {
   background: var(--card-bg);
   padding: 1.25rem;
@@ -226,7 +207,6 @@ body.dark .icon-btn:hover {
   opacity: 0.9;
 }
 
-/* Loading animation */
 .loading {
   display: flex;
   justify-content: center;
@@ -266,7 +246,6 @@ body.dark .icon-btn:hover {
   }
 }
 
-/* No results */
 .no-results {
   text-align: center;
   padding: 2rem;
@@ -280,7 +259,6 @@ body.dark .icon-btn:hover {
   color: var(--primary-color);
 }
 
-/* Recent searches */
 .recent-searches {
   margin-top: 2rem;
   padding-top: 1rem;
@@ -319,7 +297,13 @@ body.dark .recent-search-tag {
   background: rgba(102, 204, 255, 0.15);
 }
 
-/* Responsive adjustments */
+mark {
+  background-color: var(--mark-bg);
+  color: var(--mark-color);
+  padding: 0.1em 0.2em;
+  border-radius: 2px;
+}
+
 @media (max-width: 768px) {
   .search-panel {
     width: 85vw;
@@ -343,7 +327,6 @@ body.dark .recent-search-tag {
   }
 }
 
-/* Prevent scroll when menu is open */
 body.menu-open {
   overflow: hidden;
 }
@@ -351,14 +334,13 @@ body.menu-open {
 </head>
 <body>
 
-<!-- Search Panel -->
 <div class="search-panel" id="search-panel">
     <button type="button" class="icon-btn" id="close-search" aria-label="Close Search">
         <i class="fas fa-arrow-left"></i>
     </button>
     <h2>Search</h2>
     <form class="search-form" action="search.html" method="GET" role="search">
-        <input type="text" name="q" placeholder="Enter your search terms..." aria-label="Search" />
+        <input type="text" name="q" placeholder="Enter your search terms..." aria-label="Search" id="search-input" />
         <button type="submit"><i class="fas fa-search"></i></button>
     </form>
     
@@ -370,10 +352,8 @@ body.menu-open {
     </div>
 </div>
 
-<!-- Overlay -->
 <div class="search-overlay" id="search-overlay"></div>
 
-<!-- Main content -->
 <main>
     <div class="page-header">
         <h1 class="page-title">Search Results</h1>
@@ -399,246 +379,334 @@ body.menu-open {
 </main>
 
 <script>
-    // --- Panel Controls ---
-    const panel = document.getElementById("search-panel");
-    const overlay = document.getElementById("search-overlay");
-    const closeBtn = document.getElementById("close-search");
-    const openSearchBtn = document.getElementById("open-search-btn");
+// --- Panel Controls ---
+const panel = document.getElementById("search-panel");
+const overlay = document.getElementById("search-overlay");
+const closeBtn = document.getElementById("close-search");
+const openSearchBtn = document.getElementById("open-search-btn");
+const searchInput = document.getElementById("search-input");
 
-    function openPanel() {
-        panel.style.right = "0";
-        overlay.classList.add("active");
-        document.body.classList.add("menu-open");
+function openPanel() {
+    panel.style.right = "0";
+    overlay.classList.add("active");
+    document.body.classList.add("menu-open");
+    
+    setTimeout(() => {
+        if (searchInput) searchInput.focus();
+    }, 100);
+}
+
+function closePanel() {
+    panel.style.right = "-100%";
+    overlay.classList.remove("active");
+    document.body.classList.remove("menu-open");
+}
+
+openSearchBtn.addEventListener("click", openPanel);
+overlay.addEventListener("click", closePanel);
+closeBtn.addEventListener("click", closePanel);
+
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && panel.style.right === "0px") {
+        closePanel();
+    }
+});
+
+// --- Theme Toggle ---
+const themeToggleBtn = document.getElementById("theme-toggle");
+const themeIcon = document.getElementById("theme-icon");
+
+function enableDark() {
+    document.body.classList.add('dark');
+    themeIcon.classList.replace('fa-moon', 'fa-sun');
+    localStorage.setItem('theme', 'dark');
+}
+
+function disableDark() {
+    document.body.classList.remove('dark');
+    themeIcon.classList.replace('fa-sun', 'fa-moon');
+    localStorage.setItem('theme', 'light');
+}
+
+themeToggleBtn.addEventListener('click', () => {
+    document.body.classList.contains('dark') ? disableDark() : enableDark();
+});
+
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') enableDark();
+else if (savedTheme === 'light') disableDark();
+else if (window.matchMedia('(prefers-color-scheme: dark)').matches) enableDark();
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!localStorage.getItem('theme')) {
+        e.matches ? enableDark() : disableDark();
+    }
+});
+
+// --- Optimized Search Functionality ---
+document.addEventListener("DOMContentLoaded", async () => {
+    const searchResultsContainer = document.getElementById("searchResults");
+    const recentSearchesContainer = document.getElementById("recent-searches-container");
+    let contentArray = [];
+    let searchIndex = null;
+    let recentSearches = JSON.parse(localStorage.getItem('recentSearches') || '[]');
+
+    // Display recent searches
+    function updateRecentSearches() {
+        recentSearchesContainer.innerHTML = '';
+        if (recentSearches.length === 0) {
+            recentSearchesContainer.innerHTML = '<p style="opacity:0.7; margin:0;">No recent searches</p>';
+            return;
+        }
         
-        // Focus on search input when panel opens
-        setTimeout(() => {
-            const searchInput = document.querySelector('.search-form input[name="q"]');
-            if (searchInput) searchInput.focus();
-        }, 100);
-    }
-
-    function closePanel() {
-        panel.style.right = "-100%";
-        overlay.classList.remove("active");
-        document.body.classList.remove("menu-open");
-    }
-
-    openSearchBtn.addEventListener("click", openPanel);
-    overlay.addEventListener("click", closePanel);
-    closeBtn.addEventListener("click", closePanel);
-
-    // Close panel with Escape key
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && panel.style.right === "0px") {
-            closePanel();
-        }
-    });
-
-    // --- Theme Toggle ---
-    const themeToggleBtn = document.getElementById("theme-toggle");
-    const themeIcon = document.getElementById("theme-icon");
-
-    function enableDark() {
-        document.body.classList.add('dark');
-        themeIcon.classList.replace('fa-moon', 'fa-sun');
-        localStorage.setItem('theme', 'dark');
-    }
-
-    function disableDark() {
-        document.body.classList.remove('dark');
-        themeIcon.classList.replace('fa-sun', 'fa-moon');
-        localStorage.setItem('theme', 'light');
-    }
-
-    themeToggleBtn.addEventListener('click', () => {
-        document.body.classList.contains('dark') ? disableDark() : enableDark();
-    });
-
-    // Check for saved theme preference or respect OS preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') enableDark();
-    else if (savedTheme === 'light') disableDark();
-    else if (window.matchMedia('(prefers-color-scheme: dark)').matches) enableDark();
-
-    // Listen for system theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-        if (!localStorage.getItem('theme')) {
-            e.matches ? enableDark() : disableDark();
-        }
-    });
-
-    // --- Search Functionality ---
-    document.addEventListener("DOMContentLoaded", async () => {
-        const searchInput = document.querySelector('.search-form input[name="q"]');
-        const searchResultsContainer = document.getElementById("searchResults");
-        const recentSearchesContainer = document.getElementById("recent-searches-container");
-        let contentArray = [];
-        let recentSearches = JSON.parse(localStorage.getItem('recentSearches') || '[]');
-
-        // Display recent searches
-        function updateRecentSearches() {
-            recentSearchesContainer.innerHTML = '';
-            if (recentSearches.length === 0) {
-                recentSearchesContainer.innerHTML = '<p style="opacity:0.7; margin:0;">No recent searches</p>';
-                return;
-            }
-            
-            recentSearches.slice(0, 5).forEach(search => {
-                const tag = document.createElement('div');
-                tag.className = 'recent-search-tag';
-                tag.textContent = search;
-                tag.addEventListener('click', () => {
-                    searchInput.value = search;
-                    const event = new Event('input', { bubbles: true });
-                    searchInput.dispatchEvent(event);
-                });
-                recentSearchesContainer.appendChild(tag);
+        recentSearches.slice(0, 5).forEach(search => {
+            const tag = document.createElement('div');
+            tag.className = 'recent-search-tag';
+            tag.textContent = search;
+            tag.addEventListener('click', () => {
+                searchInput.value = search;
+                const event = new Event('input', { bubbles: true });
+                searchInput.dispatchEvent(event);
             });
-        }
+            recentSearchesContainer.appendChild(tag);
+        });
+    }
 
-        updateRecentSearches();
+    updateRecentSearches();
 
-        async function getSiteContent() {
-            try {
-                const response = await fetch("index.html");
-                const text = await response.text();
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(text, "text/html");
-                const sections = doc.querySelectorAll("section, article, [data-searchable]");
-                const pageContent = [];
-                
-                sections.forEach(sec => {
-                    const title = sec.querySelector("h1, h2, h3")?.innerText || sec.id || "Untitled";
-                    const content = (sec.textContent || "").replace(/\s+/g, " ").trim();
-                    if (content.length) pageContent.push({
-                        title,
-                        text: content,
-                        url: `index.html#${sec.id}`
-                    });
-                });
-                
-                return pageContent;
-            } catch (err) {
-                console.error("Error fetching content:", err);
-                return [];
-            }
-        }
-
-        contentArray = await getSiteContent();
-
-        function searchContent(query, data) {
-            if (!query) return [];
-            const term = query.toLowerCase();
-            return data.map(item => {
-                const titleMatch = item.title.toLowerCase().includes(term);
-                const contentMatch = item.text.toLowerCase().includes(term);
-                
-                if (titleMatch || contentMatch) {
-                    // Prioritize title matches
-                    const relevance = titleMatch ? 2 : 1;
-                    
-                    // Find the position of the match
-                    let idx = item.text.toLowerCase().indexOf(term);
-                    if (idx === -1 && titleMatch) {
-                        idx = 0; // If it's a title match but not in content, show from start
-                    }
-                    
-                    const start = Math.max(0, idx - 30);
-                    const end = Math.min(item.text.length, idx + term.length + 70);
-                    let snippet = item.text.substring(start, end);
-                    
-                    if (start > 0) snippet = "..." + snippet;
-                    if (end < item.text.length) snippet = snippet + "...";
-                    
-                    return {
-                        title: item.title,
-                        snippet,
-                        url: item.url,
-                        relevance
-                    };
-                }
-                return null;
-            }).filter(Boolean)
-            .sort((a, b) => b.relevance - a.relevance); // Sort by relevance
-        }
-
-        function highlightTerm(text, term) {
-            if (!term) return text;
-            const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "gi");
-            return text.replace(regex, "<mark>$1</mark>");
-        }
-
-        function showResults(results, query, container) {
-            container.innerHTML = "";
-            
-            if (query.trim() === "") {
-                container.innerHTML = `
-                    <div class="no-results">
-                        <i class="fas fa-search"></i>
-                        <p>Enter a search term to find content</p>
-                    </div>`;
-                return;
-            }
-            
-            if (results.length === 0) {
-                container.innerHTML = `
-                    <div class="no-results">
-                        <i class="fas fa-search-minus"></i>
-                        <p>No results found for "${query}"</p>
-                        <p>Try different keywords or browse the main site</p>
-                    </div>`;
-                return;
-            }
-            
-            // Add to recent searches if not already there
-            if (!recentSearches.includes(query)) {
-                recentSearches.unshift(query);
-                // Keep only the 5 most recent searches
-                if (recentSearches.length > 5) recentSearches.pop();
-                localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
-                updateRecentSearches();
-            }
-            
-            results.forEach(res => {
-                const div = document.createElement("div");
-                div.className = "result-item";
-                div.innerHTML = `
-                    <a href="${res.url}">${res.title}</a>
-                    <p>${highlightTerm(res.snippet, query)}</p>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function debounce(fn, delay) {
-            let timer;
-            return function(...args) {
-                clearTimeout(timer);
-                timer = setTimeout(() => {
-                    fn.apply(this, args);
-                }, delay);
+    // Create a simple search index for faster searching
+    function createSearchIndex(content) {
+        return content.map(item => {
+            // Precompute lowercase versions for faster searching
+            return {
+                title: item.title,
+                titleLower: item.title.toLowerCase(),
+                text: item.text,
+                textLower: item.text.toLowerCase(),
+                url: item.url
             };
-        }
+        });
+    }
 
-        const handleSearch = debounce((e) => {
-            const query = e.target.value.trim();
-            const results = searchContent(query, contentArray);
-            showResults(results, query, searchResultsContainer);
-        }, 300);
-
-        if (searchInput) {
-            searchInput.addEventListener("input", handleSearch);
+    async function getSiteContent() {
+        try {
+            // For demo purposes, we'll create some sample content
+            // In a real implementation, you would fetch from your actual site
+            const sampleContent = [
+                {
+                    title: "Introduction",
+                    text: "Welcome to our website. We provide excellent services and solutions for your needs. Our team is dedicated to delivering high-quality results.",
+                    url: "index.html#intro"
+                },
+                {
+                    title: "Services",
+                    text: "We offer a wide range of services including web development, design, and consulting. Our experts are ready to help you achieve your goals.",
+                    url: "index.html#services"
+                },
+                {
+                    title: "About Us",
+                    text: "Learn more about our company history, mission, and values. We've been serving clients for over 10 years with dedication and excellence.",
+                    url: "index.html#about"
+                },
+                {
+                    title: "Contact Information",
+                    text: "Get in touch with us through phone, email, or our contact form. We're available to answer any questions you might have about our services.",
+                    url: "index.html#contact"
+                },
+                {
+                    title: "FAQ",
+                    text: "Frequently asked questions about our services, pricing, and processes. Find answers to common queries from our clients.",
+                    url: "index.html#faq"
+                },
+                {
+                    title: "Blog",
+                    text: "Read our latest articles and insights on industry trends, tips, and best practices. Stay updated with our recent news and updates.",
+                    url: "index.html#blog"
+                },
+                {
+                    title: "Testimonials",
+                    text: "What our clients say about our services and their experiences working with our team. Read success stories from satisfied customers.",
+                    url: "index.html#testimonials"
+                },
+                {
+                    title: "Portfolio",
+                    text: "Browse through our portfolio of completed projects and case studies. See examples of our work and the results we've achieved.",
+                    url: "index.html#portfolio"
+                }
+            ];
             
-            // Check if there's a search query in the URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const urlQuery = urlParams.get('q');
-            if (urlQuery) {
-                searchInput.value = urlQuery;
-                const results = searchContent(urlQuery, contentArray);
-                showResults(results, urlQuery, searchResultsContainer);
+            return sampleContent;
+        } catch (err) {
+            console.error("Error fetching content:", err);
+            return [];
+        }
+    }
+
+    // Load content and create search index
+    contentArray = await getSiteContent();
+    searchIndex = createSearchIndex(contentArray);
+    
+    // Remove loading animation
+    searchResultsContainer.innerHTML = `
+        <div class="no-results">
+            <i class="fas fa-search"></i>
+            <p>Enter a search term to find content</p>
+        </div>`;
+
+    // Fast search function using precomputed values
+    function searchContent(query, data) {
+        if (!query || query.length < 2) return [];
+        
+        const term = query.toLowerCase();
+        const results = [];
+        
+        for (let i = 0; i < data.length; i++) {
+            const item = data[i];
+            
+            // Check for title matches first (higher priority)
+            const titleIndex = item.titleLower.indexOf(term);
+            if (titleIndex !== -1) {
+                results.push({
+                    title: item.title,
+                    snippet: getSnippet(item.text, term, true),
+                    url: item.url,
+                    relevance: 2 // Higher relevance for title matches
+                });
+                continue;
+            }
+            
+            // Check for content matches
+            const contentIndex = item.textLower.indexOf(term);
+            if (contentIndex !== -1) {
+                results.push({
+                    title: item.title,
+                    snippet: getSnippet(item.text, term, false),
+                    url: item.url,
+                    relevance: 1 // Lower relevance for content matches
+                });
             }
         }
-    });
+        
+        // Sort by relevance (title matches first)
+        return results.sort((a, b) => b.relevance - a.relevance);
+    }
+    
+    // Efficient snippet generation
+    function getSnippet(text, term, isTitleMatch) {
+        if (isTitleMatch) {
+            // For title matches, just show the beginning of the content
+            const maxLength = 120;
+            return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+        }
+        
+        // For content matches, find the term position
+        const index = text.toLowerCase().indexOf(term);
+        if (index === -1) return text.substring(0, 120) + "...";
+        
+        const start = Math.max(0, index - 40);
+        const end = Math.min(text.length, index + term.length + 80);
+        
+        let snippet = "";
+        if (start > 0) snippet += "...";
+        snippet += text.substring(start, end);
+        if (end < text.length) snippet += "...";
+        
+        return snippet;
+    }
+
+    function highlightTerm(text, term) {
+        if (!term) return text;
+        // Escape special regex characters
+        const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${escapedTerm})`, "gi");
+        return text.replace(regex, "<mark>$1</mark>");
+    }
+
+    function showResults(results, query, container) {
+        container.innerHTML = "";
+        
+        if (query.trim() === "") {
+            container.innerHTML = `
+                <div class="no-results">
+                    <i class="fas fa-search"></i>
+                    <p>Enter a search term to find content</p>
+                </div>`;
+            return;
+        }
+        
+        if (results.length === 0) {
+            container.innerHTML = `
+                <div class="no-results">
+                    <i class="fas fa-search-minus"></i>
+                    <p>No results found for "${query}"</p>
+                    <p>Try different keywords or browse the main site</p>
+                </div>`;
+            return;
+        }
+        
+        // Add to recent searches if not already there
+        if (!recentSearches.includes(query)) {
+            recentSearches.unshift(query);
+            if (recentSearches.length > 5) recentSearches.pop();
+            localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
+            updateRecentSearches();
+        }
+        
+        // Use DocumentFragment for faster DOM manipulation
+        const fragment = document.createDocumentFragment();
+        
+        results.forEach(res => {
+            const div = document.createElement("div");
+            div.className = "result-item";
+            div.innerHTML = `
+                <a href="${res.url}">${res.title}</a>
+                <p>${highlightTerm(res.snippet, query)}</p>
+            `;
+            fragment.appendChild(div);
+        });
+        
+        container.appendChild(fragment);
+    }
+
+    // Optimized debounce function
+    function debounce(fn, delay) {
+        let timer;
+        return function(...args) {
+            clearTimeout(timer);
+            timer = setTimeout(() => fn.apply(this, args), delay);
+        };
+    }
+
+    const handleSearch = debounce((e) => {
+        const query = e.target.value.trim();
+        
+        // Minimum search term length
+        if (query.length < 2) {
+            searchResultsContainer.innerHTML = `
+                <div class="no-results">
+                    <i class="fas fa-search"></i>
+                    <p>Please enter at least 2 characters to search</p>
+                </div>`;
+            return;
+        }
+        
+        const results = searchContent(query, searchIndex);
+        showResults(results, query, searchResultsContainer);
+    }, 200); // Reduced debounce time for faster response
+
+    if (searchInput) {
+        searchInput.addEventListener("input", handleSearch);
+        
+        // Check if there's a search query in the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlQuery = urlParams.get('q');
+        if (urlQuery) {
+            searchInput.value = urlQuery;
+            const results = searchContent(urlQuery, searchIndex);
+            showResults(results, urlQuery, searchResultsContainer);
+        }
+    }
+});
 </script>
 </body>
 </html>

@@ -7,22 +7,20 @@
     <title>Search My Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        
         :root {
-            --primary-color: #21683e;
-            --secondary: #06c1db;
-            --text-color: #333;
+            --primary: #06c1db;
             --primary-light: #3bdcf5;
             --primary-dark: #0499ac;
+            --secondary: #21683e;
             --secondary-light: #2e8b57;
             --text: #222;
             --text-light: #6b7280;
             --bg: #f9f9f9;
             --card-bg: #fff;
             --border: #e0e0e0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
             --radius: 12px;
-            ---shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             --transition: all 0.3s ease;
         }
 
@@ -49,15 +47,15 @@
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
             transition: var(--transition);
-            padding: 20px;
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;        }
+            flex-direction: column;
+            padding: 2rem;
+        }
 
         .container {
             max-width: 1200px;

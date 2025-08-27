@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#06c1db">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>Billiat Kachembo - Data Scientist</title>
+  <title>Billiat Kachembo</title>
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script>
@@ -14,2301 +14,1826 @@
     })();
   </script>
   <link rel="icon" type="image/x-icon" href="favicon.png" />
+  <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <style>
-    /* ---------- CSS Variables ---------- */
-    :root {
-      --primary-color: #21683e;
-      --secondary-color: #06c1db;
-      --accent-color: #f59e0b;
-      --text-color: #333;
-      --text-light: #6b7280;
-      --bg-color: #f8f9fa;
-      --card-bg: #ffffff;
-      --border-color: #e5e7eb;
-      --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-      --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-      --radius: 12px;
-      --transition: all 0.3s ease;
-    }
-
-    .dark {
-      --text-color: #e9ecef;
-      --text-light: #9ca3af;
-      --bg-color: #1f2a37;
-      --card-bg: #2c3a4a;
-      --border-color: #495057;
-    }
-
-    /* ---------- Reset & Base Styles ---------- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      color: var(--text-color);
-      background-color: var(--bg-color);
-      line-height: 1.6;
-      transition: var(--transition);
-      overflow-x: hidden;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    /* ---------- Page and Loader Wrapper ---------- */
-    .loader-wrapper {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: var(--bg-color);
-      z-index: 9999;
-      opacity: 1;
-      transition: opacity 1s ease-in-out;
-      flex-direction: column;
-    }
-
-    .loader-container {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .infinity-loader {
-      width: 120px;
-      height: 60px;
-    }
-
-    .infinity-loader path {
-      stroke: var(--primary-color);
-      stroke-width: 5;
-      fill: none;
-      stroke-linecap: round;
-      stroke-dasharray: 400;
-      stroke-dashoffset: 400;
-      animation: draw 2s linear infinite;
-    }
-
-    @keyframes draw {
-      0% { stroke-dashoffset: 400; }
-      50% { stroke-dashoffset: 0; }
-      100% { stroke-dashoffset: 400; }
-    }
-
-    .percentage-text {
-      color: var(--text-light);
-      font-size: 1.5rem;
-      font-weight: bold;
-      margin-top: 15px;
-    }
-
-    .main-content {
-      display: none;
-      color: white;
-      font-family: sans-serif;
-      text-align: center;
-      padding: 2rem;
-    }
-
-    /* ---------- Navbar ---------- */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: var(--card-bg);
-      border-bottom: 1px solid var(--border-color);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      transition: var(--transition);
-    }
-
-    .nav-left, .nav-center, .nav-right {
-      display: flex;
-      align-items: center;
-    }
-
-    .nav-left .navbar-title {
-      display: flex;
-      align-items: center;
-      font-weight: 600;
-    }
-
-    .nav-center {
-      flex-grow: 1;
-      justify-content: center;
-    }
-
-    .nav-links {
-      display: flex;
-      list-style: none;
-      gap: 1.5rem;
-      padding: 0;
-      margin: 0;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-color);
-      font-weight: 500;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--secondary-color);
-    }
-
-    .dropdown {
-      position: relative;
-    }
-
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      background: var(--card-bg);
-      list-style: none;
-      padding: 0.5rem 0;
-      margin-top: 0.5rem;
-      box-shadow: var(--shadow-lg);
-      border-radius: var(--radius);
-      border: 1px solid var(--border-color);
-      min-width: 180px;
-      z-index: 10;
-    }
-
-    .dropdown:hover .dropdown-menu {
-      display: block;
-    }
-
-    .dropdown-menu li a {
-      display: block;
-      padding: 0.5rem 1rem;
-      color: var(--text-color);
-      transition: var(--transition);
-    }
-
-    .dropdown-menu li a:hover {
-      background-color: rgba(0, 0, 0, 0.05);
-      color: var(--secondary-color);
-    }
-
-    .social-icons-navbar {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .social-icons-navbar a {
-      font-size: 1.25rem;
-      color: var(--text-color);
-      transition: var(--transition);
-    }
-
-    .social-icons-navbar a:hover {
-      color: var(--secondary-color);
-    }
-
-    .search-link {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      color: var(--text-color);
-      padding: 0.5rem;
-      border-radius: 4px;
-      transition: var(--transition);
-    }
-
-    .search-link:hover {
-      background-color: rgba(0, 0, 0, 0.05);
-    }
-
-    #theme-toggle, #mobile-theme-toggle {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1.5rem;
-      color: var(--text-color);
-      transition: var(--transition);
-    }
-
-    #theme-toggle:hover, #mobile-theme-toggle:hover {
-      color: var(--secondary-color);
-    }
-
-    /* Mobile menu styles */
-    .mobile-toggle-container {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .mobile-menu-toggle, #mobile-theme-toggle {
-      background: transparent;
-      border: none;
-      font-size: 1.8rem;
-      cursor: pointer;
-      color: var(--text-color);
-    }
-
-    .mobile-menu {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: clamp(250px, 80%, 350px);
-      height: 100%;
-      background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
-      transition: right 0.3s ease;
-      z-index: 2000;
-      overflow-y: auto;
-      padding: 2rem 1.5rem;
-    }
-
-    .mobile-menu.active {
-      right: 0;
-    }
-
-    .mobile-menu-close {
-      font-size: 2rem;
-      cursor: pointer;
-      display: block;
-      text-align: right;
-      margin-bottom: 2rem;
-      color: var(--text-color);
-    }
-
-    .mobile-menu-links {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 2rem 0;
-    }
-
-    .mobile-menu-links li {
-      margin-bottom: 1.5rem;
-    }
-
-    .mobile-menu-links a {
-      font-size: 1.25rem;
-      font-weight: 500;
-      text-decoration: none;
-      color: var(--text-color);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: var(--transition);
-    }
-
-    .mobile-menu-links a:hover {
-      color: var(--secondary-color);
-    }
-
-    .mobile-nav-search {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .mobile-nav-search input {
-      flex-grow: 1;
-      padding: 0.5rem;
-      border-radius: 0.5rem;
-      border: 1px solid var(--border-color);
-      background: var(--card-bg);
-      color: var(--text-color);
-    }
-
-    .mobile-nav-search button {
-      padding: 0.5rem 1rem;
-      background-color: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 0.5rem;
-      cursor: pointer;
-    }
-
-    .mobile-social-icons {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-      margin-top: 2rem;
-    }
-
-    .mobile-social-icons a {
-      font-size: 1.5rem;
-      color: var(--text-color);
-      transition: var(--transition);
-    }
-
-    .mobile-social-icons a:hover {
-      color: var(--secondary-color);
-    }
-
-    .mobile-menu-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.3);
-      opacity: 0;
-      visibility: hidden;
-      transition: 0.3s;
-      z-index: 1500;
-    }
-
-    .mobile-menu-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    /* ---------- Hero Section ---------- */
-    .hero-section {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      padding: 2rem;
-      background: linear-gradient(135deg, var(--card-bg) 0%, var(--bg-color) 100%);
-    }
-
-    .hero-blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(60px);
-      opacity: 0.2;
-      z-index: 0;
-    }
-
-    .hero-blob-1 {
-      width: 500px;
-      height: 500px;
-      background: var(--primary-color);
-      top: -250px;
-      left: -250px;
-    }
-
-    .hero-blob-2 {
-      width: 400px;
-      height: 400px;
-      background: var(--secondary-color);
-      bottom: -200px;
-      right: -200px;
-    }
-
-    .hero-blob-3 {
-      width: 300px;
-      height: 300px;
-      background: var(--accent-color);
-      top: 50%;
-      left: 10%;
-    }
-
-    .hero-blob-4 {
-      width: 350px;
-      height: 350px;
-      background: #9b59b6;
-      bottom: 20%;
-      right: 10%;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      max-width: 800px;
-    }
-
-    .hero-greeting {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-      color: var(--text-color);
-    }
-
-    .hero-title {
-      font-size: 4rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-
-    .gradient-text {
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-subtitle {
-      font-size: 1.5rem;
-      margin-bottom: 2rem;
-      color: var(--text-light);
-    }
-
-    .hero-icons {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .hero-icon-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      transition: var(--transition);
-    }
-
-    .hero-icon-item:hover {
-      transform: translateY(-5px);
-    }
-
-    .hero-icon-circle {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      background: var(--card-bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-    }
-
-    .hero-icon-item:hover .hero-icon-circle {
-      background: var(--primary-color);
-      color: white;
-    }
-
-    .scroll-down {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1;
-    }
-
-    .scroll-btn {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: var(--card-bg);
-      border: none;
-      box-shadow: var(--shadow);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: var(--transition);
-    }
-
-    .scroll-btn:hover {
-      background: var(--primary-color);
-      color: white;
-    }
-
-    /* ---------- About Section ---------- */
-    .about-section {
-      padding: 4rem 2rem;
-      background: var(--bg-color);
-    }
-
-    .glass-card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      padding: 3rem;
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .about-section h2 {
-      text-align: center;
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .lead {
-      text-align: center;
-      font-size: 1.2rem;
-      margin-bottom: 3rem;
-      color: var(--text-light);
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 3rem;
-    }
-
-    .about-photo {
-      text-align: center;
-    }
-
-    .photo-frame {
-      width: 250px;
-      height: 250px;
-      border-radius: 50%;
-      overflow: hidden;
-      margin: 0 auto 1.5rem;
-      border: 4px solid var(--primary-color);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .photo-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .caption {
-      font-weight: 500;
-      color: var(--primary-color);
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .info-card {
-      background: var(--bg-color);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      transition: var(--transition);
-      border-left: 4px solid var(--primary-color);
-    }
-
-    .info-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow);
-    }
-
-    .info-content {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-
-    .info-icon {
-      font-size: 1.5rem;
-      flex-shrink: 0;
-    }
-
-    .info-content h4 {
-      margin-bottom: 0.5rem;
-      color: var(--primary-color);
-    }
-
-    /* ---------- Skills Section ---------- */
-    .section-card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      padding: 3rem 2rem;
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      max-width: 1200px;
-      margin: 2rem auto;
-    }
-
-    .section-card h2 {
-      text-align: center;
-      font-size: 2.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .grid3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-    }
-
-    .skill-card {
-      text-align: center;
-      padding: 2rem;
-      background: var(--bg-color);
-      border-radius: var(--radius);
-      transition: var(--transition);
-    }
-
-    .skill-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow);
-    }
-
-    .icon-circle {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: var(--primary-color);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.5rem;
-      font-size: 2rem;
-      color: white;
-    }
-
-    .skill-card h4 {
-      margin-bottom: 1rem;
-      color: var(--primary-color);
-    }
-
-    /* ---------- Video Section ---------- */
-    .icon-box {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      padding: 2rem;
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      margin: 2rem auto;
-      max-width: 800px;
-      position: relative;
-    }
-
-    #toggleVideoBtn {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    #toggleVideoBtn:hover {
-      background: var(--secondary-color);
-    }
-
-    .video-course {
-      border-radius: var(--radius);
-      margin: 1rem 0;
-      box-shadow: var(--shadow-lg);
-    }
-
-    /* ---------- Sub Menu Navigation ---------- */
-    .sub-menu-tabs {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      padding: 1rem;
-      background: var(--bg-color);
-      border-radius: var(--radius);
-      margin-bottom: 2rem;
-    }
-
-    .sub-menu-tab {
-      padding: 0.75rem 1.5rem;
-      border-radius: 50px;
-      text-decoration: none;
-      color: var(--text-color);
-      font-weight: 500;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .sub-menu-tab.active,
-    .sub-menu-tab:hover {
-      color: white;
-    }
-
-    .tabs-switch-bg {
-      position: absolute;
-      top: 0.5rem;
-      left: 0;
-      height: calc(100% - 1rem);
-      border-radius: 50px;
-      background: var(--primary-color);
-      transition: all 0.3s ease;
-      z-index: 0;
-    }
-
-    /* ---------- Features Section ---------- */
-    .grid4 {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .feature-box {
-      text-align: center;
-      padding: 1.5rem;
-      background: var(--bg-color);
-      border-radius: var(--radius);
-      transition: var(--transition);
-    }
-
-    .feature-box:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow);
-    }
-
-    .icon-colored {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .feature-box h4 {
-      margin-bottom: 0.5rem;
-      color: var(--primary-color);
-    }
-
-    /* ---------- Activity Section ---------- */
-    .activity-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-
-    .activity-card {
-      background: var(--bg-color);
-      border-radius: var(--radius);
-      overflow: hidden;
-      transition: var(--transition);
-    }
-
-    .activity-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow);
-    }
-
-    .activity-img {
-      position: relative;
-      height: 200px;
-      overflow: hidden;
-    }
-
-    .activity-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: var(--transition);
-    }
-
-    .activity-card:hover .activity-img img {
-      transform: scale(1.05);
-    }
-
-    .tag {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: var(--primary-color);
-      color: white;
-      padding: 0.25rem 0.75rem;
-      border-radius: 50px;
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
-
-    .activity-body {
-      padding: 1.5rem;
-    }
-
-    .activity-icon {
-      font-size: 2rem;
-      color: var(--primary-color);
-      margin-bottom: 1rem;
-    }
-
-    .activity-title {
-      margin-bottom: 0.5rem;
-    }
-
-    .activity-title a {
-      color: var(--text-color);
-      transition: var(--transition);
-    }
-
-    .activity-title a:hover {
-      color: var(--primary-color);
-    }
-
-    .fst-italic {
-      font-style: italic;
-      color: var(--text-light);
-      margin-bottom: 1rem;
-    }
-
-    /* ---------- Newsletter Section ---------- */
-    .newsletter-section {
-      text-align: center;
-    }
-
-    .newsletter-text {
-      max-width: 700px;
-      margin: 0 auto 2rem;
-    }
-
-    .newsletter-card {
-      background: var(--bg-color);
-      border-radius: var(--radius);
-      padding: 2rem;
-      max-width: 600px;
-      margin: 0 auto 3rem;
-    }
-
-    .newsletter-form {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .newsletter-input {
-      flex-grow: 1;
-      padding: 0.75rem 1rem;
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius);
-      background: var(--card-bg);
-      color: var(--text-color);
-    }
-
-    .newsletter-button {
-      padding: 0.75rem 1.5rem;
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: var(--radius);
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .newsletter-button:hover {
-      background: var(--secondary-color);
-    }
-
-    .newsletter-note {
-      color: var(--text-light);
-      font-size: 0.9rem;
-    }
-
-    .benefits-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 2rem;
-    }
-
-    .benefit-box {
-      text-align: center;
-      padding: 1.5rem;
-      background: var(--bg-color);
-      border-radius: var(--radius);
-      transition: var(--transition);
-    }
-
-    .benefit-box:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow);
-    }
-
-    .benefit-box h4 {
-      margin: 1rem 0 0.5rem;
-      color: var(--primary-color);
-    }
-
-    /* ---------- Contact Section ---------- */
-    .contact-form {
-      max-width: 600px;
-      margin: 0 auto 3rem;
-    }
-
-    .contact-form label {
-      display: block;
-      margin-bottom: 1.5rem;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius);
-      background: var(--card-bg);
-      color: var(--text-color);
-      margin-top: 0.5rem;
-    }
-
-    .contact-form textarea {
-      resize: vertical;
-      min-height: 150px;
-    }
-
-    .btn-primary {
-      padding: 0.75rem 2rem;
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: var(--radius);
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .btn-primary:hover {
-      background: var(--secondary-color);
-    }
-
-    .footer-content {
-      text-align: center;
-    }
-
-    .footer-address {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      margin: 1rem 0;
-    }
-
-    .footer-phones {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      margin: 1rem 0;
-      flex-wrap: wrap;
-    }
-
-    .separator {
-      color: var(--text-light);
-    }
-
-    /* ---------- Education Section ---------- */
-    .map-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.8rem 1.5rem;
-      background: var(--bg-color);
-      border: 2px solid var(--primary-color);
-      border-radius: 50px;
-      cursor: pointer;
-      font-weight: 600;
-      color: var(--primary-color);
-      transition: var(--transition);
-      width: fit-content;
-      margin: 0 auto 1.5rem;
-    }
-
-    .map-toggle:hover {
-      background: var(--primary-color);
-      color: white;
-    }
-
-    .visit-map-wrapper {
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-    }
-
-    .visit-map-wrapper iframe {
-      width: 100%;
-      height: 450px;
-      border: 0;
-    }
-
-    /* ---------- Certifications Section ---------- */
-    .certifications-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 2rem;
-    }
-
-    .certification-card {
-      background: var(--bg-color);
-      border-radius: var(--radius);
-      padding: 2rem;
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      border-left: 4px solid var(--primary-color);
-    }
-
-    .certification-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .certification-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 1.5rem;
-    }
-
-    .certification-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-    }
-
-    .certification-platform {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--text-light);
-    }
-
-    .certification-date {
-      background: var(--primary-color);
-      color: white;
-      padding: 0.25rem 0.75rem;
-      border-radius: 50px;
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
-
-    .certification-detail-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .detail-icon {
-      color: var(--primary-color);
-      font-size: 1.2rem;
-      margin-top: 0.25rem;
-    }
-
-    .detail-label {
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-    }
-
-    .detail-value {
-      color: var(--text-light);
-    }
-
-    .skills-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .skill-pill {
-      background: var(--primary-color);
-      color: white;
-      padding: 0.25rem 0.75rem;
-      border-radius: 50px;
-      font-size: 0.8rem;
-    }
-
-    .certification-actions {
-      margin-top: 1.5rem;
-      text-align: right;
-    }
-
-    /* ---------- Footer ---------- */
-    .footer {
-      position: relative;
-      padding: 4rem 2rem 2rem;
-      background: linear-gradient(135deg, var(--card-bg) 0%, var(--bg-color) 100%);
-      overflow: hidden;
-    }
-
-    .footer-container {
-      position: relative;
-      z-index: 1;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .footer-content {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    .footer-socials {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin: 1.5rem 0;
-    }
-
-    .footer-socials a {
-      font-size: 1.5rem;
-      transition: var(--transition);
-    }
-
-    .footer-socials a:hover {
-      transform: translateY(-3px);
-    }
-
-    .footer-bottom {
-      text-align: center;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border-color);
-      color: var(--text-light);
-    }
-
-    /* ---------- Scroll to Top Button ---------- */
-    .scroll-top {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      width: 50px;
-      height: 50px;
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      box-shadow: var(--shadow-lg);
-      cursor: pointer;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: var(--transition);
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .scroll-top.show {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .scroll-top:hover {
-      background: var(--secondary-color);
-      transform: translateY(-3px);
-    }
-
-    /* ---------- Utility Classes ---------- */
-    .text-center {
-      text-align: center;
-    }
-
-    .hidden-section {
-      display: none !important;
-    }
-
-    /* ---------- Responsive Styles ---------- */
-    @media (max-width: 1200px) {
-      .hero-title {
-        font-size: 3.5rem;
-      }
-    }
-
-    @media (max-width: 992px) {
-      .nav-links {
-        gap: 1rem;
-      }
-      
-      .hero-title {
-        font-size: 3rem;
-      }
-      
-      .about-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .info-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      }
-    }
-
-    @media (max-width: 768px) {
-      .navbar {
-        padding: 1rem;
-      }
-      
-      .nav-links, .nav-search, #theme-toggle, .social-icons-navbar {
-        display: none;
-      }
-      
-      .mobile-toggle-container {
-        display: flex;
-      }
-      
-      .hero-title {
-        font-size: 2.5rem;
-      }
-      
-      .hero-subtitle {
-        font-size: 1.2rem;
-      }
-      
-      .hero-icons {
-        gap: 1rem;
-      }
-      
-      .glass-card, .section-card {
-        padding: 2rem 1.5rem;
-      }
-      
-      .sub-menu-tabs {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .sub-menu-tab {
-        width: 100%;
-        text-align: center;
-        justify-content: center;
-      }
-      
-      .newsletter-form {
-        flex-direction: column;
-      }
-      
-      .footer-phones {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-      
-      .separator {
-        display: none;
-      }
-      
-      .scroll-top {
-        bottom: 1rem;
-        right: 1rem;
-        width: 45px;
-        height: 45px;
-      }
-    }
-
-    @media (max-width: 576px) {
-      .hero-title {
-        font-size: 2rem;
-      }
-      
-      .hero-greeting {
-        font-size: 1.2rem;
-      }
-      
-      .photo-frame {
-        width: 200px;
-        height: 200px;
-      }
-      
-      .grid3, .grid4 {
-        grid-template-columns: 1fr;
-      }
-      
-      .certifications-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Animation for tab switching */
-    @keyframes tabBounce {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-
-    .sub-menu-tab.bounce {
-      animation: tabBounce 0.3s ease;
-    }
-
-    /* Typewriter cursor animation */
-    .typewriter-cursor {
-      display: inline-block;
-      width: 2px;
-      background-color: currentColor;
-      margin-left: 2px;
-      animation: blink 1s infinite;
-    }
-
-    @keyframes blink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
-    }
-  </style>
-</head>
-<body>
-  <!-- Loader -->
-  <div class="loader-wrapper">
+<style>
+/* ---------- Page and Loader Wrapper ---------- */
+.loader-wrapper {
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background-color:#1f2a37;
+    z-index:9999;
+    opacity:1;
+    transition: opacity 1s ease-in-out;
+    flex-direction: column;
+}
+
+.loader-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ---------- Infinity Loader ---------- */
+.infinity-loader {
+    width: 120px;
+    height: 60px;
+}
+
+.infinity-loader path {
+    stroke: #21683e;
+    stroke-width: 5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-dasharray: 400;  /* length of the path */
+    stroke-dashoffset: 400;
+    animation: draw 2s linear infinite;
+}
+
+@keyframes draw {
+    0% { stroke-dashoffset: 400; }
+    50% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: 400; }
+}
+
+/* ---------- Percentage Text ---------- */
+.percentage-text {
+    color: #d1d5db;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+/* ---------- Main Content ---------- */
+.main-content {
+    display: none;
+    color: white;
+    font-family: sans-serif;
+    text-align: center;
+    padding: 2rem;
+}
+
+/* Optional: Responsive */
+@media(max-width:768px) {
+    .infinity-loader { width: 80px; height: 40px; }
+    .percentage-text { font-size: 1.25rem; }
+}
+</style>
+
+<!-- Loader -->
+<div class="loader-wrapper">
     <div class="loader-container">
-      <svg class="infinity-loader" viewBox="0 0 100 50">
-        <path d="M10,25 C10,5 40,5 50,25 C60,45 90,45 90,25 C90,5 60,5 50,25 C40,45 10,45 10,25" />
-      </svg>
-      <div id="percentage" class="percentage-text">0%</div>
+        <svg class="infinity-loader" viewBox="0 0 100 50">
+            <!-- Full infinity path -->
+            <path d="M10,25 C10,5 40,5 50,25 C60,45 90,45 90,25 C90,5 60,5 50,25 C40,45 10,45 10,25" />
+        </svg>
+        <div id="percentage" class="percentage-text">0%</div>
     </div>
-  </div>
+</div>
+<!-- Loader Script -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const percentageText = document.getElementById('percentage');
+    const loaderWrapper = document.querySelector('.loader-wrapper');
+    const mainContent = document.querySelector('.main-content');
 
-  <!-- Main Content -->
-  <div class="main-content">
-    <!-- Navbar -->
-    <nav class="navbar">
-      <div class="nav-left">
-        <a class="navbar-title">
-          <i class="bi bi-journal-code" style="color:#21683e; font-size:1.6rem;"></i>
-          <span style="color:#21683e; margin-left:0.5rem; font-family:'Times New Roman', Times, serif; font-size:1.6rem;">My Portfolio</span>
-        </a>
-      </div>
+    let currentPercentage = 0;
+    const minDisplayTime = 3000; // minimum 3 seconds
+    const startTime = Date.now();
 
-      <div class="nav-center">
-        <ul class="nav-links">
-          <li><a href="index.html" class="active"><i class="bi bi-house-door"></i> Home</a></li>
-          <li><a href="#about"><i class="bi bi-person-circle"></i> About</a></li>
-          <li><a href="#contact"><i class="bi bi-telephone-forward"></i> Contact</a></li>
-          <li class="dropdown">
-            <a href="#">Learn More <i class="bi bi-caret-down-fill"></i></a>
-            <ul class="dropdown-menu">
-              <li><a href="https://drive.google.com/file/d/...">Finances in Zambia</a></li>
-              <li><a href="https://www.geeksforgeeks.org/data-science-for-beginners/">Data Science</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-
-      <div class="nav-right">
-        <div class="social-icons-navbar">
-          <a href="https://facebook.com/profile.php?id=61555833508645"><i class="bi bi-facebook"></i></a>
-          <a href="https://x.com/BKachembo?t=EgZlKtZi9ynj7zb6EPFFnA&s=09"><i class="bi bi-twitter-x"></i></a>
-          <a href="https://www.linkedin.com/in/billiat-kachembo-259314287/"><i class="bi bi-linkedin"></i></a>
-          <a href="https://www.instagram.com/billiat.kachembo"><i class="bi bi-instagram"></i></a>
-          <a href="mailto:billiatkachembo1@gmail.com"><i class="bi bi-envelope"></i></a>
-        </div>
-        
-        <div class="nav-search">
-          <a href="search.html" class="search-link">
-            <i class="Search"></i> 
-          </a>
-        </div>
-        
-        <!-- Desktop theme toggle -->
-        <button id="theme-toggle" type="button">
-          <i id="theme-icon" class="bi bi-moon"></i>
-        </button>
-
-        <!-- Mobile hamburger + theme toggle -->
-        <div class="mobile-toggle-container">
-          <button class="mobile-menu-toggle" aria-label="Open menu" type="button">
-            <i class="bi bi-list"></i>
-          </button>
-
-          <button id="mobile-theme-toggle" type="button">
-            <i id="mobile-theme-icon" class="bi bi-moon"></i>
-          </button>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu">
-      <i class="mobile-menu-close bi bi-x-lg"></i>
-      
-      <ul class="mobile-menu-links">
-        <li><a href="index.html"><i class="bi bi-house-door"></i> Home</a></li>
-        <li><a href="#about"><i class="bi bi-person-circle"></i> About</a></li>
-        <li><a href="#contact"><i class="bi bi-telephone-forward"></i> Contact</a></li>
-        <li><a href="https://drive.google.com/file/d/...">Finances in Zambia</a></li>
-        <li><a href="https://www.geeksforgeeks.org/data-science-for-beginners/">Data Science</a></li>
-      </ul>
-
-      <!-- Mobile Search Bar -->
-      <div class="mobile-search-container" id="mobile-search">
-        <div class="mobile-search-header">
-          <h3>Search Portfolio</h3>
-          <p>Find content across all sections</p>
-        </div>
-        <form class="mobile-nav-search" action="search.html" method="GET" role="search">
-          <input type="text" name="q" placeholder="Enter search terms..." aria-label="Search" />
-          <button type="submit">Search</button>
-        </form>
-        <div class="mobile-search-note">
-          <small>Opens in search page with full results</small>
-        </div>
-      </div>
-
-      <!-- Mobile Social Icons -->
-      <div class="mobile-social-icons">
-        <a href="https://facebook.com/profile.php?id=61555833508645"><i class="bi bi-facebook"></i></a>
-        <a href="https://x.com/BKachembo?t=EgZlKtZi9ynj7zb6EPFFnA&s=09"><i class="bi bi-twitter-x"></i></a>
-        <a href="https://www.linkedin.com/in/billiat-kachembo-259314287/"><i class="bi bi-linkedin"></i></a>
-        <a href="https://www.instagram.com/billiat.kachembo"><i class="bi bi-instagram"></i></a>
-        <a href="mailto:billiatkachembo1@gmail.com"><i class="bi bi-envelope"></i></a>
-      </div>
-    </div>
-
-    <!-- Overlay -->
-    <div class="mobile-menu-overlay"></div>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero-section">
-      <div class="hero-blob hero-blob-1"></div>
-      <div class="hero-blob hero-blob-2"></div>
-      <div class="hero-blob hero-blob-3"></div>
-      <div class="hero-blob hero-blob-4"></div>
-      <div class="hero-content">
-        <div class="hero-text">
-          <h2 class="hero-greeting">👋 Hi there, I'm</h2>
-          <h1 class="hero-title">
-            <span class="gradient-text">
-              <span id="title-text"></span>
-              <span id="title-cursor" class="typewriter-cursor"></span>
-            </span>
-          </h1>
-          <p class="hero-subtitle">
-            <span id="subtitle-text"></span>
-            <span id="subtitle-cursor" class="typewriter-cursor"></span>
-          </p>
-          <div class="hero-icons">
-            <div class="hero-icon-item icon-hover">
-              <div class="hero-icon-circle"><i data-lucide="bar-chart-3"></i></div>
-              <span>Data-Driven Insights</span>
-            </div>
-            <div class="hero-icon-item icon-hover">
-              <div class="hero-icon-circle"><i data-lucide="gem"></i></div>
-              <span>Value Creation</span>
-            </div>
-            <div class="hero-icon-item icon-hover">
-              <div class="hero-icon-circle"><i data-lucide="archive"></i></div>
-              <span>Organized Systems</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <a href="#about" class="scroll-down">
-        <button class="scroll-btn"><i data-lucide="chevron-down"></i></button>
-      </a>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about-section glass-card">
-      <h2 class="gradient-text">Author</h2>
-      <p class="lead">I'm a Data Scientist with a passion for exploring data and uncovering insights.</p>
-      <div class="about-grid">
-        <div class="about-photo">
-          <div class="photo-frame"><img src="trainer-3.jpg" alt="Billiat Kachembo" /></div>
-          <p class="caption">Data Scientist</p>
-        </div>
-        <div class="info-grid">
-          <div class="info-card skill-card">
-            <div class="info-content"><i data-lucide="user" class="info-icon text-green-500"></i>
-              <div><h4>Bio:</h4><p>Curious, analytical, and always learning</p></div>
-            </div>
-          </div>
-          <div class="info-card skill-card">
-            <div class="info-content"><i data-lucide="globe" class="info-icon text-blue-500"></i>
-              <div><h4>Languages:</h4><p>English, Bemba, Nyanja</p></div>
-            </div>
-          </div>
-          <div class="info-card skill-card">
-            <div class="info-content"><i data-lucide="map-pin" class="info-icon text-red-500"></i>
-              <div><h4>Location:</h4><p>Chinsali, Zambia</p></div>
-            </div>
-          </div>
-          <div class="info-card skill-card">
-            <div class="info-content"><i data-lucide="graduation-cap" class="info-icon text-yellow-500"></i>
-              <div><h4>Education:</h4><p>BSc in Data Science</p></div>
-            </div>
-          </div>
-          <div class="info-card skill-card">
-            <div class="info-content"><i data-lucide="lightbulb" class="info-icon text-purple-500"></i>
-              <div><h4>Hobbies:</h4><p>Reading, Music, Hiking</p></div>
-            </div>
-          </div>
-          <div class="info-card skill-card">
-            <div class="info-content"><i data-lucide="code" class="info-icon text-gray-500"></i>
-              <div><h4>Skills:</h4><p>Data Analysis, Data Viz, AI</p></div>
-            </div>
-          </div>
-          <div class="info-card skill-card">
-            <div class="info-content"><i data-lucide="message-square" class="info-icon text-green-600"></i>
-              <div><h4>Languages Used:</h4><p>Python, C++, Java, C#, R</p></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="section-card grid3">
-      <div class="skill-card"><div class="icon-circle">📊</div><h4>Data Analysis</h4><p>Exploring patterns and insights in complex datasets</p></div>
-      <div class="skill-card"><div class="icon-circle">🤖</div><h4>Machine Learning</h4><p>Building predictive models and AI solutions</p></div>
-      <div class="skill-card"><div class="icon-circle">💡</div><h4>Innovation</h4><p>Creating solutions that make sense</p></div>
-    </section>
-
-    <!-- Video Section -->
-    <section class="icon-box d-flex flex-column justify-content-center align-items-start">
-      <button id="toggleVideoBtn" class="btn btn-light align-self-end mb-2">
-        ➤
-      </button>
-
-      <div id="videoContainer" style="display: none; width: 100%;" class="text-center">
-        <video id="techVideo" width="70%" class="video-course rounded" autoplay loop muted playsinline>
-          <source src="Black%20and%20Blue%20Futuristic%20Technology%20Video.mp4" type="video/mp4">
-        </video>
-      </div>
-
-      <strong class="mt-3 text-center">Future Technology</strong>
-      <p class="text-center">Immersive glimpse into the innovations shaping tomorrow's world.</p>
-    </section>
-
-    <!-- Sub Menu Navigation -->
-    <section id="sub-menu-navigation" class="section-card">
-      <div class="sub-menu-tabs">
-        <div class="tabs-switch-bg"></div>
-        <a href="#education" class="sub-menu-tab" data-target="education">
-          <i class="bi bi-mortarboard" style="color:#1fa67a;"></i> Education
-        </a>
-        <a href="#certifications" class="sub-menu-tab" data-target="certifications">
-          <i class="bi bi-award" style="color:#f59e0b;"></i> Certifications
-        </a>
-        <a href="#newsletter" class="sub-menu-tab" data-target="newsletter">
-          <i class="bi bi-envelope" style="color:#3b82f6;"></i> Newsletter
-        </a>
-        <a href="#contact" class="sub-menu-tab" data-target="contact">
-          <i class="bi bi-telephone-forward" style="color:#ef4444;"></i> Contact
-        </a>
-        <a href="#features" class="sub-menu-tab active" data-target="features">
-          <i class="bi bi-lightbulb" style="color:#facc15;"></i> Mindset and Methods
-        </a>
-        <a href="#activity" class="sub-menu-tab" data-target="activity">
-          <i class="bi bi-graph-up" style="color:#10b981;"></i> Activity
-        </a>
-      </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="section-card section-tab-content">
-      <h2>Mindset and Methods</h2>
-      <div class="grid4">
-        <div class="feature-box">
-          <i class="bi bi-eye icon-colored" style="color: #ffbb2c;"></i>
-          <h4>Insight</h4>
-        </div>
-        <div class="feature-box">
-          <i class="bi bi-infinity icon-colored" style="color: #45ab6f;"></i>
-          <h4>Endless Potential</h4>
-        </div>
-        <div class="feature-box">
-          <i class="bi bi-mortarboard icon-colored" style="color: #e80368;"></i>
-          <h4>Knowledge</h4>
-        </div>
-        <div class="feature-box">
-          <i class="bi bi-nut icon-colored" style="color: #e361ff;"></i>
-          <h4>Structure</h4>
-        </div>
-        <div class="feature-box">
-          <i class="bi bi-shuffle icon-colored" style="color: #47aeff;"></i>
-          <h4>Adaptability</h4>
-        </div>
-        <div class="feature-box">
-          <i class="bi bi-star icon-colored" style="color: #ffa76e;"></i>
-          <h4>Excellence</h4>
-        </div>
-        <div class="feature-box">
-          <i class="bi bi-x-diamond icon-colored" style="color: #11dbcf;"></i>
-          <h4>Innovation</h4>
-        </div>
-        <div class="feature-box">
-          <i class="bi bi-camera-video icon-colored" style="color: #4233ff;"></i>
-          <h4>Presentation</h4>
-        </div>
-        <div class="feature-box">
-          <i class="bi bi-command icon-colored" style="color: #b2904f;"></i>
-          <h4>Control</h4>
-        </div>
-        <div class="feature-box">
-          <i class="bi bi-palette icon-colored" style="color: #00bcd4;"></i>
-          <h4>Design</h4>
-        </div>
-        <div class="feature-box">
-          <i class="bi bi-activity icon-colored" style="color: #ff5828;"></i>
-          <h4>Dedication</h4>
-        </div>
-        <div class="feature-box">
-          <i class="bi bi-brightness-high icon-colored" style="color: #29cc61;"></i>
-          <h4>Inspiration</h4>
-        </div>
-        <div class="feature-box"><i class="bi bi-lightning-fill" style="color: #ffeb3b;"></i><span>Energy</span></div>
-        <div class="feature-box"><i class="bi bi-fire" style="color: #f44336;"></i><span>Passion</span></div>
-        <div class="feature-box"><i class="bi bi-scissors" style="color: #ffa000;"></i><span>Balance</span></div>
-        <div class="feature-box"><i class="bi bi-question-circle" style="color: #607d8b;"></i><span>Curiosity</span></div>
-      </div>
-    </section>
-    
-    <!-- Activity Section -->
-    <section id="activity" class="activity section section-tab-content hidden-section">
-      <div class="container">
-        <div class="activity-grid">
-          <div class="activity-card" data-aos="fade-up" data-category="workshop">
-            <div class="activity-img">
-              <img src="events-item-1.jpg" alt="Introduction to Data Science" />
-              <span class="tag">Workshop</span>
-            </div>
-            <div class="activity-body">
-              <i class="bi bi-bar-chart-fill activity-icon"></i>
-              <h5 class="activity-title"><a href="#">Introduction to Data Science</a></h5>
-              <p class="fst-italic">Sunday, July 20th at 7:00 pm</p>
-              <p class="activity-text">Join me for an introductory session on data science, where we'll explore the basics, tools, and opportunities in the field.</p>
-            </div>
-          </div>
-          <div class="activity-card" data-aos="fade-up" data-category="webinar">
-            <div class="activity-img">
-              <img src="events-item-2.jpg" alt="Python for Beginners" />
-              <span class="tag">Webinar</span>
-            </div>
-            <div class="activity-body">
-              <i class="bi bi-code-slash activity-icon"></i>
-              <h5 class="activity-title"><a href="#">Python for Beginners</a></h5>
-              <p class="fst-italic">Saturday, August 10th at 3:00 pm</p>
-              <p class="activity-text">A hands-on workshop for those new to programming. Learn the basics of Python and how it is used in data analysis and automation.</p>
-            </div>
-          </div>
-          <div class="activity-card" data-aos="fade-up" data-category="workshop">
-            <div class="activity-img">
-              <img src="1353386.png" alt="Building Web Interfaces" />
-              <span class="tag">Workshop</span>
-            </div>
-            <div class="activity-body">
-              <i class="bi bi-window-stack activity-icon"></i>
-              <h5 class="activity-title"><a href="#">Building Web Interfaces</a></h5>
-              <p class="fst-italic">Friday, August 30th at 5:00 pm</p>
-              <p class="activity-text">Learn how to create beautiful and responsive web interfaces using HTML, CSS, and JavaScript in this interactive session.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Newsletter Section -->
-    <section id="newsletter" class="section-card newsletter-section section-tab-content hidden-section">
-      <h2>Newsletter</h2>
-      <div class="newsletter-text">
-        <p>Subscribe to my newsletter for updates on my latest projects and insights in data science.</p>
-        <p>Stay informed about my work and receive valuable content directly in your inbox.</p>
-        <p class="font-medium">Join my community of data enthusiasts and let's explore the world of data science together!</p>
-      </div>
-      <div class="newsletter-card">
-        <form id="newsletter-form" class="newsletter-form">
-          <input type="email" name="user_email" placeholder="Your email address" required class="newsletter-input" />
-          <button type="submit" class="newsletter-button">Sign Up</button>
-        </form>
-        <p id="newsletter-msg" class="newsletter-note"></p>
-        <p class="newsletter-note">By subscribing, you agree to receive emails from me. You can unsubscribe at any time.</p>
-      </div>
-      <div class="benefits-grid">
-        <div class="benefit-box">
-          <i class="bi bi-envelope-paper-fill" style="color: #9b59b6; font-size: 2rem;"></i>
-          <h4>Regular Updates</h4>
-          <p>Get notified about new projects and insights</p>
-        </div>
-        <div class="benefit-box">
-          <i class="bi bi-bar-chart-line-fill" style="color: #007bff; font-size: 2rem;"></i>
-          <h4>Data Analysis & Visualization</h4>
-        </div>
-        <div class="benefit-box">
-          <i class="bi bi-cpu-fill" style="color: #28a745; font-size: 2rem;"></i>
-          <h4>Machine Learning & AI</h4>
-        </div>
-        <div class="benefit-box">
-          <i class="bi bi-graph-up" style="color: #007bff; font-size: 2rem;"></i>
-          <h4>Statistical Modeling</h4>
-        </div>
-        <div class="benefit-box">
-          <i class="bi bi-lightbulb-fill" style="color: #28a745; font-size: 2rem;"></i>
-          <h4>Data-Driven Insights</h4>
-        </div>
-        <div class="benefit-box">
-          <div class="icon-circle bg-light-accent">📊</div>
-          <h4>Data Science Tips</h4>
-          <p>Learn from real-world data science experiences</p>
-        </div>
-        <div class="benefit-box">
-          <div class="icon-circle bg-light-purple">🎯</div>
-          <h4>Exclusive Content</h4>
-          <p>Access to resources and insights</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="section-card section-tab-content hidden-section">
-      <h2>Contact Me</h2>
-      <form id="contact-form" class="contact-form">
-        <label>Name<input name="from_name" type="text" placeholder="Enter your full name" required /></label>
-        <label>Email<input name="reply_to" type="email" placeholder="your.email@example.com" required /></label>
-        <label>Message<textarea name="message" rows="5" placeholder="Type your message here..." required></textarea></label>
-        <button type="submit" class="btn btn-primary">Send Message</button>
-      </form>
-      
-      <p id="contact-msg" class="newsletter-note"></p>
-      <div class="footer-content">
-        <h3>Address</h3>
-        <div class="footer-address">
-          <i data-lucide="map-pin"></i>
-          <span>Lusaka, Zambia</span>
-        </div>
-        <p>You can also reach me by phone:</p>
-        <div class="footer-phones">
-          <a href="tel:+260777771921"><i data-lucide="phone"></i> +260777771921</a>
-          <span class="separator">|</span>
-          <a href="tel:+260965169247"><i data-lucide="phone"></i> +260965169247</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Education Section -->
-    <section id="education" class="section-card section-tab-content hidden-section">
-      <h2>Education</h2>
-      <p>I am currently pursuing a BSc in Data Science at Kapasa Makasa University.</p>
-
-      <div class="map-toggle">
-        <small>Tap to see map</small>
-        <span class="arrow">&#x25BC;</span>
-      </div>
-      <div class="visit-map-wrapper hidden">
-        <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m21!1m12!1m3!1d1003976.1127326398!2d32.1292393681145!3d-10.59623444019156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m6!3e6!4m0!4m3!3m2!1d-10.605165999999999!2d32.221727!5e0!3m2!1sen!2szm!4v1753871654429!5m2!1sen!2szm"
-          width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-      </div>
-    </section>
-
-    <!-- Certifications Section -->
-    <section id="certifications" class="section-card section-tab-content hidden-section">
-      <h2>Certifications</h2>
-      <div class="certifications-grid">
-        <!-- IBM Certification -->
-        <div class="certification-card">
-          <div class="certification-header">
-            <div>
-              <h3 class="certification-title">IBM Data Science Professional Certificate</h3>
-              <div class="certification-platform">
-                <i class="bi bi-mortarboard"></i>
-                <span>Coursera</span>
-              </div>
-            </div>
-            <div class="certification-date">Aug 2024</div>
-          </div>
-          
-          <div class="certification-details">
-            <div class="certification-detail-item">
-              <div class="detail-icon">
-                <i class="bi bi-award"></i>
-              </div>
-              <div class="detail-content">
-                <div class="detail-label">Certification</div>
-                <div class="detail-value">IBM Data Science Professional Certificate</div>
-              </div>
-            </div>
-            
-            <div class="certification-detail-item">
-              <div class="detail-icon">
-                <i class="bi bi-calendar"></i>
-              </div>
-              <div class="detail-content">
-                <div class="detail-label">Completion Date</div>
-                <div class="detail-value">August 2024</div>
-              </div>
-            </div>
-            
-            <div class="certification-detail-item">
-              <div class="detail-icon">
-                <i class="bi bi-tools"></i>
-              </div>
-              <div class="detail-content">
-                <div class="detail-label">Skills Gained</div>
-                <div class="skills-list">
-                  <span class="skill-pill">Python</span>
-                  <span class="skill-pill">SQL</span>
-                  <span class="skill-pill">Data Visualization</span>
-                  <span class="skill-pill">Machine Learning</span>
-                  <span class="skill-pill">Statistical Analysis</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="certification-actions">
-            <a href="#" class="btn btn-primary">
-              <i class="bi bi-box-arrow-up-right"></i>
-              View Certificate
-            </a>
-          </div>
-        </div>
-        
-        <!-- Google Certification -->
-        <div class="certification-card">
-          <div class="certification-header">
-            <div>
-              <h3 class="certification-title">Google Data Analytics Professional Certificate</h3>
-              <div class="certification-platform">
-                <i class="bi bi-mortarboard"></i>
-                <span>Coursera</span>
-              </div>
-            </div>
-            <div class="certification-date">Jul 2024</div>
-          </div>
-          
-          <div class="certification-details">
-            <div class="certification-detail-item">
-              <div class="detail-icon">
-                <i class="bi bi-award"></i>
-              </div>
-              <div class="detail-content">
-                <div class="detail-label">Certification</div>
-                <div class="detail-value">Google Data Analytics Professional Certificate</div>
-              </div>
-            </div>
-            
-            <div class="certification-detail-item">
-              <div class="detail-icon">
-                <i class="bi bi-calendar"></i>
-              </div>
-              <div class="detail-content">
-                <div class="detail-label">Completion Date</div>
-                <div class="detail-value">July 2024</div>
-              </div>
-            </div>
-            
-            <div class="certification-detail-item">
-              <div class="detail-icon">
-                <i class="bi bi-tools"></i>
-              </div>
-              <div class="detail-content">
-                <div class="detail-label">Skills Gained</div>
-                <div class="skills-list">
-                  <span class="skill-pill">R</span>
-                  <span class="skill-pill">Tableau</span>
-                  <span class="skill-pill">Spreadsheets</span>
-                  <span class="skill-pill">Data Cleaning</span>
-                  <span class="skill-pill">Data Analysis</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="certification-actions">
-            <a href="#" class="btn btn-primary">
-              <i class="bi bi-box-arrow-up-right"></i>
-              View Certificate
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="hero-blob hero-blob-1"></div>
-      <div class="hero-blob hero-blob-2"></div>
-      <div class="hero-blob hero-blob-3"></div>
-      <div class="hero-blob hero-blob-4"></div>
-      <div class="footer-container">
-        <div class="footer-content">
-          <h3>Social Links</h3>
-          <div class="footer-socials">
-            <a href="https://facebook.com/profile.php?id=61555833508645" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-              <i class="bi bi-facebook"></i>
-            </a>
-            <a href="https://x.com/BKachembo?t=EgZlKtZi9ynj7zb6EPFFnA&s=09" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-              <i class="bi bi-twitter-x"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/billiat-kachembo-259314287/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <i class="bi bi-linkedin"></i>
-            </a>
-            <a href="https://www.instagram.com/billiat.kachembo" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <i class="bi bi-instagram"></i>
-            </a>
-            <a href="mailto:billiatkachembo1@gmail.com" aria-label="Email">
-              <i class="bi bi-envelope"></i>
-            </a>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <p>© 2025 -- Billiat Kachembo -- @Visionary -- All rights reserved</p>
-        </div>
-      </div>
-    </footer>
-
-    <!-- Scroll to Top Button -->
-    <button id="scroll-top-btn" class="scroll-top" aria-label="Back to top">
-      <i data-lucide="arrow-up"></i>
-    </button>
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // --- Page Loader Logic ---
-      const percentageText = document.getElementById('percentage');
-      const loaderWrapper = document.querySelector('.loader-wrapper');
-      const mainContent = document.querySelector('.main-content');
-
-      let currentPercentage = 0;
-      const minDisplayTime = 3000; // minimum 3 seconds
-      const startTime = Date.now();
-
-      const interval = setInterval(() => {
+    const interval = setInterval(() => {
         const increment = Math.random() * 2; // random step
         currentPercentage = Math.min(currentPercentage + increment, 100);
         percentageText.textContent = `${Math.floor(currentPercentage)}%`;
 
         if(currentPercentage >= 100){
-          clearInterval(interval);
-          const elapsed = Date.now() - startTime;
-          const remaining = Math.max(0, minDisplayTime - elapsed);
+            clearInterval(interval);
+            const elapsed = Date.now() - startTime;
+            const remaining = Math.max(0, minDisplayTime - elapsed);
 
-          setTimeout(() => {
-            loaderWrapper.style.opacity = '0';
             setTimeout(() => {
-              loaderWrapper.style.display = 'none';
-              mainContent.style.display = 'block';
-            }, 1000);
-          }, remaining);
+                loaderWrapper.style.opacity = '0';
+                setTimeout(() => {
+                    loaderWrapper.style.display = 'none';
+                    mainContent.style.display = 'block';
+                }, 1000);
+            }, remaining);
         }
-      }, 50);
+    }, 50);
+});
+</script>
 
-      // --- Mobile Menu JS ---
-      const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-      const mobileMenu = document.querySelector('.mobile-menu');
-      const mobileMenuClose = document.querySelector('.mobile-menu-close');
-      const mobileOverlay = document.querySelector('.mobile-menu-overlay');
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="nav-left">
+    <a class="navbar-title">
+      <i class="bi bi-journal-code" style="color:#21683e; font-size:1.6rem;"></i>
+      <span style="color:#21683e; margin-left:0.5rem; font-family:'Times New Roman', Times, serif; font-size:1.6rem;">My Portfolio</span>
+    </a>
+  </div>
 
-      function openMobileMenu() {
-        mobileMenu.classList.add('active');
-        mobileOverlay.classList.add('active');
-        document.body.classList.add('menu-open');
-      }
+  <div class="nav-center">
+    <ul class="nav-links">
+      <li><a href="index.html" class="active"><i class="bi bi-house-door"></i> Home</a></li>
+      <li><a href="#about"><i class="bi bi-person-circle"></i> About</a></li>
+      <li><a href="#contact"><i class="bi bi-telephone-forward"></i> Contact</a></li>
+      <li class="dropdown">
+        <a href="#">Learn More <i class="bi bi-caret-down-fill"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="https://drive.google.com/file/d/...">Finances in Zambia</a></li>
+          <li><a href="https://www.geeksforgeeks.org/data-science-for-beginners/">Data Science</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
 
-      function closeMobileMenu() {
-        mobileMenu.classList.remove('active');
-        mobileOverlay.classList.remove('active');
-        document.body.classList.remove('menu-open');
-      }
+  <div class="nav-right">
+    <div class="social-icons-navbar">
+      <a href="https://https://facebook.com/profile.php?id=61555833508645"><i class="bi bi-facebook"></i></a>
+      <a href="https://x.com/BKachembo?t=EgZlKtZi9ynj7zb6EPFFnA&s=09"><i class="bi bi-twitter-x"></i></a>
+      <a href="https://www.linkedin.com/in/billiat-kachembo-259314287/"><i class="bi bi-linkedin"></i></a>
+      <a href="https://www.instagram.com/billiat.kachembo"><i class="bi bi-instagram"></i></a>
+      <a href="mailto:billiatkachembo1@gmail.com"><i class="bi bi-envelope"></i></a>
+    </div>
+<!-- Add this to your nav-right section -->
+<div class="nav-search">
+    <a href="search.html" class="search-link">
+        <i class="Search"></i> 
+    </a>
+</div>
+   <!-- Desktop theme toggle -->
+<button id="theme-toggle" type="button">
+  <i id="theme-icon" class="bi bi-moon"></i>
+</button>
 
-      mobileMenuToggle.addEventListener('click', openMobileMenu);
-      mobileMenuClose.addEventListener('click', closeMobileMenu);
-      mobileOverlay.addEventListener('click', closeMobileMenu);
+<!-- Mobile hamburger + theme toggle -->
+<div class="mobile-toggle-container">
+  <button class="mobile-menu-toggle" aria-label="Open menu" type="button">
+    <i class="bi bi-list"></i>
+  </button>
 
-      // --- Theme Toggle ---
-      const desktopToggle = document.getElementById('theme-toggle');
-      const mobileToggle = document.getElementById('mobile-theme-toggle');
-      const desktopIcon = document.getElementById('theme-icon');
-      const mobileIcon = document.getElementById('mobile-theme-icon');
+  <button id="mobile-theme-toggle" type="button">
+  <i id="mobile-theme-icon" class="bi bi-moon"></i>
+</button>
 
-      function applyTheme(isDark) {
-        if (isDark) {
-          document.body.classList.add('dark');
-          if (desktopIcon) desktopIcon.classList.replace('bi-sun', 'bi-moon');
-          if (mobileIcon) mobileIcon.classList.replace('bi-sun', 'bi-moon');
-        } else {
-          document.body.classList.remove('dark');
-          if (desktopIcon) desktopIcon.classList.replace('bi-moon', 'bi-sun');
-          if (mobileIcon) mobileIcon.classList.replace('bi-moon', 'bi-sun');
+</div>
+
+</nav>
+<!-- Mobile Menu -->
+<div class="mobile-menu">
+  <i class="mobile-menu-close bi bi-x-lg"></i>
+  
+  <ul class="mobile-menu-links">
+    <li><a href="index.html"><i class="bi bi-house-door"></i> Home</a></li>
+    <li><a href="#about"><i class="bi bi-person-circle"></i> About</a></li>
+    <li><a href="#contact"><i class="bi bi-telephone-forward"></i> Contact</a></li>
+    <li><a href="https://drive.google.com/file/d/...">Finances in Zambia</a></li>
+    <li><a href="https://www.geeksforgeeks.org/data-science-for-beginners/">Data Science</a></li>
+  </ul>
+
+  <!-- Mobile Search Bar -->
+  <!-- Replace the existing mobile-search-container with this -->
+<div class="mobile-search-container" id="mobile-search">
+  <div class="mobile-search-header">
+    <h3>Search Portfolio</h3>
+    <p>Find content across all sections</p>
+  </div>
+  <form class="mobile-nav-search" action="search.html" method="GET" role="search">
+    <input type="text" name="q" placeholder="Enter search terms..." aria-label="Search" />
+    <button type="submit">Search</button>
+  </form>
+  <div class="mobile-search-note">
+    <small>Opens in search page with full results</small>
+  </div>
+</div>
+  <style>
+    /* Mobile search container styling */
+.mobile-search-header {
+  margin-bottom: 1rem;
+}
+
+.mobile-search-header h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+  color: var(--primary-color);
+}
+
+.mobile-search-header p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin: 0;
+}
+
+.mobile-search-note {
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.mobile-search-note small {
+  color: var(--text-light);
+  font-size: 0.8rem;
+}
+
+/* Dark mode adjustments */
+body.dark .mobile-search-header h3 {
+  color: var(--primary-color);
+}
+
+body.dark .mobile-search-header p {
+  color: var(--text-light);
+}
+    </style>
+  <script>
+    // Add this to your existing JavaScript in search.html
+// Handle direct searches from mobile menu
+document.addEventListener('DOMContentLoaded', () => {
+    // Check if we have a search query from mobile menu
+    const urlParams = new URLSearchParams(window.location.search);
+    const mobileQuery = urlParams.get('q');
+    
+    if (mobileQuery) {
+        // Pre-fill the search input
+        const searchInput = document.getElementById('search-input');
+        if (searchInput) {
+            searchInput.value = mobileQuery;
+            
+            // Trigger search after a short delay to allow content loading
+            setTimeout(() => {
+                performSearch(mobileQuery);
+            }, 500);
         }
-      }
+    }
+});
+  </script>
 
-      function toggleTheme() {
-        const isDark = !document.body.classList.contains('dark');
-        applyTheme(isDark);
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      }
+  <!-- Mobile Social Icons -->
+  <div class="mobile-social-icons">
+    <a href="https://facebook.com/profile.php?id=61555833508645"><i class="bi bi-facebook"></i></a>
+    <a href="https://x.com/BKachembo?t=EgZlKtZi9ynj7zb6EPFFnA&s=09"><i class="bi bi-twitter-x"></i></a>
+    <a href="https://www.linkedin.com/in/billiat-kachembo-259314287/"><i class="bi bi-linkedin"></i></a>
+    <a href="https://www.instagram.com/billiat.kachembo"><i class="bi bi-instagram"></i></a>
+    <a href="mailto:billiatkachembo1@gmail.com"><i class="bi bi-envelope"></i></a>
+  </div>
+</div>
 
-      if (desktopToggle) desktopToggle.addEventListener('click', toggleTheme);
-      if (mobileToggle) mobileToggle.addEventListener('click', toggleTheme);
+<style>
+/* Mobile social icons inside the menu */
+.mobile-menu .mobile-social-icons {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1.5rem;
+}
+.mobile-menu .mobile-social-icons a {
+  font-size: 1.25rem;
+  color: hsl(222, 84%, 4.9%);
+  transition: color 0.3s ease;
+}
+.mobile-menu .mobile-social-icons a:hover {
+  color: hsl(142, 50%, 35%);
+}
 
-      // Load saved theme or system preference
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark') {
-        applyTheme(true);
-      } else if (savedTheme === 'light') {
-        applyTheme(false);
-      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        applyTheme(true);
-      }
+/* Dark mode */
+body.dark .mobile-menu .mobile-social-icons a {
+  color: hsl(210, 40%, 98%);
+}
+body.dark .mobile-menu .mobile-social-icons a:hover {
+  color: hsl(142, 50%, 35%);
+}
+</style>
 
-      // Optional: respond to system theme changes
-      if (window.matchMedia) {
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-          if (!localStorage.getItem('theme')) {
-            applyTheme(e.matches);
-          }
-        });
-      }
+<!-- Overlay -->
+<div class="mobile-menu-overlay"></div>
 
-      // --- Video Toggle ---
-      const toggleBtn = document.getElementById("toggleVideoBtn");
-      const videoContainer = document.getElementById("videoContainer");
-      const video = document.getElementById("techVideo");
+<style>
+/* Base Styles */
+body { margin: 0; font-family: system-ui, sans-serif, Arial; }
+a { text-decoration: none; color: inherit; }
 
-      if (toggleBtn && videoContainer && video) {
-        toggleBtn.addEventListener("click", function () {
-          if (videoContainer.style.display === "none") {
-            videoContainer.style.display = "block";
-            video.play();
-            toggleBtn.innerHTML = "⬅";
-          } else {
-            video.pause();
-            videoContainer.style.display = "none";
-            toggleBtn.innerHTML = "➤";
-          }
-        });
-      }
+/* Navbar */
+.navbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 2rem; background: #f8f8f8;
+  border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100;
+}
+.nav-left, .nav-center, .nav-right { display: flex; align-items: center; }
+.nav-left .navbar-title { display: flex; align-items: center; }
+.nav-center { flex-grow: 1; justify-content: center; }
+.nav-right { gap: 1rem; }
 
-      // --- Map Toggle ---
-      const mapToggle = document.querySelector('#education .map-toggle');
-      const mapWrapper = document.querySelector('#education .visit-map-wrapper');
+/* Navigation Links */
+.nav-links { display:flex; list-style:none; gap:1.5rem; padding:0; margin:0; }
+.nav-links a { text-decoration:none; color:#333; }
+.nav-links a.active { color:#06c1db; }
+.dropdown { position: relative; }
+.dropdown-menu {
+  display:none; position:absolute; background:#fff; list-style:none;
+  padding:0.5rem 0; margin-top:0.5rem; box-shadow:0 4px 8px rgba(0,0,0,0.1); white-space: nowrap;
+}
+.dropdown:hover .dropdown-menu { display:block; }
+.dropdown-menu li a { display:block; padding:0.25rem 1rem; color:#333; }
 
-      if (mapToggle && mapWrapper) {
-        mapToggle.addEventListener('click', () => {
-          mapWrapper.classList.toggle('hidden');
-          mapToggle.classList.toggle('active');
-          
-          mapToggle.querySelector('small').textContent = mapWrapper.classList.contains('hidden') ?
-            'Tap to see map' : 'Hide map';
-        });
-      }
+/* Right side elements */
+.nav-right { display:flex; align-items:center; gap:1rem; }
+.nav-search { display:flex; gap:0.5rem; }
+.nav-search input { padding:0.25rem 0.5rem; border:1px solid #ccc; border-radius:4px; }
+.nav-search button { padding:0.25rem 0.5rem; background:#eee; border:1px solid #ccc; border-radius:4px; cursor:pointer; }
 
-      // --- Sub-menu Navigation with Switch Effect ---
-      const tabs = document.querySelectorAll('.sub-menu-tab');
-      const switchBg = document.querySelector('.tabs-switch-bg');
+/* Social icons */
+.social-icons-navbar { display:flex; gap:1rem; }
+.social-icons-navbar a { font-size:1.25rem; color:#555; }
 
-      function updateSwitchPosition(activeTab) {
-        if (!switchBg || !activeTab || !activeTab.parentElement) return;
-        const parentRect = activeTab.parentElement.getBoundingClientRect();
-        const tabRect = activeTab.getBoundingClientRect();
+/* Theme Toggle */
+#theme-toggle, #mobile-theme-toggle {
+  background:none; border:none; cursor:pointer; font-size:1.5rem;
+}
+.search-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
 
-        const left = tabRect.left - parentRect.left;
-        const width = tabRect.width;
+.search-link:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
 
-        switchBg.style.transform = `translateX(${left}px)`;
-        switchBg.style.width = `${width}px`;
-      }
+body.dark .search-link {
+    color: #eee;
+}
 
-      function showSection(targetId) {
-        if (!targetId) return;
-        const sections = document.querySelectorAll('.section-tab-content');
-        sections.forEach(section => {
-          if (!section.id) return;
-          section.classList.toggle('hidden-section', section.id !== targetId);
-        });
-      }
+body.dark .search-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+/* Mobile Menu */
+.mobile-menu {
+  position: fixed; top:0; right:-100%;
+  width: clamp(250px, 80%, 350px); max-width:100%; height:100%;
+  background:hsl(210,40%,98%); backdrop-filter:blur(10px);
+  box-shadow:-4px 0 12px rgba(15,15,15,0.2);
+  transition: right 0.3s ease;
+  z-index:2000; overflow-y:auto; -webkit-overflow-scrolling:touch;
+}
+.mobile-menu.active { right:0; }
 
-      // Initialize the tabs on page load
-      const savedTab = localStorage.getItem("activeTab");
-      let initialActiveTab = savedTab 
-        ? document.querySelector(`.sub-menu-tab[data-target="${savedTab}"]`) 
-        : document.querySelector('.sub-menu-tab.active');
+/* Mobile Menu Close Button */
+.mobile-menu-close {
+  font-size: 2rem;
+  cursor: pointer;
+  display: block;
+  text-align: right;
+  margin-bottom: 2rem;
+  color: hsl(222, 84%, 4.9%); /* dark text for light mode */
+  transition: color 0.3s ease;
+}
 
-      if (!initialActiveTab) {
-        initialActiveTab = document.querySelector('.sub-menu-tab[data-target="features"]');
-      }
-      
-      if (initialActiveTab) {
-        const targetId = initialActiveTab.getAttribute('data-target');
-        showSection(targetId);
-        tabs.forEach(t => t.classList.remove('active'));
-        initialActiveTab.classList.add('active');
-        updateSwitchPosition(initialActiveTab);
-      }
+/* Dark Mode Close Button */
+body.dark .mobile-menu-close {
+  color: hsl(210, 40%, 98%); /* light text for dark mode */
+}
 
-      // Add click listener to each tab
-      tabs.forEach(tab => {
-        tab.addEventListener('click', event => {
-          event.preventDefault();
-          tabs.forEach(t => t.classList.remove('active', 'bounce'));
-          event.currentTarget.classList.add('active', 'bounce');
-          const targetId = event.currentTarget.getAttribute('data-target');
-          showSection(targetId);
-          updateSwitchPosition(event.currentTarget);
-          localStorage.setItem("activeTab", targetId);
-        });
-      });
 
-      window.addEventListener('resize', () => {
-        const activeTab = document.querySelector('.sub-menu-tab.active');
-        updateSwitchPosition(activeTab);
-      });
+.mobile-menu-links { list-style:none; padding:0; margin:0; }
+.mobile-menu-links li { margin-bottom:1rem; }
+.mobile-menu-links a {
+  display:flex; align-items:center; gap:0.5rem;
+  text-decoration:none; color:#333; font-weight:500;
+  transition: color 0.3s ease;
+}
+.mobile-menu-links a:hover { color:hsl(142 76% 21%);}
 
-      // --- Scroll to Top Button ---
-      const scrollTopBtn = document.getElementById('scroll-top-btn');
-      const scrollThreshold = 300;
+/* Mobile Search */
+.mobile-nav-search { display:flex; gap:0.5rem; margin:1rem 0; }
+.mobile-nav-search input { padding:0.25rem 0.5rem; width:100%; }
 
-      const toggleScrollTopBtn = () => {
-        if (window.scrollY > scrollThreshold) {
-          scrollTopBtn.classList.add('show');
-        } else {
-          scrollTopBtn.classList.remove('show');
-        }
-      };
+.mobile-toggle-container {
+  display: none;
+  flex-direction: column; /* Aligns children vertically */
+  align-items: center;
+  gap: 0.5rem;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1800;
+}
+.mobile-menu-toggle, #mobile-theme-toggle {
+  position: relative; top:auto; right:auto;
+  background: transparent; border:none; font-size:1.8rem; cursor:pointer;
+}
 
-      window.addEventListener('scroll', toggleScrollTopBtn);
+/* Overlay */
+.mobile-menu-overlay {
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.3); opacity:0; visibility:hidden;
+  transition:0.3s; z-index:1500;
+}
+.mobile-menu-overlay.active { opacity:1; visibility:visible; }
 
-      scrollTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      });
+/* Responsive Rules */
+@media (max-width:768px){
+  .nav-links, .nav-search, #theme-toggle, .social-icons-navbar { display:none; }
+  .mobile-toggle-container { display:flex; }
+  .navbar { z-index:100; }
+  .mobile-menu { z-index:2000; }
+  .mobile-menu-overlay { z-index:1500; }
+  .navbar-title { font-size:1.2rem; }
+}
+@media (min-width:769px){
+  .mobile-menu, .mobile-menu-overlay, .mobile-toggle-container { display:none; }
+  #theme-toggle { display:block; } /* desktop theme toggle */
+}
 
-      toggleScrollTopBtn();
+/* Sticky navbar only on desktops */
+@media (min-width:992px) { .navbar { position: sticky; top:0; } }
+/* On mobile, navbar is relative */
+@media (max-width:991px) { .navbar { position: relative; } }
 
-      // --- Form Submissions (EmailJS) ---
-      // Newsletter Form
-      const newsletterForm = document.getElementById("newsletter-form");
-      const newsletterMsg = document.getElementById("newsletter-msg");
+/* Lock scrolling when mobile menu is open */
+body.menu-open { overflow:hidden; }
+/* Mobile Menu Base */
+/* Mobile Menu Base */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: clamp(250px, 50vw, 300px); /* cover roughly half the screen */
+  height: 100%;
+  background-color: hsl(0, 0%, 98%);
+  backdrop-filter: blur(10px);
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
+  transition: right 0.3s ease;
+  z-index: 2000;
+  padding: 2rem 1.5rem;
+  overflow-y: auto;
+}
 
-      if (newsletterForm && newsletterMsg) {
-        newsletterForm.addEventListener("submit", async (e) => {
-          e.preventDefault();
+.mobile-menu.active {
+  right: 0;
+}
 
-          newsletterMsg.textContent = "";
-          const email = newsletterForm.user_email.value.trim();
+/* Mobile Menu Close Button */
+.mobile-menu-close {
+  font-size: 2rem;
+  cursor: pointer;
+  display: block;
+  text-align: right;
+  z-index: 2100;
+  margin-bottom: 2rem;
+  color: hsl(222, 84%, 4.9%);
+  transition: color 0.3s ease;
+}
 
-          // Basic email validation
-          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!email || !emailPattern.test(email)) {
-            newsletterMsg.textContent = "Please enter a valid email address.";
-            return;
-          }
+/* Dark Mode Close Button */
+body.dark .mobile-menu-close {
+  color: hsl(210, 40%, 98%);
+}
 
-          try {
-            await emailjs.send("service_bfi98ia", "template_3y5ud5f", { user_email: email });
-            newsletterMsg.textContent = "✅ Thank you for subscribing!";
-            newsletterMsg.style.color = "green";
-            newsletterForm.reset();
-          } catch (error) {
-            newsletterMsg.textContent = "❌ Oops! Something went wrong. Please try again later.";
-            newsletterMsg.style.color = "red";
-            console.error("EmailJS newsletter error:", error);
-          }
-        });
-      }
+/* Mobile Menu Links */
+.mobile-menu-links {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+}
 
-      // Contact Form
-      const contactForm = document.getElementById("contact-form");
-      const contactMsg = document.getElementById("contact-msg");
+.mobile-menu-links li {
+  margin-bottom: 1.5rem;
+}
 
-      if (contactForm && contactMsg) {
-        contactForm.addEventListener("submit", async (e) => {
-          e.preventDefault();
-          contactMsg.textContent = "";
+.mobile-menu-links a {
+  font-size: 1.25rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: hsl(222, 84%, 4.9%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
 
-          const formData = {
-            from_name: contactForm.querySelector('[name="from_name"]').value.trim(),
-            reply_to: contactForm.querySelector('[name="reply_to"]').value.trim(),
-            message: contactForm.querySelector('[name="message"]').value.trim()
-          };
+.mobile-menu-links a:hover {
+  color: hsl(142, 50%, 35%);
+}
 
-          if (!formData.from_name || !formData.reply_to || !formData.message) {
-            contactMsg.textContent = "Please fill out all fields.";
-            return;
-          }
+/* Mobile Search Bar */
+.mobile-nav-search {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
 
-          try {
-            await emailjs.send("service_bfi98ia", "template_hxw2jnn", formData);
-            contactMsg.textContent = "Message sent successfully!";
-            contactForm.reset();
-          } catch (error) {
-            contactMsg.textContent = "Failed to send message. Please try again later.";
-            console.error("EmailJS contact form error:", error);
-          }
-        });
-      }
+.mobile-nav-search input {
+  flex-grow: 1;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
 
-      // --- Typewriter Effect ---
-      const title = "BILLIAT";
-      const subtitle = "A data scientist who is passionate about anything making sense 😎";
-      const titleEl = document.getElementById("title-text");
-      const subtitleEl = document.getElementById("subtitle-text");
+.mobile-nav-search button {
+  padding: 0.5rem 1rem;
+  background-color: hsl(142, 50%, 35%);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
 
-      if (titleEl && subtitleEl) {
-        const typingSpeed = 150;
-        const erasingSpeed = 100;
-        const newSentenceDelay = 1000;
+/* Overlay covering the remaining half-screen */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50vw; /* half of the screen */
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+  z-index: 1500;
+  cursor: pointer; /* click to close */
+}
 
-        let isErasing = false;
-        let titleIndex = 0;
-        let subtitleIndex = 0;
+.mobile-menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
 
-        function typeWriter() {
-          if (isErasing) {
-            if (titleEl.textContent.length > 0) {
-              titleEl.textContent = title.substring(0, titleIndex - 1);
-              titleIndex--;
-              setTimeout(typeWriter, erasingSpeed);
-            } else if (subtitleEl.textContent.length > 0) {
-              subtitleEl.textContent = subtitle.substring(0, subtitleIndex - 1);
-              subtitleIndex--;
-              setTimeout(typeWriter, erasingSpeed);
-            } else {
-              isErasing = false;
-              titleIndex = 0;
-              subtitleIndex = 0;
-              setTimeout(typeWriter, newSentenceDelay);
-            }
-          } else {
-            if (titleIndex < title.length) {
-              titleEl.textContent += title.charAt(titleIndex);
-              titleIndex++;
-              setTimeout(typeWriter, typingSpeed);
-            } else if (subtitleIndex < subtitle.length) {
-              subtitleEl.textContent += subtitle.charAt(subtitleIndex);
-              subtitleIndex++;
-              setTimeout(typeWriter, typingSpeed);
-            } else {
-              isErasing = true;
-              setTimeout(typeWriter, newSentenceDelay * 2);
-            }
-          }
-        }
-        typeWriter();
-      }
+/* Dark Mode for Mobile Menu */
+body.dark .mobile-menu {
+  background-color: hsl(222, 84%, 4.9%);
+  color: hsl(210, 40%, 98%);
+}
 
-      // Initialize third-party libraries
-      if (window.lucide && typeof lucide.createIcons === 'function') {
-        lucide.createIcons();
-      }
-      
-      if (window.AOS && typeof AOS.init === 'function') {
-        AOS.init({
-          duration: 800,
-          easing: 'ease-in-out',
-          once: true
-        });
+body.dark .mobile-menu-links a {
+  color: hsl(210, 40%, 98%);
+}
+
+body.dark .mobile-menu-links a:hover {
+  color: hsl(142, 50%, 35%);
+}
+
+body.dark .mobile-nav-search input {
+  border-color: #ccc;
+  background-color: hsl(222, 84%, 8%);
+  color: hsl(210, 40%, 98%);
+}
+
+body.dark .mobile-nav-search button {
+  background-color: hsl(142, 50%, 35%);
+  color: white;
+}
+
+/* Lock scrolling when menu open */
+body.menu-open {
+  overflow: hidden;
+}
+
+
+</style>
+<script>
+// Mobile Menu JS
+const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+const mobileMenu = document.querySelector('.mobile-menu');
+const mobileMenuClose = document.querySelector('.mobile-menu-close');
+const mobileOverlay = document.querySelector('.mobile-menu-overlay');
+
+function openMobileMenu() {
+  mobileMenu.classList.add('active');
+  mobileOverlay.classList.add('active');
+  document.body.classList.add('menu-open');
+}
+
+function closeMobileMenu() {
+  mobileMenu.classList.remove('active');
+  mobileOverlay.classList.remove('active');
+  document.body.classList.remove('menu-open');
+}
+
+mobileMenuToggle.addEventListener('click', openMobileMenu);
+mobileMenuClose.addEventListener('click', closeMobileMenu);
+mobileOverlay.addEventListener('click', closeMobileMenu);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const desktopToggle = document.getElementById('theme-toggle');
+  const mobileToggle = document.getElementById('mobile-theme-toggle');
+  const desktopIcon = document.getElementById('theme-icon');
+  const mobileIcon = document.getElementById('mobile-theme-icon');
+
+  // Apply theme based on current state
+  function applyTheme(isDark) {
+    if (isDark) {
+      document.body.classList.add('dark');
+      if (desktopIcon) desktopIcon.classList.replace('bi-sun', 'bi-moon');
+      if (mobileIcon) mobileIcon.classList.replace('bi-sun', 'bi-moon');
+    } else {
+      document.body.classList.remove('dark');
+      if (desktopIcon) desktopIcon.classList.replace('bi-moon', 'bi-sun');
+      if (mobileIcon) mobileIcon.classList.replace('bi-moon', 'bi-sun');
+    }
+  }
+
+  // Toggle theme and store in localStorage
+  function toggleTheme() {
+    const isDark = !document.body.classList.contains('dark');
+    applyTheme(isDark);
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  }
+
+  // Attach event listeners
+  if (desktopToggle) desktopToggle.addEventListener('click', toggleTheme);
+  if (mobileToggle) mobileToggle.addEventListener('click', toggleTheme);
+
+  // Load saved theme or system preference
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    applyTheme(true);
+  } else if (savedTheme === 'light') {
+    applyTheme(false);
+  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    applyTheme(true);
+  }
+
+  // Optional: respond to system theme changes
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (!localStorage.getItem('theme')) {
+        applyTheme(e.matches);
       }
     });
-  </script>
+  }
+});
+
+
+
+
+</script>
+
+  <section id="home" class="hero-section">
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
+    <div class="hero-blob hero-blob-3"></div>
+    <div class="hero-blob hero-blob-4"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <h2 class="hero-greeting">👋 Hi there, I'm</h2>
+        <h1 class="hero-title">
+          <span class="gradient-text">
+            <span id="title-text"></span>
+            <span id="title-cursor" class="typewriter-cursor"></span>
+          </span>
+        </h1>
+        <p class="hero-subtitle">
+          <span id="subtitle-text"></span>
+          <span id="subtitle-cursor" class="typewriter-cursor"></span>
+        </p>
+        <div class="hero-icons">
+          <div class="hero-icon-item icon-hover">
+            <div class="hero-icon-circle"><i data-lucide="bar-chart-3"></i></div>
+            <span>Data-Driven Insights</span>
+          </div>
+          <div class="hero-icon-item icon-hover">
+            <div class="hero-icon-circle"><i data-lucide="gem"></i></div>
+            <span>Value Creation</span>
+          </div>
+          <div class="hero-icon-item icon-hover">
+            <div class="hero-icon-circle"><i data-lucide="archive"></i></div>
+            <span>Organized Systems</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="#about" class="scroll-down">
+      <button class="scroll-btn"><i data-lucide="chevron-down"></i></button>
+    </a>
+  </section>
+
+  <section id="about" class="about-section glass-card">
+    <h2 class="gradient-text">Author</h2>
+    <p class="lead">I'm a Data Scientist with a passion for exploring data and uncovering insights.</p>
+    <div class="about-grid">
+      <div class="about-photo">
+        <div class="photo-frame"><img src="trainer-3.jpg" alt="Billiat Kachembo" /></div>
+        <p class="caption">Data Scientist</p>
+      </div>
+      <div class="info-grid">
+        <div class="info-card skill-card">
+          <div class="info-content"><i data-lucide="user" class="info-icon text-green-500"></i>
+            <div><h4>Bio:</h4><p>Curious, analytical, and always learning</p></div>
+          </div>
+        </div>
+        <div class="info-card skill-card">
+          <div class="info-content"><i data-lucide="globe" class="info-icon text-blue-500"></i>
+            <div><h4>Languages:</h4><p>English, Bemba, Nyanja</p></div>
+          </div>
+        </div>
+        <div class="info-card skill-card">
+          <div class="info-content"><i data-lucide="map-pin" class="info-icon text-red-500"></i>
+            <div><h4>Location:</h4><p>Chinsali, Zambia</p></div>
+          </div>
+        </div>
+        <div class="info-card skill-card">
+          <div class="info-content"><i data-lucide="graduation-cap" class="info-icon text-yellow-500"></i>
+            <div><h4>Education:</h4><p>BSc in Data Science</p></div>
+          </div>
+        </div>
+        <div class="info-card skill-card">
+          <div class="info-content"><i data-lucide="lightbulb" class="info-icon text-purple-500"></i>
+            <div><h4>Hobbies:</h4><p>Reading, Music, Hiking</p></div>
+          </div>
+        </div>
+        <div class="info-card skill-card">
+          <div class="info-content"><i data-lucide="code" class="info-icon text-gray-500"></i>
+            <div><h4>Skills:</h4><p>Data Analysis, Data Viz, AI</p></div>
+          </div>
+        </div>
+        <div class="info-card skill-card">
+          <div class="info-content"><i data-lucide="message-square" class="info-icon text-green-600"></i>
+            <div><h4>Languages Used:</h4><p>Python, C++, Java, C#, R</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="section-card grid3">
+    <div class="skill-card"><div class="icon-circle">📊</div><h4>Data Analysis</h4><p>Exploring patterns and insights in complex datasets</p></div>
+    <div class="skill-card"><div class="icon-circle">🤖</div><h4>Machine Learning</h4><p>Building predictive models and AI solutions</p></div>
+    <div class="skill-card"><div class="icon-circle">💡</div><h4>Innovation</h4><p>Creating solutions that make sense</p></div>
+  </section>
+
+
+<section class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos-delay="300">
+  <div class="icon-box d-flex flex-column justify-content-center align-items-start">
+
+    <!-- Arrow toggle -->
+    <button id="toggleVideoBtn" class="btn btn-light align-self-end mb-2">
+      ➤
+    </button>
+
+    <!-- Video container -->
+    <div id="videoContainer" style="display: none; width: 100%;" class="text-center">
+      <video id="techVideo" width="70%" class="video-course rounded" autoplay loop muted playsinline>
+        <source src="Black%20and%20Blue%20Futuristic%20Technology%20Video.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <strong class="mt-3 text-center">Future Technology</strong>
+    <p class="text-center">Immersive glimpse into the innovations shaping tomorrow's world.</p>
+  </div>
+</section>
+
+<script>
+
+const nav = document.querySelector('.nav-links');
+
+nav.addEventListener('wheel', (e) => {
+  e.preventDefault();          // prevent vertical scroll
+  nav.scrollLeft += e.deltaY;  // scroll horizontally with wheel
+});
+
+
+
+  const toggleBtn = document.getElementById("toggleVideoBtn");
+  const videoContainer = document.getElementById("videoContainer");
+  const video = document.getElementById("techVideo");
+
+  toggleBtn.addEventListener("click", function () {
+    if (videoContainer.style.display === "none") {
+      videoContainer.style.display = "block";
+      video.play();
+      toggleBtn.innerHTML = "⬅"; // change arrow when open
+    } else {
+      video.pause();
+      videoContainer.style.display = "none";
+      toggleBtn.innerHTML = "➤"; // change arrow when closed
+    }
+  });
+</script>
+
+
+
+  <section id="sub-menu-navigation" class="section-card">
+    <div class="sub-menu-tabs">
+      <div class="tabs-switch-bg"></div>
+     <a href="#education" class="sub-menu-tab" data-target="education">
+  <i class="bi bi-mortarboard" style="color:#1fa67a;"></i> Education
+</a>
+<a href="#certifications" class="sub-menu-tab" data-target="certifications">
+  <i class="bi bi-award" style="color:#f59e0b;"></i> Certifications
+</a>
+<a href="#newsletter" class="sub-menu-tab" data-target="newsletter">
+  <i class="bi bi-envelope" style="color:#3b82f6;"></i> Newsletter
+</a>
+<a href="#contact" class="sub-menu-tab" data-target="contact">
+  <i class="bi bi-telephone-forward" style="color:#ef4444;"></i> Contact
+</a>
+<a href="#features" class="sub-menu-tab active" data-target="features">
+  <i class="bi bi-lightbulb" style="color:#facc15;"></i> Mindset and Methods
+</a>
+<a href="#activity" class="sub-menu-tab" data-target="activity">
+  <i class="bi bi-graph-up" style="color:#10b981;"></i> Activity
+</a>
+
+      
+    </div>
+  </section>
+
+  
+
+  <section id="features" class="section-card section-tab-content">
+    <h2>Mindset and Methods</h2>
+    <div class="grid4">
+      <div class="feature-box">
+        <i class="bi bi-eye icon-colored" style="color: #ffbb2c;"></i>
+        <h4>Insight</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-infinity icon-colored" style="color: #45ab6f;"></i>
+        <h4>Endless Potential</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-mortarboard icon-colored" style="color: #e80368;"></i>
+        <h4>Knowledge</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-nut icon-colored" style="color: #e361ff;"></i>
+        <h4>Structure</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-shuffle icon-colored" style="color: #47aeff;"></i>
+        <h4>Adaptability</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-star icon-colored" style="color: #ffa76e;"></i>
+        <h4>Excellence</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-x-diamond icon-colored" style="color: #11dbcf;"></i>
+        <h4>Innovation</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-camera-video icon-colored" style="color: #4233ff;"></i>
+        <h4>Presentation</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-command icon-colored" style="color: #b2904f;"></i>
+        <h4>Control</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-palette icon-colored" style="color: #00bcd4;"></i>
+        <h4>Design</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-activity icon-colored" style="color: #ff5828;"></i>
+        <h4>Dedication</h4>
+      </div>
+      <div class="feature-box">
+        <i class="bi bi-brightness-high icon-colored" style="color: #29cc61;"></i>
+        <h4>Inspiration</h4>
+      </div>
+      <div class="feature-box"><i class="bi bi-lightning-fill" style="color: #ffeb3b;"></i><span>Energy</span></div>
+      <div class="feature-box"><i class="bi bi-fire" style="color: #f44336;"></i><span>Passion</span></div>
+      <div class="feature-box"><i class="bi bi-scissors" style="color: #ffa000;"></i><span>Balance</span></div>
+      <div class="feature-box"><i class="bi bi-question-circle" style="color: #607d8b;"></i><span>Curiosity</span></div>
+    </div>
+  </section>
+  
+  <section id="activity" class="activity section section-tab-content hidden-section">
+    <div class="container">
+      <div class="activity-grid">
+        <div class="activity-card" data-aos="fade-up" data-category="workshop">
+          <div class="activity-img">
+            <img src="events-item-1.jpg" alt="Introduction to Data Science" />
+            <span class="tag">Workshop</span>
+          </div>
+          <div class="activity-body">
+            <i class="bi bi-bar-chart-fill activity-icon"></i>
+            <h5 class="activity-title"><a href="#">Introduction to Data Science</a></h5>
+            <p class="fst-italic">Sunday, July 20th at 7:00 pm</p>
+            <p class="activity-text">Join me for an introductory session on data science, where we'll explore the basics, tools, and opportunities in the field.</p>
+          </div>
+        </div>
+        <div class="activity-card" data-aos="fade-up" data-category="webinar">
+          <div class="activity-img">
+            <img src="events-item-2.jpg" alt="Python for Beginners" />
+            <span class="tag">Webinar</span>
+          </div>
+          <div class="activity-body">
+            <i class="bi bi-code-slash activity-icon"></i>
+            <h5 class="activity-title"><a href="#">Python for Beginners</a></h5>
+            <p class="fst-italic">Saturday, August 10th at 3:00 pm</p>
+            <p class="activity-text">A hands-on workshop for those new to programming. Learn the basics of Python and how it is used in data analysis and automation.</p>
+          </div>
+        </div>
+        <div class="activity-card" data-aos="fade-up" data-category="workshop">
+          <div class="activity-img">
+            <img src="1353386.png" alt="Building Web Interfaces" />
+            <span class="tag">Workshop</span>
+          </div>
+          <div class="activity-body">
+            <i class="bi bi-window-stack activity-icon"></i>
+            <h5 class="activity-title"><a href="#">Building Web Interfaces</a></h5>
+            <p class="fst-italic">Friday, August 30th at 5:00 pm</p>
+            <p class="activity-text">Learn how to create beautiful and responsive web interfaces using HTML, CSS, and JavaScript in this interactive session.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="newsletter" class="section-card newsletter-section section-tab-content hidden-section">
+    <h2>Newsletter</h2>
+    <div class="newsletter-text">
+      <p>Subscribe to my newsletter for updates on my latest projects and insights in data science.</p>
+      <p>Stay informed about my work and receive valuable content directly in your inbox.</p>
+      <p class="font-medium">Join my community of data enthusiasts and let's explore the world of data science together!</p>
+    </div>
+    <div class="newsletter-card">
+      <form id="newsletter-form" class="newsletter-form">
+        <input type="email" name="user_email" placeholder="Your email address" required class="newsletter-input" />
+        <button type="submit" class="newsletter-button">Sign Up</button>
+      </form>
+      <p id="newsletter-msg" class="newsletter-note"></p>
+      <p class="newsletter-note">By subscribing, you agree to receive emails from me. You can unsubscribe at any time.</p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-box">
+        <i class="bi bi-envelope-paper-fill" style="color: #9b59b6; font-size: 2rem;"></i>
+        <h4>Regular Updates</h4>
+        <p>Get notified about new projects and insights</p>
+      </div>
+      <div class="benefit-box">
+        <i class="bi bi-bar-chart-line-fill" style="color: #007bff; font-size: 2rem;"></i>
+        <h4>Data Analysis & Visualization</h4>
+      </div>
+      <div class="benefit-box">
+        <i class="bi bi-cpu-fill" style="color: #28a745; font-size: 2rem;"></i>
+        <h4>Machine Learning & AI</h4>
+      </div>
+      <div class="benefit-box">
+        <i class="bi bi-graph-up" style="color: #007bff; font-size: 2rem;"></i>
+        <h4>Statistical Modeling</h4>
+      </div>
+      <div class="benefit-box">
+        <i class="bi bi-lightbulb-fill" style="color: #28a745; font-size: 2rem;"></i>
+        <h4>Data-Driven Insights</h4>
+      </div>
+      <div class="benefit-box">
+        <div class="icon-circle bg-light-accent">📊</div>
+        <h4>Data Science Tips</h4>
+        <p>Learn from real-world data science experiences</p>
+      </div>
+      <div class="benefit-box">
+        <div class="icon-circle bg-light-purple">🎯</div>
+        <h4>Exclusive Content</h4>
+        <p>Access to resources and insights</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section-card section-tab-content hidden-section">
+    <h2>Contact Me</h2>
+    <form id="contact-form" class="contact-form">
+      <label>Name<input name="from_name" type="text" placeholder="Enter your full name" required /></label>
+      <label>Email<input name="reply_to" type="email" placeholder="your.email@example.com" required /></label>
+      <label>Message<textarea name="message" rows="5" placeholder="Type your message here..." required></textarea></label>
+      <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+    
+    <p id="contact-msg" class="newsletter-note"></p>
+    <div class="footer-content">
+      <h3>Address</h3>
+      <div class="footer-address">
+        <i data-lucide="map-pin"></i>
+        <span>Lusaka, Zambia</span>
+      </div>
+      <p>You can also reach me by phone:</p>
+      <div class="footer-phones">
+        <a href="tel:+260777771921"><i data-lucide="phone"></i> +260777771921</a>
+        <span class="separator">|</span>
+        <a href="tel:+260965169247"><i data-lucide="phone"></i> +260965169247</a>
+      </div>
+    </div>
+  </section>
+ <section id="education" class="section-card section-tab-content hidden-section">
+  <h2>Education</h2>
+  <p>I am currently pursuing a BSc in Data Science at Kapasa Makasa University.</p>
+
+  <div class="map-toggle">
+    <small>Tap to see map</small>
+    <span class="arrow">&#x25BC;</span>
+  </div>
+  <div class="visit-map-wrapper hidden">
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m21!1m12!1m3!1d1003976.1127326398!2d32.1292393681145!3d-10.59623444019156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m6!3e6!4m0!4m3!3m2!1d-10.605165999999999!2d32.221727!5e0!3m2!1sen!2szm!4v1753871654429!5m2!1sen!2szm"
+      width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
+
+<style>
+#education {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 2rem 2.5rem;       /* horizontal padding */
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+  border-top: 4px solid var(--primary);
+  max-width: 1100px;           /* slightly wider than before */
+  margin: 2rem auto;           /* center horizontally */
+}
+
+@media (max-width: 1000px) {
+  #education {
+    padding: 2rem 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #education {
+    padding: 1.5rem;
+  }
+}
+
+
+
+#education:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+#education h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+  position: relative;
+  display: inline-block;
+}
+
+#education h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--secondary);
+  border-radius: 2px;
+}
+
+#education p {
+  font-size: 1rem;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* Map Toggle */
+.map-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  background: var(--bg);
+  border: 2px solid var(--primary);
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--primary);
+  transition: all 0.25s ease;
+  width: fit-content;
+  margin: 0 auto 1.5rem auto;
+}
+
+.map-toggle:hover {
+  background: var(--primary);
+  color: var(--bg);
+  transform: translateY(-2px);
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.map-toggle.active .arrow {
+  transform: rotate(180deg);
+}
+
+/* Map Wrapper */
+.visit-map-wrapper.hidden {
+  display: none !important;
+}
+
+.visit-map-wrapper {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: all 0.45s ease;
+}
+
+.visit-map-wrapper iframe {
+  width: 100%;
+  height: 450px;
+  border: 0;
+  display: block;
+  border-radius: var(--radius);
+}
+
+/* Smooth slide animation */
+.visit-map-wrapper.show {
+  animation: slideDown 0.45s ease forwards;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+  #education h2 {
+    font-size: 1.6rem;
+  }
+
+  .visit-map-wrapper iframe {
+    height: 300px;
+  }
+
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const mapToggle = document.querySelector('#education .map-toggle');
+  const mapWrapper = document.querySelector('#education .visit-map-wrapper');
+
+  mapToggle.addEventListener('click', () => {
+    mapWrapper.classList.toggle('hidden');
+    mapWrapper.classList.toggle('show');
+    mapToggle.classList.toggle('active');
+
+    mapToggle.querySelector('small').textContent = mapWrapper.classList.contains('hidden') ?
+      'Tap to see map' : 'Hide map';
+  });
+});
+</script>
+
+<style> /* ------------------------------------------- */ /* Mobile Responsiveness - Core CSS Enhancements */ /* ------------------------------------------- */ /* Global Mobile Optimizations */ :root { --text-color-light: #343a40; --heading-color-light: #212529; --body-bg-light: #f8f9fa; --card-bg-light: #ffffff; --border-color-light: #e9ecef; --green-color: #21683e; --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.1); --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1); } .dark { --text-color-dark: #e9ecef; --heading-color-dark: #f8f9fa; --body-bg-dark: #1f2a37; --card-bg-dark: #2c3a4a; --border-color-dark: #495057; } body { color: var(--text-color-light); background-color: var(--body-bg-light); transition: color 0.3s ease, background-color 0.3s ease; font-family: 'Inter', sans-serif; margin: 0; padding: 0; } .dark body { color: var(--text-color-dark); background-color: var(--body-bg-dark); } h1, h2, h3, h4, h5, h6 { color: var(--heading-color-light); } .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 { color: var(--heading-color-dark); } .glass-card, .section-card, .newsletter-card { background-color: var(--card-bg-light); border: 1px solid var(--border-color-light); } .dark .glass-card, .dark .section-card, .dark .newsletter-card { background-color: var(--card-bg-dark); border: 1px solid var(--border-color-dark); } /* Sub-menu and hidden section styles */ .hidden-section { display: none !important; } /* --- Centered Sub-menu Tabs with Animated Glowing Switch & Bounce --- */ .sub-menu-tabs { position: relative; display: flex; justify-content: center; align-items: center; gap: 12px; padding: 10px 12px; background-color: rgba(0, 0, 0, 0.1); border-radius: 50px; box-shadow: var(--shadow-small); overflow: hidden; margin: 2rem auto; transition: background-color 0.3s ease; max-width: 95%; /* keeps tabs inside small screens */ } .sub-menu-tab { z-index: 1; padding: 10px 24px; border-radius: 50px; text-decoration: none; color: var(--text-color-light); font-weight: 500; font-size: 0.95rem; transition: color 0.3s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap; cursor: pointer; display: flex; align-items: center; justify-content: center; } .sub-menu-tab { z-index: 1; padding: 10px 22px; border-radius: 50px; text-decoration: none; color: var(--text-color-light); font-weight: 500; font-size: 0.95rem; transition: color 0.3s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap; cursor: pointer; } .dark .sub-menu-tab { color: var(--text-color-dark); } .sub-menu-tab.active, .sub-menu-tab:hover { color: #fff; transform: scale(1.08); /* Slight scale on active/hover */ } /* Glowing moving switch background */ .tabs-switch-bg { position: absolute; top: 0; left: 0; height: 100%; width: 0; background: linear-gradient(135deg, #205f4a, #177047); border-radius: 50px; box-shadow: 0 0 15px rgba(33, 104, 62, 0.6); transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s ease-in-out, transform 0.35s ease-out; z-index: 0; animation: glowPulse 2s infinite alternate; } /* Smooth glowing pulse */ @keyframes glowPulse { 0% { box-shadow: 0 0 12px rgba(33, 104, 62, 0.4), 0 0 20px rgba(33, 104, 62, 0.2); } 100% { box-shadow: 0 0 20px rgba(33, 104, 62, 0.7), 0 0 28px rgba(33, 104, 62, 0.3); } } /* Optional bounce effect for active tab */ .sub-menu-tab.bounce { animation: tabBounce 0.3s ease-out; } @keyframes tabBounce { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1.08); } } /* Responsive adjustments for sub-menu tabs */ @media (max-width: 768px) { .sub-menu-tabs { flex-wrap: wrap; gap: 6px; padding: 4px; } .sub-menu-tab { padding: 8px 16px; font-size: 0.85rem; } } /* Specific styling for phone numbers to ensure visibility */ .footer-phones a { color: var(--text-color-light); } .dark .footer-phones a { color: var(--text-color-dark); } /* Additional general styles for the page layout */ .navbar, .hero-section, .about-section, .skills-section, .section-card, .footer { padding: 2rem; } .about-grid, .info-grid, .grid3, .grid4, .activity-grid, .benefits-grid { display: grid; gap: 1.5rem; } .about-grid { grid-template-columns: 1fr; } .info-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); } .grid3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); } .grid4 { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); } @media (min-width: 768px) { .about-grid { grid-template-columns: 1fr 2fr; } } /* --- New Mobile-Specific Navbar Styles --- */ .nav-center, .nav-social-search { transition: transform 0.3s ease; } /* Hide desktop nav on mobile */ @media (max-width: 991px) { .nav-center .nav-links { display: none; } .nav-center .mobile-nav-toggle { display: block; /* Show hamburger icon */ } .nav-right .nav-social-search { display: none; } } /* Style for the mobile menu */ .mobile-menu { position: fixed; top: 0; right: -100%; width: clamp(250px, 80%, 350px); max-width: 100%; height: 100%; /* Add these lines for transparency and blur */ background: rgba(255, 255, 255, 0.7); /* White with 70% opacity */ backdrop-filter: blur(10px); /* Adjust the pixel value to control blur strength */ box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2); transition: right 0.3s ease; z-index: 999; overflow-y: auto; -webkit-overflow-scrolling: touch; } .mobile-menu.active { right:0; } .mobile-menu-close { font-size:1.5rem; cursor:pointer; margin-bottom:1rem; display:block; } .mobile-menu-links { list-style:none; padding:0; margin:0; } .mobile-menu-links li { margin-bottom:1rem; } .mobile-menu-links a { display:flex; align-items:center; gap:0.5rem; text-decoration:none; color:#333; font-weight:500; } .mobile-menu-links a:hover { color:#06c1db; } /* Mobile Submenu styles */ .mobile-submenu { list-style: none; padding: 0; margin: 0.5rem 0 0.5rem 1rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-in-out; } .mobile-submenu.active { max-height: 200px; /* Adjust this value based on your content */ } .mobile-submenu li { margin-bottom: 0.5rem; } /* Rotate chevron icon when submenu is open */ .mobile-menu-toggle-chevron { transition: transform 0.3s ease-in-out; } .mobile-menu-link.active .mobile-menu-toggle-chevron { transform: rotate(180deg); } /* Mobile Search & Theme */ .mobile-nav-search { display:flex; gap:0.5rem; margin:1rem 0; } .mobile-nav-search input { padding:0.25rem 0.5rem; width:100%; } #mobile-theme-toggle { display:block; margin-bottom:1rem; } /* Overlay */ .mobile-menu-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.3); opacity:0; visibility:hidden; transition:0.3s; z-index:998; } .mobile-menu-overlay.active { opacity:1; visibility:visible; } /* Hamburger Button */ .mobile-menu-toggle { display:none; font-size:1.6rem; cursor:pointer; } @media (max-width:768px){ .nav-links, .nav-search, #theme-toggle, .social-icons-navbar { display:none; } .mobile-menu-toggle { display:block; } .navbar-title { font-size:1.2rem; } } @media (min-width:769px){ .mobile-menu, .mobile-menu-overlay { display:none; } } </style>
+
+  </section>
+
+  
+  <section id="certifications" class="section-card section-tab-content hidden-section">
+  <h2>Certifications</h2>
+  <div class="certifications-grid">
+    <!-- IBM Certification -->
+    <div class="certification-card">
+      <div class="certification-header">
+        <div>
+          <h3 class="certification-title">IBM Data Science Professional Certificate</h3>
+          <div class="certification-platform">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Coursera</span>
+          </div>
+        </div>
+        <div class="certification-date">Aug 2024</div>
+      </div>
+      
+      <div class="certification-details">
+        <div class="certification-detail-item">
+          <div class="detail-icon">
+            <i class="fas fa-certificate"></i>
+          </div>
+          <div class="detail-content">
+            <div class="detail-label">Certification</div>
+            <div class="detail-value">IBM Data Science Professional Certificate</div>
+          </div>
+        </div>
+        
+        <div class="certification-detail-item">
+          <div class="detail-icon">
+            <i class="fas fa-calendar-alt"></i>
+          </div>
+          <div class="detail-content">
+            <div class="detail-label">Completion Date</div>
+            <div class="detail-value">August 2024</div>
+          </div>
+        </div>
+        
+        <div class="certification-detail-item">
+          <div class="detail-icon">
+            <i class="fas fa-tools"></i>
+          </div>
+          <div class="detail-content">
+            <div class="detail-label">Skills Gained</div>
+            <div class="skills-list">
+              <span class="skill-pill">Python</span>
+              <span class="skill-pill">SQL</span>
+              <span class="skill-pill">Data Visualization</span>
+              <span class="skill-pill">Machine Learning</span>
+              <span class="skill-pill">Statistical Analysis</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="certification-actions">
+        <a href="#" class="btn">
+          <i class="fas fa-external-link-alt"></i>
+          View Certificate
+        </a>
+      </div>
+    </div>
+    
+    <!-- Google Certification -->
+    <div class="certification-card">
+      <div class="certification-header">
+        <div>
+          <h3 class="certification-title">Google Data Analytics Professional Certificate</h3>
+          <div class="certification-platform">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Coursera</span>
+          </div>
+        </div>
+        <div class="certification-date">Jul 2024</div>
+      </div>
+      
+      <div class="certification-details">
+        <div class="certification-detail-item">
+          <div class="detail-icon">
+            <i class="fas fa-certificate"></i>
+          </div>
+          <div class="detail-content">
+            <div class="detail-label">Certification</div>
+            <div class="detail-value">Google Data Analytics Professional Certificate</div>
+          </div>
+        </div>
+        
+        <div class="certification-detail-item">
+          <div class="detail-icon">
+            <i class="fas fa-calendar-alt"></i>
+          </div>
+          <div class="detail-content">
+            <div class="detail-label">Completion Date</div>
+            <div class="detail-value">July 2024</div>
+          </div>
+        </div>
+        
+        <div class="certification-detail-item">
+          <div class="detail-icon">
+            <i class="fas fa-tools"></i>
+          </div>
+          <div class="detail-content">
+            <div class="detail-label">Skills Gained</div>
+            <div class="skills-list">
+              <span class="skill-pill">R</span>
+              <span class="skill-pill">Tableau</span>
+              <span class="skill-pill">Spreadsheets</span>
+              <span class="skill-pill">Data Cleaning</span>
+              <span class="skill-pill">Data Analysis</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="certification-actions">
+        <a href="#" class="btn">
+          <i class="fas fa-external-link-alt"></i>
+          View Certificate
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Certifications Section Styles */
+  #certifications {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    margin-bottom: 2rem;
+    border-top: 4px solid var(--primary);
+  }
+
+  #certifications:hover {
+    box-shadow: var(--shadow-lg);
+  }
+
+  #certifications h2 {
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    position: relative;
+    display: inline-block;
+  }
+
+  #certifications h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--secondary);
+  }
+
+  .certifications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .certification-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border-left: 4px solid var(--secondary);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .certification-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    opacity: 0;
+    transition: var(--transition);
+  }
+
+  .certification-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .certification-card:hover::before {
+    opacity: 1;
+  }
+
+  .certification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .certification-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .certification-platform {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+  }
+
+  .certification-date {
+    background: var(--secondary);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .certification-details {
+    margin-top: 1rem;
+  }
+
+  .certification-detail-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .detail-icon {
+    color: var(--primary);
+    font-size: 1rem;
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .detail-content {
+    flex: 1;
+  }
+
+  .detail-label {
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+  }
+
+  .detail-value {
+    color: var(--text-light);
+    font-size: 0.9rem;
+  }
+
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .skill-pill {
+    background: var(--primary);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .certification-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+  }
+
+  .certification-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius);
+    font-weight: 500;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+  }
+
+  .certification-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .certifications-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    #certifications {
+      padding: 1.5rem;
+    }
+  }
+</style>
+  <footer class="footer">
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
+    <div class="hero-blob hero-blob-3"></div>
+    <div class="hero-blob hero-blob-4"></div>
+    <div class="footer-container">
+      <div class="footer-content">
+        <h3>Social Links</h3>
+        <div class="footer-socials">
+          
+  <a href="https://facebook.com/profile.php?id=61555833508645" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+    <i class="bi bi-facebook" style="color:#1877F2;"></i>
+  </a>
+  <a href="https://x.com/BKachembo?t=EgZlKtZi9ynj7zb6EPFFnA&s=09" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+    <i class="bi bi-twitter-x" style="color:#1DA1F2;"></i>
+  </a>
+  <a href="https://www.linkedin.com/in/billiat-kachembo-259314287/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+    <i class="bi bi-linkedin" style="color:#0077B5;"></i>
+  </a>
+  <a href="https://www.instagram.com/billiat.kachembo" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+    <i class="bi bi-instagram" style="color:#C13584;"></i>
+  </a>
+  <a href="mailto:billiatkachembo1@gmail.com" aria-label="Email">
+    <i class="bi bi-envelope" style="color:#EA4335;"></i>
+
+  </a>
+  <a href="#" class="green" aria-label="Share"><i data-lucide="share"></i></a>
+</div>
+     
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 -- Billiat Kachembo -- @Visionary -- All rights reserved</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+ <!-- This is your button -->
+    <button id="scroll-top-btn" class="scroll-top" aria-label="Back to top">
+        <i data-lucide="arrow-up"></i>
+    </button>
+    
+    <style>
+              /* Back to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px hsl(142 50% 35% / 0.3);
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease-in-out;
+            
+            /* Initially hidden */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px); /* A slight starting position for the animation */
+        }
+        .scroll-top:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+        
+        /* Class to show the button */
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        /* For small screens */
+        @media (max-width: 768px) {
+            .scroll-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+        }
+    </style>
+    <script>
+              // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Get a reference to the button
+        const scrollTopBtn = document.getElementById('scroll-top-btn');
+        // Set a scroll threshold in pixels
+        const scrollThreshold = 300; 
+
+        // Function to toggle the button's visibility
+        const toggleScrollTopBtn = () => {
+            if (window.scrollY > scrollThreshold) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        };
+
+        // Add event listener for scrolling
+        window.addEventListener('scroll', toggleScrollTopBtn);
+
+        // Add event listener for button click
+        // Note: The original 'onclick' in HTML works fine, but this is the modern approach
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Initial check in case the page is loaded already scrolled
+        toggleScrollTopBtn();
+    </script>
+  </button>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Page Loader Logic ---
+    const loader = document.getElementById('page-loader');
+    if (loader) {
+      setTimeout(() => {
+        loader.classList.add('fade-out');
+        loader.addEventListener('transitionend', () => loader.remove(), { once: true });
+      }, 2700);
+    }
+
+   // --- Newsletter Form Submission (EmailJS) ---
+const newsletterForm = document.getElementById("newsletter-form");
+const newsletterMsg = document.getElementById("newsletter-msg");
+
+if (newsletterForm && newsletterMsg) {
+  newsletterForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    newsletterMsg.textContent = ""; // Reset message
+    const email = newsletterForm.user_email.value.trim();
+
+    // Basic email validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailPattern.test(email)) {
+      newsletterMsg.textContent = "Please enter a valid email address.";
+      return;
+    }
+
+    try {
+      await emailjs.send("service_bfi98ia", "template_3y5ud5f", { user_email: email });
+      newsletterMsg.textContent = "✅ Thank you for subscribing!";
+      newsletterMsg.style.color = "green"; // Success color
+      newsletterForm.reset();
+    } catch (error) {
+      newsletterMsg.textContent = "❌ Oops! Something went wrong. Please try again later.";
+      newsletterMsg.style.color = "red"; // Error color
+      console.error("EmailJS newsletter error:", error);
+    }
+  });
+}
+const contactForm = document.getElementById("contact-form");
+const contactMsg = document.getElementById("contact-msg");
+
+if (contactForm && contactMsg) {
+  contactForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    contactMsg.textContent = "";
+
+    // Correctly define formData using the actual variable names from your HTML form.
+    // The "name" and "email" properties here should match the "name" attributes
+    // of your form inputs.
+    const formData = {
+      from_name: contactForm.querySelector('[name="from_name"]').value.trim(),
+      reply_to: contactForm.querySelector('[name="reply_to"]').value.trim(),
+      message: contactForm.querySelector('[name="message"]').value.trim()
+    };
+
+    if (!formData.from_name || !formData.reply_to || !formData.message) {
+      contactMsg.textContent = "Please fill out all fields.";
+      return;
+    }
+
+    try {
+      // Send the data to EmailJS using your service and template IDs.
+      await emailjs.send("service_bfi98ia", "template_hxw2jnn", formData);
+      contactMsg.textContent = "Message sent successfully!";
+      contactForm.reset();
+    } catch (error) {
+      contactMsg.textContent = "Failed to send message. Please try again later.";
+      console.error("EmailJS contact form error:", error);
+    }
+  });
+}
+
+    // --- Typewriter Effect ---
+    const title = "BILLIAT";
+    const subtitle = "A data scientist who is passionate about anything making sense 😎";
+    const titleEl = document.getElementById("title-text");
+    const subtitleEl = document.getElementById("subtitle-text");
+
+    if (titleEl && subtitleEl) {
+      const typingSpeed = 150;
+      const erasingSpeed = 100;
+      const newSentenceDelay = 1000;
+
+      let isErasing = false;
+      let titleIndex = 0;
+      let subtitleIndex = 0;
+
+      function typeWriter() {
+        if (isErasing) {
+          if (titleEl.textContent.length > 0) {
+            titleEl.textContent = title.substring(0, titleIndex - 1);
+            titleIndex--;
+            setTimeout(typeWriter, erasingSpeed);
+          } else if (subtitleEl.textContent.length > 0) {
+            subtitleEl.textContent = subtitle.substring(0, subtitleIndex - 1);
+            subtitleIndex--;
+            setTimeout(typeWriter, erasingSpeed);
+          } else {
+            isErasing = false;
+            titleIndex = 0;
+            subtitleIndex = 0;
+            setTimeout(typeWriter, newSentenceDelay);
+          }
+        } else {
+          if (titleIndex < title.length) {
+            titleEl.textContent += title.charAt(titleIndex);
+            titleIndex++;
+            setTimeout(typeWriter, typingSpeed);
+          } else if (subtitleIndex < subtitle.length) {
+            subtitleEl.textContent += subtitle.charAt(subtitleIndex);
+            subtitleIndex++;
+            setTimeout(typeWriter, typingSpeed);
+          } else {
+            isErasing = true;
+            setTimeout(typeWriter, newSentenceDelay * 2);
+          }
+        }
+      }
+      typeWriter();
+    }
+  });
+  document.addEventListener('DOMContentLoaded', () => {
+  // --- Sub-menu Navigation with Switch Effect ---
+  const tabs = document.querySelectorAll('.sub-menu-tab');
+  const switchBg = document.querySelector('.tabs-switch-bg');
+
+  function updateSwitchPosition(activeTab) {
+    if (!switchBg || !activeTab || !activeTab.parentElement) return;
+    const parentRect = activeTab.parentElement.getBoundingClientRect();
+    const tabRect = activeTab.getBoundingClientRect();
+
+    const left = tabRect.left - parentRect.left;
+    const width = tabRect.width;
+
+    switchBg.style.transform = `translateX(${left}px)`;
+    switchBg.style.width = `${width}px`;
+  }
+  function showSection(targetId) {
+    if (!targetId) return;
+    const sections = document.querySelectorAll('.section-tab-content');
+    sections.forEach(section => {
+      if (!section.id) return;
+      section.classList.toggle('hidden-section', section.id !== targetId);
+    });
+  }
+  // Initialize the tabs on page load
+  const savedTab = localStorage.getItem("activeTab");
+  let initialActiveTab = savedTab 
+    ? document.querySelector(`.sub-menu-tab[data-target="${savedTab}"]`) 
+    : document.querySelector('.sub-menu-tab.active');
+
+  if (!initialActiveTab) {
+    initialActiveTab = document.querySelector('.sub-menu-tab[data-target="features"]');
+  }
+  if (initialActiveTab) {
+    const targetId = initialActiveTab.getAttribute('data-target');
+    showSection(targetId);
+    tabs.forEach(t => t.classList.remove('active'));
+    initialActiveTab.classList.add('active');
+    updateSwitchPosition(initialActiveTab);
+  }
+  // Add click listener to each tab
+  tabs.forEach(tab => {
+    tab.addEventListener('click', event => {
+      event.preventDefault();
+      if (!event.currentTarget) return;
+      tabs.forEach(t => t.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      const targetId = event.currentTarget.getAttribute('data-target');
+      showSection(targetId);
+      updateSwitchPosition(event.currentTarget);
+      localStorage.setItem("activeTab", targetId);
+    });
+  });
+  window.addEventListener('resize', () => {
+    const activeTab = document.querySelector('.sub-menu-tab.active');
+    updateSwitchPosition(activeTab);
+  });
+
+  // --- Initialize Third-Party Libraries Safely ---
+  if (window.lucide && typeof lucide.createIcons === 'function') lucide.createIcons();
+  if (window.AOS && typeof AOS.init === 'function') AOS.init();
+
+  tabs.forEach(tab => {
+  tab.addEventListener('click', (event) => {
+    event.preventDefault();
+    tabs.forEach(t => t.classList.remove('active', 'bounce'));
+    
+    const clickedTab = event.currentTarget;
+    clickedTab.classList.add('active', 'bounce');
+    
+    updateSwitchPosition(clickedTab);
+    showSection(clickedTab.getAttribute('data-target'));
+    localStorage.setItem("activeTab", clickedTab.getAttribute('data-target'));
+  });
+});
+
+});
+AOS.init();
+lucide.createIcons();
+</script>
+<!-- Overlay for mobile menu -->
+<div class="mobile-menu-overlay"></div>
+
 </body>
 </html>
